@@ -1,0 +1,25 @@
+server:
+  port: 8888
+spring:
+  application:
+    name: center
+eureka:
+  instance:
+    hostname: 127.0.0.1
+    appname: 注册中心
+    prefer-ip-address: true
+  client:
+    serviceUrl:
+      # eureka.client.serviceUrl.defaultZone ：设置与Eureka Server交互的地址，查询服务和注册服务都需要依赖这个地址
+      defaultZone: http://${eureka.instance.hostname}:8888/eureka
+    # eureka.client.registerWithEureka ：表示是否将自己注册到Eureka Server，默认为true。
+    # 由于当前这个应用就是Eureka Server，故而设为false
+    register-with-eureka: false
+    # eureka.client.fetchRegistry ：表示是否从Eureka Server获取注册信息，默认为true。因为这是一个单点的Eureka Server，
+    # 不需要同步其他的Eureka Server节点的数据，故而设为false。
+    fetch-registry: false
+  server:
+      # 关闭自我保护机制
+      enable-self-preservation: false
+      # 每隔10s扫描服务列表，移除失效服务
+      eviction-interval-timer-in-ms: 10000
