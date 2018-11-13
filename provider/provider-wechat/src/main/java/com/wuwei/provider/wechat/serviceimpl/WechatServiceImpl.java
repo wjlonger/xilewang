@@ -30,7 +30,6 @@ public class WechatServiceImpl implements WeChatService {
         String result = null;
         try {
             String httpUrl = "https://api.weixin.qq.com/sns/jscode2session?appid=APPID&secret=SECRET&js_code=JSCODE&grant_type=authorization_code".replace("APPID",appID).replace("SECRET",secret).replace("JSCODE",code);
-            System.out.println(httpUrl);
             // 创建远程url连接对象
             URL url = new URL(httpUrl);
             // 通过远程url连接对象打开一个连接，强转成httpURLConnection类
