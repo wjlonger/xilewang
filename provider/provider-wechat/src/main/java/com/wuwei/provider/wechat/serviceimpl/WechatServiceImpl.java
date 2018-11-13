@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import javax.validation.constraints.NotNull;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,7 +30,7 @@ public class WechatServiceImpl implements WeChatService {
         // 返回结果字符串
         String result = null;
         try {
-            String httpUrl = "https://api.weixin.qq.com/sns/jscode2session?appid=APPID&secret=SECRET&js_code=JSCODE&grant_type=authorization_code".replace("APPID",appID).replace("SECRET",secret).replace("JSCODE",code);
+            String httpUrl = String.format("https://api.weixin.qq.com/sns/jscode2session?appid=%s&secret=%s&js_code=%s&grant_type=authorization_code",appID,secret,code);
             // 创建远程url连接对象
             URL url = new URL(httpUrl);
             // 通过远程url连接对象打开一个连接，强转成httpURLConnection类
