@@ -1,0 +1,8 @@
+# Created by .ignore support plugin (hsz.mobi)
+/.idea/
+/base/target/
+/center/target/
+/config/target/
+/consumer/consumer-wechat/target/
+/provider/provider-wechat/target/
+/route/target/
