@@ -12,6 +12,7 @@
     <artifactId>consumer</artifactId>
     <modules>
         <module>consumer-wechat</module>
+        <module>consumer-jd</module>
     </modules>
 
     <dependencies>

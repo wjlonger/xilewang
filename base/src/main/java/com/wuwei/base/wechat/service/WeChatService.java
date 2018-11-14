@@ -1,4 +1,4 @@
-package com.wuwei.base.service;
+package com.wuwei.base.wechat.service;
 
 public interface WeChatService {
 

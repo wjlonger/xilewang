@@ -11,6 +11,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>provider-wechat</module>
+        <module>provider-jd</module>
     </modules>
     <artifactId>provider</artifactId>
 

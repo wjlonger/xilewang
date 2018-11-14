@@ -1,6 +1,6 @@
 package com.wuwei.provider.wechat.serviceimpl;
 
-import com.wuwei.base.service.WeChatService;
+import com.wuwei.base.wechat.service.WeChatService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Service;
