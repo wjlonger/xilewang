@@ -84,6 +84,7 @@ public class WechatServiceImpl implements WeChatService {
                 connection = null;
             }
         }
+        System.out.println(result);
         return result;
     }
 
