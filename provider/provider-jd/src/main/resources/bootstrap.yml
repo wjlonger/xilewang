@@ -1,8 +1,8 @@
 server:
-  port: 8080
+  port: 8801
 spring:
   application:
-    name: route
+    name: provider-jd
   cloud:
     config:
       discovery:
@@ -22,13 +22,8 @@ eureka:
     prefer-ip-address: true
     # 在eureka server中看到的status显示为具体的ip地址和port
     instance-id: ${spring.application.name}:${spring.cloud.client.hostname}:${server.port}
-zuul:
-  routes:
-    consumer-wechat:
-      path: /api/wechat/**
-      serviceId: consumer-wechat
-      stripPrefix: false
-    consumer-jd:
-      path: /api/jd/**
-      serviceId: consumer-jd
-      stripPrefix: false
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

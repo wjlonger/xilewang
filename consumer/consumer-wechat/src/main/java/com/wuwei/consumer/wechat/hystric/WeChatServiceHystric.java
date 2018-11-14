@@ -7,6 +7,6 @@ public class WeChatServiceHystric implements WeChatService {
 
     @Override
     public String code2Session(String code) {
-        return "";
+        return null;
     }
 }
