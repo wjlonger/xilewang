@@ -4,4 +4,6 @@ public interface HomeService {
 
     String slideShow();
 
+    String explosiveGoods();
+
 }

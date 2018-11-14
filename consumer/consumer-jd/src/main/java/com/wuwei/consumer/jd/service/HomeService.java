@@ -11,4 +11,7 @@ public interface HomeService extends com.wuwei.base.jd.service.HomeService {
     @RequestLine("GET /slideShow")
     String slideShow();
 
+    @Override
+    @RequestLine("GET /explosiveGoods")
+    String explosiveGoods();
 }

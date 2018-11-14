@@ -21,4 +21,9 @@ public class HomeController {
         return homeService.slideShow();
     }
 
+    @GetMapping("/explosiveGoods")
+    public String explosiveGoods(){
+        return homeService.explosiveGoods();
+    }
+
 }

@@ -11,4 +11,9 @@ public class HomeServiceImpl implements HomeService {
         return null;
     }
 
+    @Override
+    public String explosiveGoods() {
+        return null;
+    }
+
 }
