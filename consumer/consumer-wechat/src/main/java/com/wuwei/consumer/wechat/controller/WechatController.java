@@ -20,7 +20,7 @@ public class WechatController {
 
     @GetMapping("/code2Session/{code}")
     public String code2Session(@PathVariable("code") String code){
-        if(!StringUtils.isEmpty(code)){
+        if(StringUtils.isEmpty(code)){
             return null;
         }
         return  weChatService.code2Session(code);

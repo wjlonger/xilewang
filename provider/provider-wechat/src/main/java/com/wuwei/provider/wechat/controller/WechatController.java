@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 @RestController
 @RequestMapping("/wechat")
-//@RefreshScope
 public class WechatController {
 
     @Autowired

@@ -2,10 +2,10 @@ package com.wuwei.provider.wechat.serviceimpl;
 
 import com.wuwei.base.service.WeChatService;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import javax.validation.constraints.NotNull;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,6 +15,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 @Service("weChatService")
+@RefreshScope
 public class WechatServiceImpl implements WeChatService {
 
     @Value("${wechat.appid}")
@@ -66,17 +67,22 @@ public class WechatServiceImpl implements WeChatService {
                 try {
                     br.close();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                }finally {
+                    br = null;
                 }
             }
             if (null != is) {
                 try {
                     is.close();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                } finally {
+                    is = null;
                 }
             }
-            connection.disconnect();// 关闭远程连接
+            if(connection != null){
+                connection.disconnect();// 关闭远程连接
+                connection = null;
+            }
         }
         return result;
     }
