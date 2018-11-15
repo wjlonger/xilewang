@@ -1,13 +1,13 @@
 package com.wuwei.provider.jd.serviceimpl;
 
-import com.wuwei.base.jd.service.GoodService;
+import com.wuwei.base.jd.service.GoodsService;
 import org.springframework.stereotype.Service;
 
-@Service("goodService")
-public class GoodServiceImpl implements GoodService {
+@Service("goodsService")
+public class GoodServiceImpl implements GoodsService {
 
     @Override
-    public String goodDetail(int goodID) {
+    public String goodsDetail(int goodsId) {
         return null;
     }
 }

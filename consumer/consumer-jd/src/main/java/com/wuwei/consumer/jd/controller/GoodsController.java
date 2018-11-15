@@ -1,6 +1,6 @@
-package com.wuwei.provider.jd.controller;
+package com.wuwei.consumer.jd.controller;
 
-import com.wuwei.base.jd.service.GoodsService;
+import com.wuwei.consumer.jd.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 @RestController
-@RequestMapping("/goods")
-public class GoodController {
+@RequestMapping("/api/jd/goods")
+public class GoodsController {
 
     @Autowired
     private GoodsService goodsService;
