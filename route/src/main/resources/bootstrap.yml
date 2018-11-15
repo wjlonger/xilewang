@@ -23,6 +23,9 @@ eureka:
     # 在eureka server中看到的status显示为具体的ip地址和port
     instance-id: ${spring.application.name}:${spring.cloud.client.hostname}:${server.port}
 zuul:
+  host:
+    connect-timeout-millis: 10000
+    socket-timeout-millis: 60000
   routes:
     consumer-wechat:
       path: /api/wechat/**
@@ -32,3 +35,10 @@ zuul:
       path: /api/jd/**
       serviceId: consumer-jd
       stripPrefix: false
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
