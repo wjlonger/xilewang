@@ -10,6 +10,6 @@ public interface GoodsService extends com.wuwei.base.jd.service.GoodsService {
 
     @Override
     @RequestLine("GET /{goodsId}")
-    String goodsDetail(@Param("goodsId") int goodsId);
+    String goodsDetail(@Param("goodsId") String goodsId);
 
 }

@@ -18,7 +18,7 @@ public class GoodsController {
     private GoodsService goodsService;
 
     @GetMapping("/{goodsId}")
-    public String goodDetail(@PathVariable("goodsId") int goodsId) {
+    public String goodDetail(@PathVariable("goodsId") String goodsId) {
         return goodsService.goodsDetail(goodsId);
     }
 

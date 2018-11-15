@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 public class GoodServiceImpl implements GoodsService {
 
     @Override
-    public String goodsDetail(int goodsId) {
+    public String goodsDetail(String goodsId) {
         return null;
     }
 }
