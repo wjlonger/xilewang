@@ -56,9 +56,11 @@ public class HomeServiceImpl implements HomeService {
         request.setGoodsReqDTO(goodsReq);
         try {
             response = client.execute(request);
+            System.out.println("查询结束，返回结果");
             return JSON.toJSONString(response);
         } catch (JdException e) {
         }
+        System.out.println("查询出现异常");
         return null;
     }
 

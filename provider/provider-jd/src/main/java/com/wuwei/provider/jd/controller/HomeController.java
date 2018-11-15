@@ -22,6 +22,8 @@ public class HomeController {
 
     @PostMapping("/explosiveGoods")
     public String explosiveGoods(@RequestBody Goods goods) {
+        System.out.println("进入explosiveGoods");
+        System.out.println(goods.getKeyword());
         return homeService.explosiveGoods(goods);
     }
 
