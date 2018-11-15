@@ -21,8 +21,8 @@ public class HomeController {
     }
 
     @PostMapping("/explosiveGoods")
-    public String explosiveGoods(@RequestParam("goods")Goods goods) {
-        return homeService.explosiveGoods();
+    public String explosiveGoods(@RequestBody Goods goods) {
+        return homeService.explosiveGoods(goods);
     }
 
 }
