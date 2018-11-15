@@ -1,12 +1,11 @@
 package com.wuwei.provider.jd.controller;
 
+import com.wuwei.base.jd.model.Goods;
 import com.wuwei.base.jd.service.HomeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 @RestController
@@ -21,8 +20,8 @@ public class HomeController {
         return homeService.slideShow();
     }
 
-    @GetMapping("/explosiveGoods")
-    public String explosiveGoods() {
+    @PostMapping("/explosiveGoods")
+    public String explosiveGoods(@RequestParam("goods")Goods goods) {
         return homeService.explosiveGoods();
     }
 
