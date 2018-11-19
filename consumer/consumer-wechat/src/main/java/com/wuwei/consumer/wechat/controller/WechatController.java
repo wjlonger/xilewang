@@ -27,18 +27,16 @@ public class WechatController {
             return null;
         }
         WeChatXiLeWang weChatXiLeWang = weChatService.code2Session(code);
-        System.out.println(request.getSession().getId());
         request.getSession().setAttribute("WeChatXiLeWang", weChatXiLeWang);
         return request.getSession().getId();
     }
 
     @GetMapping("/refreshSession")
     public String refreshSession(HttpServletRequest request){
-        System.out.println(request.getHeader("Cookie"));
-        System.out.println(request.getSession().getId());
         return request.getSession().getId();
     }
 
+    @GetMapping("/getSession")
     public String getSession(HttpServletRequest request){
         Object o = request.getSession().getAttribute("springboot");
         if(o == null){
