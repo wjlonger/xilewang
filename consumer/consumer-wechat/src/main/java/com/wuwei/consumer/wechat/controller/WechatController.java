@@ -35,7 +35,17 @@ public class WechatController {
     @GetMapping("/refreshSession")
     public String refreshSession(HttpServletRequest request){
         System.out.println(request.getHeader("Cookie"));
+        System.out.println(request.getSession().getId());
         return request.getSession().getId();
     }
 
+    public String getSession(HttpServletRequest request){
+        Object o = request.getSession().getAttribute("springboot");
+        if(o == null){
+            o = "端口：" + request.getLocalPort() + "生成SessionId:" + request.getSession().getId();
+            request.getSession().setAttribute("springboot", o);
+        }
+        return o + "<br/>当前端口=" + request.getLocalPort() +  " sessionId=" + request.getSession().getId() +"<br/>";
+    }
 }
+

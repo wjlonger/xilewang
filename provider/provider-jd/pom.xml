@@ -11,5 +11,11 @@
     <packaging>jar</packaging>
     <artifactId>provider-jd</artifactId>
 
-
+    <dependencies>
+        <dependency>
+            <groupId>jingdong</groupId>
+            <artifactId>cps</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+    </dependencies>
 </project>
