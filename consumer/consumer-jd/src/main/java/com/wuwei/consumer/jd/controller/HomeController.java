@@ -7,6 +7,8 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 @RestController
 @RequestMapping("/api/jd")
@@ -25,4 +27,13 @@ public class HomeController {
         return homeService.explosiveGoods(goods);
     }
 
+    @GetMapping("/getSession")
+    public String getSession(HttpServletRequest request){
+        Object o = request.getSession().getAttribute("springboot");
+        if(o == null){
+            o = "端口：" + request.getLocalPort() + "生成SessionId:" + request.getSession().getId();
+            request.getSession().setAttribute("springboot", o);
+        }
+        return o + "<br/>当前端口=" + request.getLocalPort() +  " sessionId=" + request.getSession().getId() +"<br/>";
+    }
 }
