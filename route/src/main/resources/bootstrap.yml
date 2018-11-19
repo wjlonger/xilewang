@@ -31,10 +31,12 @@ zuul:
       path: /api/wechat/**
       serviceId: consumer-wechat
       stripPrefix: false
+      sensitiveHeaders: Authorization
     consumer-jd:
       path: /api/jd/**
       serviceId: consumer-jd
       stripPrefix: false
+      sensitiveHeaders: Authorization
 hystrix:
   command:
     default:

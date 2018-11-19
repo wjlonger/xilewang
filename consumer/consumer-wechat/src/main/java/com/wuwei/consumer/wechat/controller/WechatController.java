@@ -34,7 +34,7 @@ public class WechatController {
 
     @GetMapping("/refreshSession")
     public String refreshSession(HttpServletRequest request){
-        System.out.println(request.getSession().getId());
+        System.out.println(request.getHeader("Cookie"));
         return request.getSession().getId();
     }
 
