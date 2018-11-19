@@ -5,6 +5,25 @@
     <id column="openid" property="openid" jdbcType="VARCHAR" />
     <id column="sessionkey" property="sessionkey" jdbcType="VARCHAR" />
   </resultMap>
+  <sql id="Base_Column_List">
+        openid,sessionkey
+  </sql>
+  <select id="selectByOpenid" resultMap="BaseResultMap" parameterType="com.wuwei.base.wechat.model.WeChatXiLeWang">
+    select
+      <include refid="Base_Column_List" />
+    from
+      wx_xilewang
+    where
+      openid = #{openid,jdbcType=VARCHAR}
+  </select>
+  <update id="updateByOpenid" parameterType="com.wuwei.base.wechat.model.WeChatXiLeWang">
+    update
+      wx_xilewang
+    set
+      sessionkey = #{sessionkey,jdbcType=VARCHAR}
+    where
+      openid = #{openid,jdbcType=VARCHAR}
+  </update>
   <delete id="deleteByPrimaryKey" parameterType="map" >
     delete from wx_xilewang
     where openid = #{openid,jdbcType=VARCHAR}

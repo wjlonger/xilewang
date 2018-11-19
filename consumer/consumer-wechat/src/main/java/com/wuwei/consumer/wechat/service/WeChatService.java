@@ -1,5 +1,6 @@
 package com.wuwei.consumer.wechat.service;
 
+import com.wuwei.base.wechat.model.WeChatXiLeWang;
 import com.wuwei.consumer.wechat.hystric.WeChatServiceHystric;
 import feign.Param;
 import feign.RequestLine;
@@ -10,5 +11,5 @@ public interface WeChatService extends com.wuwei.base.wechat.service.WeChatServi
 
     @Override
     @RequestLine("GET /code2Session/{code}")
-    String code2Session(@Param("code") String code);
+    WeChatXiLeWang code2Session(@Param("code") String code);
 }

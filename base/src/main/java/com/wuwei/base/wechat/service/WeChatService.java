@@ -1,7 +1,9 @@
 package com.wuwei.base.wechat.service;
 
+import com.wuwei.base.wechat.model.WeChatXiLeWang;
+
 public interface WeChatService {
 
-    String code2Session(String code);
+    WeChatXiLeWang code2Session(String code);
 
 }

@@ -1,5 +1,6 @@
 package com.wuwei.provider.wechat.controller;
 
+import com.wuwei.base.wechat.model.WeChatXiLeWang;
 import com.wuwei.base.wechat.service.WeChatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -18,7 +19,7 @@ public class WechatController {
     private WeChatService weChatService;
 
     @GetMapping("/code2Session/{code}")
-    public String code2session(@PathVariable("code") String code){
+    public WeChatXiLeWang code2session(@PathVariable("code") String code){
         return weChatService.code2Session(code);
     }
 
