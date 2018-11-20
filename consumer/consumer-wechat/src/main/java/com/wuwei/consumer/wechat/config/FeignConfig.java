@@ -8,9 +8,7 @@ import org.springframework.context.annotation.Configuration;
 public class FeignConfig{
 
 
-    public FeignConfig(){
-        System.out.println("FeignConfig");
-    }
+    public FeignConfig(){ }
 
     /**
      * 使用Feign自己的注解，使用springmvc的注解就会报错
