@@ -1,4 +1,4 @@
-package com.wuwei.route.utils;
+package com.wuwei.base.utils;
 
 import java.security.MessageDigest;
 

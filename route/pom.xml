@@ -23,6 +23,13 @@
             <artifactId>spring-cloud-starter-netflix-zuul</artifactId>
         </dependency>
 
+        <!-- com.wuwei.base -->
+        <dependency>
+            <groupId>com.wuwei</groupId>
+            <artifactId>base</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
     </dependencies>
 
 </project>
