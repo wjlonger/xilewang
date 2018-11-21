@@ -36,14 +36,5 @@ public class WechatController {
         return request.getSession().getId();
     }
 
-    @GetMapping("/getSession")
-    public String getSession(HttpServletRequest request){
-        Object o = request.getSession().getAttribute("springboot");
-        if(o == null){
-            o = "端口：" + request.getLocalPort() + "生成SessionId:" + request.getSession().getId();
-            request.getSession().setAttribute("springboot", o);
-        }
-        return o + "<br/>当前端口=" + request.getLocalPort() +  " sessionId=" + request.getSession().getId() +"<br/>";
-    }
 }
 
