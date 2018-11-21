@@ -1,6 +1,5 @@
 package com.wuwei.provider.wechat.serviceimpl;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.wuwei.base.wechat.model.WeChatXiLeWang;
 import com.wuwei.base.wechat.service.WeChatService;

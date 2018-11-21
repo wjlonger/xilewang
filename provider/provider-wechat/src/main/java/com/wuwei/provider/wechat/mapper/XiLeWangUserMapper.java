@@ -1,17 +1,14 @@
 package com.wuwei.provider.wechat.mapper;
 
 import com.wuwei.base.wechat.model.XiLeWangUser;
+import org.apache.ibatis.annotations.Param;
 
 public interface XiLeWangUserMapper {
-    int deleteByPrimaryKey(Long id);
 
-    int insert(XiLeWangUser record);
+    XiLeWangUser selectById(@Param("id")Long id);
 
-    int insertSelective(XiLeWangUser record);
+    int insert(XiLeWangUser xiLeWangUser);
 
-    XiLeWangUser selectByPrimaryKey(Long id);
+    int updateById(XiLeWangUser xiLeWangUser);
 
-    int updateByPrimaryKeySelective(XiLeWangUser record);
-
-    int updateByPrimaryKey(XiLeWangUser record);
 }

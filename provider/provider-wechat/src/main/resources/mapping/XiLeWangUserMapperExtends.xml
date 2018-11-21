@@ -14,115 +14,34 @@
   <sql id="Base_Column_List" >
     id, nick_name, avatar_url, gender, language, province, city, country
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+  <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select
-    <include refid="Base_Column_List" />
-    from xilewang_user
-    where id = #{id,jdbcType=BIGINT}
+      <include refid="Base_Column_List" />
+    from
+      xilewang_user
+    where
+      id = #{id,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from xilewang_user
-    where id = #{id,jdbcType=BIGINT}
-  </delete>
   <insert id="insert" parameterType="com.wuwei.base.wechat.model.XiLeWangUser" >
-    insert into xilewang_user (id, nick_name, avatar_url,
-      gender, language, province,
-      city, country)
-    values (#{id,jdbcType=BIGINT}, #{nickName,jdbcType=VARCHAR}, #{avatarUrl,jdbcType=VARCHAR},
+    insert into
+      xilewang_user (id, nick_name, avatar_url,gender, language, province, city, country)
+    values
+      (#{id,jdbcType=BIGINT}, #{nickName,jdbcType=VARCHAR}, #{avatarUrl,jdbcType=VARCHAR},
       #{gender,jdbcType=INTEGER}, #{language,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR},
       #{city,jdbcType=VARCHAR}, #{country,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.wuwei.base.wechat.model.XiLeWangUser" >
-    insert into xilewang_user
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="nickName != null" >
-        nick_name,
-      </if>
-      <if test="avatarUrl != null" >
-        avatar_url,
-      </if>
-      <if test="gender != null" >
-        gender,
-      </if>
-      <if test="language != null" >
-        language,
-      </if>
-      <if test="province != null" >
-        province,
-      </if>
-      <if test="city != null" >
-        city,
-      </if>
-      <if test="country != null" >
-        country,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=BIGINT},
-      </if>
-      <if test="nickName != null" >
-        #{nickName,jdbcType=VARCHAR},
-      </if>
-      <if test="avatarUrl != null" >
-        #{avatarUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="gender != null" >
-        #{gender,jdbcType=INTEGER},
-      </if>
-      <if test="language != null" >
-        #{language,jdbcType=VARCHAR},
-      </if>
-      <if test="province != null" >
-        #{province,jdbcType=VARCHAR},
-      </if>
-      <if test="city != null" >
-        #{city,jdbcType=VARCHAR},
-      </if>
-      <if test="country != null" >
-        #{country,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.wuwei.base.wechat.model.XiLeWangUser" >
-    update xilewang_user
-    <set >
-      <if test="nickName != null" >
-        nick_name = #{nickName,jdbcType=VARCHAR},
-      </if>
-      <if test="avatarUrl != null" >
-        avatar_url = #{avatarUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="gender != null" >
-        gender = #{gender,jdbcType=INTEGER},
-      </if>
-      <if test="language != null" >
-        language = #{language,jdbcType=VARCHAR},
-      </if>
-      <if test="province != null" >
-        province = #{province,jdbcType=VARCHAR},
-      </if>
-      <if test="city != null" >
-        city = #{city,jdbcType=VARCHAR},
-      </if>
-      <if test="country != null" >
-        country = #{country,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
   <update id="updateByPrimaryKey" parameterType="com.wuwei.base.wechat.model.XiLeWangUser" >
-    update xilewang_user
-    set nick_name = #{nickName,jdbcType=VARCHAR},
+    update
+      xilewang_user
+    set
+      nick_name = #{nickName,jdbcType=VARCHAR},
       avatar_url = #{avatarUrl,jdbcType=VARCHAR},
       gender = #{gender,jdbcType=INTEGER},
       language = #{language,jdbcType=VARCHAR},
       province = #{province,jdbcType=VARCHAR},
       city = #{city,jdbcType=VARCHAR},
       country = #{country,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=BIGINT}
+    where
+      id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>
