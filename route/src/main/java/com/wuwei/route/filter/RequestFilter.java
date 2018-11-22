@@ -45,11 +45,8 @@ public class RequestFilter extends ZuulFilter {
             return null;
         }
         long currentTimestamp =  System.currentTimeMillis();
-        System.out.println(currentTimestamp);
         long timestamp = Long.parseLong(timestampStr);
-        System.out.println(timestamp);
         long diff = currentTimestamp - timestamp;
-        System.out.println(diff);
         if(diff < -MAX_DIFF || diff > MAX_DIFF ){
             response.setContentType("application/json");
             ctx.setSendZuulResponse(false);
@@ -68,8 +65,6 @@ public class RequestFilter extends ZuulFilter {
             return null;
         }
         String signStr = MD5.MD5Encode(timestampStr + API_SECRET_KEY);
-        System.out.println(sign);
-        System.out.println(signStr);
         if(!sign.equals(signStr)){
             response.setContentType("application/json");
             ctx.setSendZuulResponse(false);
