@@ -1,11 +1,15 @@
 package com.wuwei.consumer.wechat.controller;
 
+import com.wuwei.base.utils.SessionKey;
+import com.wuwei.base.wechat.model.WeChatXiLeWang;
 import com.wuwei.base.wechat.model.XiLeWangUser;
 import com.wuwei.consumer.wechat.service.XiLeWangUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 @RestController
@@ -31,8 +35,25 @@ public class XiLeWangUserController {
     }
 
     @PostMapping("/save")
-    public XiLeWangUser save(@RequestBody XiLeWangUser xiLeWangUser){
-        return xiLeWangUserService.save(xiLeWangUser);
+    public String save(@RequestBody XiLeWangUser xiLeWangUser, HttpServletRequest request) {
+        Long xiLeWangUserId = null;
+        Object xiLeWangUserIdObj = request.getSession().getAttribute(SessionKey.XiLeWangUserId);
+        if(xiLeWangUserIdObj == null){
+            WeChatXiLeWang weChatXiLeWang = null;
+            Object weChatXiLeWangObj = request.getSession().getAttribute(SessionKey.WeChatXiLeWang);
+            if(weChatXiLeWangObj instanceof  WeChatXiLeWang){
+                System.out.println("weChatXiLeWangObj instanceof  WeChatXiLeWang");
+                weChatXiLeWang = (WeChatXiLeWang) weChatXiLeWangObj;
+            }
+            if(weChatXiLeWang == null){
+                return "error";
+            }
+
+        } else {
+
+        }
+        xiLeWangUserService.save(xiLeWangUser);
+        return "success";
     }
 
 }

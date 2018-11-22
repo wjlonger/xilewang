@@ -1,5 +1,6 @@
 package com.wuwei.consumer.wechat.controller;
 
+import com.wuwei.base.utils.SessionKey;
 import com.wuwei.base.wechat.model.WeChatXiLeWang;
 import com.wuwei.consumer.wechat.service.WeChatService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class WechatController {
             return null;
         }
         WeChatXiLeWang weChatXiLeWang = weChatService.code2Session(code);
-        request.getSession().setAttribute("WeChatXiLeWang", weChatXiLeWang);
+        request.getSession().setAttribute(SessionKey.WeChatXiLeWang, weChatXiLeWang);
         return request.getSession().getId();
     }
 
