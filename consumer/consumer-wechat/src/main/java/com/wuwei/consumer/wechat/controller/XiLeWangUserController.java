@@ -1,12 +1,12 @@
 package com.wuwei.consumer.wechat.controller;
 
 import com.wuwei.base.utils.SessionKey;
-import com.wuwei.base.wechat.model.WeChatXiLeWang;
 import com.wuwei.base.wechat.model.XiLeWangUser;
 import com.wuwei.consumer.wechat.service.XiLeWangUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,41 +19,24 @@ public class XiLeWangUserController {
     @Autowired
     private XiLeWangUserService xiLeWangUserService;
 
-    @GetMapping("/{id}")
-    public XiLeWangUser selectById(@PathVariable("id") Long id){
-        return xiLeWangUserService.selectById(id);
+    @GetMapping("/code2Session/{code}")
+    public String code2Session(@PathVariable("code") String code, HttpServletRequest request){
+        if(StringUtils.isEmpty(code)){
+            return null;
+        }
+        xiLeWangUserService.code2Session(code);
+        return request.getSession().getId();
     }
 
-    @PostMapping
-    public XiLeWangUser insert(@RequestBody XiLeWangUser xiLeWangUser){
-        return xiLeWangUserService.insert(xiLeWangUser);
-    }
-
-    @PutMapping
-    public XiLeWangUser updateById(@RequestBody XiLeWangUser xiLeWangUser){
-        return xiLeWangUserService.updateById(xiLeWangUser);
+    @GetMapping("/refreshSession")
+    public String refreshSession(HttpServletRequest request){
+        return request.getSession().getId();
     }
 
     @PostMapping("/save")
-    public String save(@RequestBody XiLeWangUser xiLeWangUser, HttpServletRequest request) {
-        Long xiLeWangUserId = null;
-        Object xiLeWangUserIdObj = request.getSession().getAttribute(SessionKey.XiLeWangUserId);
-        if(xiLeWangUserIdObj == null){
-            WeChatXiLeWang weChatXiLeWang = null;
-            Object weChatXiLeWangObj = request.getSession().getAttribute(SessionKey.WeChatXiLeWang);
-            if(weChatXiLeWangObj instanceof  WeChatXiLeWang){
-                System.out.println("weChatXiLeWangObj instanceof  WeChatXiLeWang");
-                weChatXiLeWang = (WeChatXiLeWang) weChatXiLeWangObj;
-            }
-            if(weChatXiLeWang == null){
-                return "error";
-            }
+    public int save(@RequestBody XiLeWangUser xiLeWangUser, HttpServletRequest request) {
 
-        } else {
-
-        }
-        xiLeWangUserService.save(xiLeWangUser);
-        return "success";
+        return xiLeWangUserService.save(xiLeWangUser);
     }
 
 }

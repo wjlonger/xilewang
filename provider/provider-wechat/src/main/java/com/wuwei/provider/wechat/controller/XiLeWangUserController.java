@@ -15,23 +15,33 @@ public class XiLeWangUserController {
     @Autowired
     private XiLeWangUserService xiLeWangUserService;
 
-    @GetMapping("/{id}")
-    public XiLeWangUser selectById(@PathVariable("id") Long id){
-        return xiLeWangUserService.selectById(id);
+    @GetMapping("/code2Session/{code}")
+    public String code2session(@PathVariable("code") String code){
+        return xiLeWangUserService.code2Session(code);
+    }
+
+    @GetMapping("/{openid}")
+    public XiLeWangUser selectById(@PathVariable("openid") String openid){
+        return xiLeWangUserService.selectByOpenid(openid);
     }
 
     @PostMapping
-    public XiLeWangUser insert(@RequestBody XiLeWangUser xiLeWangUser){
+    public int insert(@RequestBody XiLeWangUser xiLeWangUser){
         return xiLeWangUserService.insert(xiLeWangUser);
     }
 
+    @PostMapping("/insertSelective")
+    public int insertSelective(@RequestBody XiLeWangUser xiLeWangUser){
+        return xiLeWangUserService.insertSelective(xiLeWangUser);
+    }
+
     @PutMapping
-    public XiLeWangUser updateById(@RequestBody XiLeWangUser xiLeWangUser){
-        return xiLeWangUserService.updateById(xiLeWangUser);
+    public int updateById(@RequestBody XiLeWangUser xiLeWangUser){
+        return xiLeWangUserService.updateByOpenid(xiLeWangUser);
     }
 
     @PostMapping("/save")
-    public XiLeWangUser save(@RequestBody XiLeWangUser xiLeWangUser){
+    public int save(@RequestBody XiLeWangUser xiLeWangUser){
         return xiLeWangUserService.save(xiLeWangUser);
     }
 

@@ -5,10 +5,12 @@ import org.apache.ibatis.annotations.Param;
 
 public interface XiLeWangUserMapper {
 
-    XiLeWangUser selectById(@Param("id")Long id);
+    XiLeWangUser selectByOpenid(@Param("openid")String openid);
 
     int insert(XiLeWangUser xiLeWangUser);
 
-    int updateById(XiLeWangUser xiLeWangUser);
+    int insertSelective(XiLeWangUser xiLeWangUser);
+
+    int updateByOpenid(XiLeWangUser xiLeWangUser);
 
 }

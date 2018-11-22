@@ -23,7 +23,7 @@ public class AES {
      * 5.内容加密
      * 6.返回字符串
      */
-    public static String AESEncode(String content){
+    public static String encode(String content){
         try {
             //1.构造密钥生成器，指定为AES算法,不区分大小写
             KeyGenerator keygen = KeyGenerator.getInstance("AES");
@@ -74,7 +74,7 @@ public class AES {
      * 2.将加密后的字符串反纺成byte[]数组
      * 3.将加密内容解密
      */
-    public static String AESDncode(String content){
+    public static String decode(String content){
         try {
             //1.构造密钥生成器，指定为AES算法,不区分大小写
             KeyGenerator keygen=KeyGenerator.getInstance("AES");

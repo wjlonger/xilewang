@@ -26,6 +26,6 @@ public class JdCpsConfig {
 
     @Bean("jdClient")
     public JdClient jdClient(){
-        return new DefaultJdClient(serverUrl,accessToken,AES.AESDncode(appKey),AES.AESDncode(appSecret));
+        return new DefaultJdClient(serverUrl,accessToken,AES.decode(appKey),AES.decode(appSecret));
     }
 }

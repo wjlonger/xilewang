@@ -1,7 +1,6 @@
 package com.wuwei.consumer.wechat.service;
 
 import com.wuwei.base.wechat.model.XiLeWangUser;
-import com.wuwei.consumer.wechat.hystric.WeChatServiceHystric;
 import com.wuwei.consumer.wechat.hystric.XiLeWangUserServiceHystric;
 import feign.Param;
 import feign.RequestLine;
@@ -12,18 +11,27 @@ import org.springframework.web.bind.annotation.RequestBody;
 public interface XiLeWangUserService extends com.wuwei.base.wechat.service.XiLeWangUserService{
 
     @Override
-    @RequestLine("GET /{id}")
-    XiLeWangUser selectById(@Param("id") Long id);
+    @RequestLine("GET /code2Session/{code}")
+    String code2Session(@Param("code") String code);
+
+    @Override
+    @RequestLine("GET /{openid}")
+    XiLeWangUser selectByOpenid(@Param("openid") String openid);
 
     @Override
     @RequestLine("POST /")
-    XiLeWangUser insert(@RequestBody XiLeWangUser xiLeWangUser);
+    int insert(@RequestBody XiLeWangUser xiLeWangUser);
+
+    @Override
+    @RequestLine("POST /insertSelective")
+    int insertSelective(@RequestBody XiLeWangUser xiLeWangUser);
 
     @Override
     @RequestLine("PUT /")
-    XiLeWangUser updateById(@RequestBody XiLeWangUser xiLeWangUser);
+    int updateByOpenid(@RequestBody XiLeWangUser xiLeWangUser);
 
     @Override
     @RequestLine("POST /save")
-    XiLeWangUser save(@RequestBody XiLeWangUser xiLeWangUser);
+    int save(@RequestBody XiLeWangUser xiLeWangUser);
+
 }

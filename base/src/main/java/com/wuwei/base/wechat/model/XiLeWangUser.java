@@ -6,7 +6,7 @@ public class XiLeWangUser implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Long id;
+    private String openid;
 
     private String nickName;
 
@@ -22,13 +22,7 @@ public class XiLeWangUser implements Serializable {
 
     private String country;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+    private String sessionkey;
 
     public String getNickName() {
         return nickName;
@@ -84,5 +78,21 @@ public class XiLeWangUser implements Serializable {
 
     public void setCountry(String country) {
         this.country = country == null ? null : country.trim();
+    }
+
+    public String getOpenid() {
+        return openid;
+    }
+
+    public void setOpenid(String openid) {
+        this.openid = openid == null ? null : openid.trim();
+    }
+
+    public String getSessionkey() {
+        return sessionkey;
+    }
+
+    public void setSessionkey(String sessionkey) {
+        this.sessionkey = sessionkey == null ? null : sessionkey.trim();
     }
 }

@@ -6,23 +6,34 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class XiLeWangUserServiceHystric implements XiLeWangUserService {
+
     @Override
-    public XiLeWangUser selectById(Long id) {
+    public String code2Session(String code) {
         return null;
     }
 
     @Override
-    public XiLeWangUser insert(XiLeWangUser xiLeWangUser) {
-        return xiLeWangUser;
+    public XiLeWangUser selectByOpenid(String openid) {
+        return null;
     }
 
     @Override
-    public XiLeWangUser updateById(XiLeWangUser xiLeWangUser) {
-        return xiLeWangUser;
+    public int insert(XiLeWangUser xiLeWangUser) {
+        return 0;
     }
 
     @Override
-    public XiLeWangUser save(XiLeWangUser xiLeWangUser) {
-        return xiLeWangUser;
+    public int insertSelective(XiLeWangUser xiLeWangUser) {
+        return 0;
+    }
+
+    @Override
+    public int updateByOpenid(XiLeWangUser xiLeWangUser) {
+        return 0;
+    }
+
+    @Override
+    public int save(XiLeWangUser xiLeWangUser) {
+        return 0;
     }
 }

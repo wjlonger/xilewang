@@ -4,12 +4,16 @@ import com.wuwei.base.wechat.model.XiLeWangUser;
 
 public interface XiLeWangUserService {
 
-    XiLeWangUser selectById(Long id);
+    String code2Session(String code);
 
-    XiLeWangUser insert(XiLeWangUser xiLeWangUser);
+    XiLeWangUser selectByOpenid(String openid);
 
-    XiLeWangUser updateById(XiLeWangUser xiLeWangUser);
+    int insert(XiLeWangUser xiLeWangUser);
 
-    XiLeWangUser save(XiLeWangUser xiLeWangUser);
+    int insertSelective(XiLeWangUser xiLeWangUser);
+
+    int updateByOpenid(XiLeWangUser xiLeWangUser);
+
+    int save(XiLeWangUser xiLeWangUser);
 
 }

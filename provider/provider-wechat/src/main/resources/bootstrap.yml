@@ -27,6 +27,3 @@ management:
         web:
             exposure:
                 include: "*"
-wechat:
-    appID: "wx0d993cf40d129d9a"
-    secret: "99ca5580911ad954eb8aecb97e222da8"
