@@ -19,11 +19,6 @@ public class XiLeWangHistoryController {
     @Autowired
     private XiLeWangHistoryService xiLeWangHistoryService;
 
-    @GetMapping("/{id}")
-    public XiLeWangHistory selectByPrimaryKey(@PathVariable("id") Long id){
-        return xiLeWangHistoryService.selectByPrimaryKey(id);
-    }
-
     @PostMapping("/")
     public long insert(@RequestBody XiLeWangHistory xiLeWangHistory){
         if(null == xiLeWangHistory){
@@ -45,6 +40,7 @@ public class XiLeWangHistoryController {
         long id = IdGenerator.nextId();
         xiLeWangHistory.setId(id);
         xiLeWangHistory.setOpenid(Current.getOpenid());
+        xiLeWangHistory.setCreateTime(System.currentTimeMillis());
         int i = xiLeWangHistoryService.insertSelective(xiLeWangHistory);
         return i == 0 ? 0 : id;
     }
