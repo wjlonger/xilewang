@@ -2,7 +2,6 @@ package com.wuwei.provider.wechat.serviceimpl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.wuwei.base.utils.AES;
-import com.wuwei.base.utils.IdGenerator;
 import com.wuwei.base.wechat.model.XiLeWangUser;
 import com.wuwei.base.wechat.service.XiLeWangUserService;
 import com.wuwei.provider.wechat.mapper.XiLeWangUserMapper;
@@ -37,6 +36,7 @@ public class XiLeWangUserServiceImpl implements XiLeWangUserService {
         InputStream is = null;
         BufferedReader br = null;
         XiLeWangUser xiLeWangUser = null;
+        int i = 0;
         try {
             String httpUrl = String.format("https://api.weixin.qq.com/sns/jscode2session?appid=%s&secret=%s&js_code=%s&grant_type=authorization_code", AES.decode(appId), AES.decode(secret),code);
             // 创建远程url连接对象
@@ -66,7 +66,7 @@ public class XiLeWangUserServiceImpl implements XiLeWangUserService {
                 if(xiLeWangUser == null){
                     return null;
                 }
-                this.save(xiLeWangUser);
+                i = this.save(xiLeWangUser);
             }
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -95,7 +95,7 @@ public class XiLeWangUserServiceImpl implements XiLeWangUserService {
                 connection = null;
             }
         }
-        return xiLeWangUser.getOpenid();
+        return (i == 0 ? null : xiLeWangUser.getOpenid());
     }
 
     @Override
@@ -105,16 +105,25 @@ public class XiLeWangUserServiceImpl implements XiLeWangUserService {
 
     @Override
     public int insert(XiLeWangUser xiLeWangUser) {
+        if(null == xiLeWangUser){
+            return 0;
+        }
         return xiLeWangUserMapper.insert(xiLeWangUser);
     }
 
     @Override
     public int insertSelective(XiLeWangUser xiLeWangUser) {
+        if(null == xiLeWangUser){
+            return 0;
+        }
         return xiLeWangUserMapper.insertSelective(xiLeWangUser);
     }
 
     @Override
     public int updateByOpenid(XiLeWangUser xiLeWangUser) {
+        if(null == xiLeWangUser){
+            return 0;
+        }
         return xiLeWangUserMapper.updateByOpenid(xiLeWangUser);
     }
 
@@ -123,10 +132,10 @@ public class XiLeWangUserServiceImpl implements XiLeWangUserService {
         if(null == xiLeWangUser || StringUtils.isEmpty(xiLeWangUser.getOpenid())){
             return 0;
         }
-        if(null == this.selectByOpenid(xiLeWangUser.getOpenid())){
-            return this.insertSelective(xiLeWangUser);
+        if(null == xiLeWangUserMapper.selectByOpenid(xiLeWangUser.getOpenid())){
+            return xiLeWangUserMapper.insertSelective(xiLeWangUser);
         }
-        return this.updateByOpenid(xiLeWangUser);
+        return xiLeWangUserMapper.updateByOpenid(xiLeWangUser);
     }
 
 

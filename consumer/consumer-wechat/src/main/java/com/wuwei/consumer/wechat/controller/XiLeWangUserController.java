@@ -1,6 +1,5 @@
 package com.wuwei.consumer.wechat.controller;
 
-import com.wuwei.base.utils.SessionKey;
 import com.wuwei.base.wechat.model.XiLeWangUser;
 import com.wuwei.consumer.wechat.service.XiLeWangUserService;
 import com.wuwei.consumer.wechat.utils.Current;

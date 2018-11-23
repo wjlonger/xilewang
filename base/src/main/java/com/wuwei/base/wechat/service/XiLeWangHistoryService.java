@@ -14,6 +14,4 @@ public interface XiLeWangHistoryService {
 
     int updateByPrimaryKey(XiLeWangHistory xiLeWangHistory);
 
-    int save(XiLeWangHistory xiLeWangHistory);
-
 }
