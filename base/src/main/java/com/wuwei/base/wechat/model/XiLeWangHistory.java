@@ -8,7 +8,7 @@ public class XiLeWangHistory implements Serializable {
 
     private Long id;
 
-    private Integer skuId;
+    private Long skuId;
 
     private String skuName;
 
@@ -26,11 +26,11 @@ public class XiLeWangHistory implements Serializable {
         this.id = id;
     }
 
-    public Integer getSkuId() {
+    public Long getSkuId() {
         return skuId;
     }
 
-    public void setSkuId(Integer skuId) {
+    public void setSkuId(Long skuId) {
         this.skuId = skuId;
     }
 

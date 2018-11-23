@@ -20,47 +20,47 @@ public class XiLeWangHistoryController {
     private XiLeWangHistoryService xiLeWangHistoryService;
 
     @PostMapping("/")
-    public long insert(@RequestBody XiLeWangHistory xiLeWangHistory){
+    public Long insert(@RequestBody XiLeWangHistory xiLeWangHistory){
         if(null == xiLeWangHistory){
-            return 0L;
+            return null;
         }
         long id = IdGenerator.nextId();
         xiLeWangHistory.setId(id);
         xiLeWangHistory.setOpenid(Current.getOpenid());
         xiLeWangHistory.setCreateTime(System.currentTimeMillis());
         int i = xiLeWangHistoryService.insert(xiLeWangHistory);
-        return i == 0 ? 0L : id;
+        return i == 0 ? null : id;
     }
 
     @PostMapping("/insertSelective")
-    public long insertSelective(@RequestBody XiLeWangHistory xiLeWangHistory){
+    public Long insertSelective(@RequestBody XiLeWangHistory xiLeWangHistory){
         if(null == xiLeWangHistory){
-            return 0L;
+            return null;
         }
         long id = IdGenerator.nextId();
         xiLeWangHistory.setId(id);
         xiLeWangHistory.setOpenid(Current.getOpenid());
         xiLeWangHistory.setCreateTime(System.currentTimeMillis());
         int i = xiLeWangHistoryService.insertSelective(xiLeWangHistory);
-        return i == 0 ? 0 : id;
+        return i == 0 ? null : id;
     }
 
     @PutMapping("/updateByPrimaryKeySelective")
-    public long updateByPrimaryKeySelective(@RequestBody XiLeWangHistory xiLeWangHistory){
-        if(null == xiLeWangHistory) {
-            return 0L;
+    public Long updateByPrimaryKeySelective(@RequestBody XiLeWangHistory xiLeWangHistory){
+        if(null == xiLeWangHistory || null == xiLeWangHistory.getId()) {
+            return null;
         }
         int i = xiLeWangHistoryService.updateByPrimaryKeySelective(xiLeWangHistory);
-        return i == 0 ? 0L : xiLeWangHistory.getId();
+        return i == 0 ? null : xiLeWangHistory.getId();
     }
 
     @PutMapping("/")
-    public long updateByPrimaryKey(@RequestBody XiLeWangHistory xiLeWangHistory){
-        if(null == xiLeWangHistory){
-            return 0L;
+    public Long updateByPrimaryKey(@RequestBody XiLeWangHistory xiLeWangHistory){
+        if(null == xiLeWangHistory || null == xiLeWangHistory.getId()){
+            return null;
         }
         int i  = xiLeWangHistoryService.updateByPrimaryKey(xiLeWangHistory);
-        return i == 0 ? 0L : xiLeWangHistory.getId();
+        return i == 0 ? null : xiLeWangHistory.getId();
     }
 
     @PostMapping("/save")

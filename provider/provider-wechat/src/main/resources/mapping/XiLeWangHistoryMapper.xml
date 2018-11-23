@@ -3,7 +3,7 @@
 <mapper namespace="com.wuwei.provider.wechat.mapper.XiLeWangHistoryMapper" >
   <resultMap id="BaseResultMap" type="com.wuwei.base.wechat.model.XiLeWangHistory" >
     <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="sku_id" property="skuId" jdbcType="INTEGER" />
+    <result column="sku_id" property="skuId" jdbcType="BIGINT" />
     <result column="sku_name" property="skuName" jdbcType="VARCHAR" />
     <result column="openid" property="openid" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="BIGINT" />
@@ -22,7 +22,7 @@
   <insert id="insert" parameterType="com.wuwei.base.wechat.model.XiLeWangHistory" >
     insert into
     xilewang_history (id, sku_id, sku_name, openid, create_time, stay_time)
-    values (#{id,jdbcType=BIGINT}, #{skuId,jdbcType=INTEGER}, #{skuName,jdbcType=VARCHAR},
+    values (#{id,jdbcType=BIGINT}, #{skuId,jdbcType=BIGINT}, #{skuName,jdbcType=VARCHAR},
       #{openid,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}, #{stayTime,jdbcType=BIGINT})
   </insert>
 
@@ -53,7 +53,7 @@
         #{id,jdbcType=BIGINT},
       </if>
       <if test="skuId != null" >
-        #{skuId,jdbcType=INTEGER},
+        #{skuId,jdbcType=BIGINT},
       </if>
       <if test="skuName != null" >
         #{skuName,jdbcType=VARCHAR},
@@ -74,7 +74,7 @@
     update xilewang_history
     <set >
       <if test="skuId != null" >
-        sku_id = #{skuId,jdbcType=INTEGER},
+        sku_id = #{skuId,jdbcType=BIGINT},
       </if>
       <if test="skuName != null" >
         sku_name = #{skuName,jdbcType=VARCHAR},
@@ -94,7 +94,7 @@
 
   <update id="updateByPrimaryKey" parameterType="com.wuwei.base.wechat.model.XiLeWangHistory" >
     update xilewang_history
-    set sku_id = #{skuId,jdbcType=INTEGER},
+    set sku_id = #{skuId,jdbcType=BIGINT},
       sku_name = #{skuName,jdbcType=VARCHAR},
       openid = #{openid,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=BIGINT},
