@@ -1,8 +1,8 @@
-package com.wuwei.base.wechat.service;
+package com.wuwei.provider.wechat.mapper;
 
 import com.wuwei.base.wechat.model.XiLeWangHistory;
 
-public interface XiLeWangHistoryService {
+public interface XiLeWangHistoryMapper {
 
     XiLeWangHistory selectByPrimaryKey(Long id);
 
@@ -13,7 +13,5 @@ public interface XiLeWangHistoryService {
     int updateByPrimaryKeySelective(XiLeWangHistory xiLeWangHistory);
 
     int updateByPrimaryKey(XiLeWangHistory xiLeWangHistory);
-
-    int save(XiLeWangHistory xiLeWangHistory);
 
 }
