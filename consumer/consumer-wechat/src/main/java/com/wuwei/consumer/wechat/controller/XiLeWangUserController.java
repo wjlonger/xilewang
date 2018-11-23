@@ -34,7 +34,7 @@ public class XiLeWangUserController {
     }
 
     @PostMapping("/save")
-    public int save(@RequestBody XiLeWangUser xiLeWangUser, HttpServletRequest request) {
+    public int save(@RequestBody XiLeWangUser xiLeWangUser) {
         xiLeWangUser.setOpenid(Current.getOpenid());
         return xiLeWangUserService.save(xiLeWangUser);
     }

@@ -27,7 +27,7 @@ public class XiLeWangHistoryController {
         if(null == xiLeWangHistory){
             return null;
         }
-        long id = IdGenerator.nextId();
+        final long id = IdGenerator.nextId();
         xiLeWangHistory.setId(id);
         xiLeWangHistory.setOpenid(Current.getOpenid());
         xiLeWangHistory.setCreateTime(System.currentTimeMillis());
@@ -48,7 +48,7 @@ public class XiLeWangHistoryController {
         if(null == xiLeWangHistory){
             return null;
         }
-        long id = IdGenerator.nextId();
+        final long id = IdGenerator.nextId();
         xiLeWangHistory.setId(id);
         xiLeWangHistory.setOpenid(Current.getOpenid());
         xiLeWangHistory.setCreateTime(System.currentTimeMillis());
