@@ -1,13 +1,13 @@
 package com.wuwei.consumer.wechat.service;
 
 import com.wuwei.base.wechat.model.XiLeWangHistory;
-import com.wuwei.consumer.wechat.hystric.XiLeWangUserServiceHystric;
+import com.wuwei.consumer.wechat.hystric.XiLeWangHistoryHystric;
 import feign.Param;
 import feign.RequestLine;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(value = "provider-wechat",fallback= XiLeWangUserServiceHystric.class, path = "/xilewang/user")
+@FeignClient(value = "provider-wechat",fallback= XiLeWangHistoryHystric.class, path = "/xilewang/history")
 public interface XiLeWangHistoryService extends com.wuwei.base.wechat.service.XiLeWangHistoryService {
 
     @Override
