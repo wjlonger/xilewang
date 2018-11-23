@@ -101,16 +101,33 @@
 
   <update id="updateByOpenid" parameterType="com.wuwei.base.wechat.model.XiLeWangUser" >
     update
-      xilewang_user
-    set
-      nick_name = #{nickName,jdbcType=VARCHAR},
-      avatar_url = #{avatarUrl,jdbcType=VARCHAR},
-      gender = #{gender,jdbcType=INTEGER},
-      language = #{language,jdbcType=VARCHAR},
-      province = #{province,jdbcType=VARCHAR},
-      city = #{city,jdbcType=VARCHAR},
-      country = #{country,jdbcType=VARCHAR},
-      sessionkey = #{sessionkey,jdbcType=VARCHAR}
+        xilewang_user
+    <set>
+      <if test="nickName != null" >
+        nick_name = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="avatarUrl != null" >
+        avatar_url = #{avatarUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        gender = #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="language != null" >
+        language = #{language,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        country = #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="sessionkey != null" >
+        sessionkey = #{sessionkey,jdbcType=VARCHAR}
+      </if>
+    </set>
     where
       openid = #{openid,jdbcType=VARCHAR}
   </update>

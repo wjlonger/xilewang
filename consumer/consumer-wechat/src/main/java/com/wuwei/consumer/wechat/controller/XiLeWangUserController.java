@@ -3,6 +3,7 @@ package com.wuwei.consumer.wechat.controller;
 import com.wuwei.base.utils.SessionKey;
 import com.wuwei.base.wechat.model.XiLeWangUser;
 import com.wuwei.consumer.wechat.service.XiLeWangUserService;
+import com.wuwei.consumer.wechat.utils.Current;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
@@ -35,7 +36,7 @@ public class XiLeWangUserController {
 
     @PostMapping("/save")
     public int save(@RequestBody XiLeWangUser xiLeWangUser, HttpServletRequest request) {
-
+        xiLeWangUser.setOpenid(Current.getOpenid());
         return xiLeWangUserService.save(xiLeWangUser);
     }
 

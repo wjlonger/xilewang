@@ -24,7 +24,7 @@ eureka:
         instance-id: ${spring.application.name}:${spring.cloud.client.hostname}:${server.port}
 zuul:
     host:
-        connect-timeout-millis: 10000
+        connect-timeout-millis: 15000
         socket-timeout-millis: 60000
     routes:
         consumer-wechat:
@@ -37,10 +37,15 @@ zuul:
             serviceId: consumer-jd
             stripPrefix: false
             sensitiveHeaders: "*"
+ribbon:
+    ReadTimeout: 10000
+    ConnectTimeout: 10000
 hystrix:
     command:
         default:
             execution:
+                timeout:
+                    enabled: true
                 isolation:
                     thread:
                         timeoutInMilliseconds: 60000
