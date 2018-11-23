@@ -32,6 +32,7 @@ public class XiLeWangHistoryController {
         long id = IdGenerator.nextId();
         xiLeWangHistory.setId(id);
         xiLeWangHistory.setOpenid(Current.getOpenid());
+        xiLeWangHistory.setCreateTime(System.currentTimeMillis());
         int i = xiLeWangHistoryService.insert(xiLeWangHistory);
         return i == 0 ? 0L : id;
     }

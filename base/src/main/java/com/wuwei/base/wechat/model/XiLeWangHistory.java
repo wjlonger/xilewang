@@ -1,6 +1,11 @@
 package com.wuwei.base.wechat.model;
 
-public class XiLeWangHistory {
+import java.io.Serializable;
+
+public class XiLeWangHistory implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     private Long id;
 
     private Integer skuId;
@@ -9,9 +14,9 @@ public class XiLeWangHistory {
 
     private String openid;
 
-    private Integer createTime;
+    private Long createTime;
 
-    private Integer stayTime;
+    private Long stayTime;
 
     public Long getId() {
         return id;
@@ -45,19 +50,19 @@ public class XiLeWangHistory {
         this.openid = openid == null ? null : openid.trim();
     }
 
-    public Integer getCreateTime() {
+    public Long getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Integer createTime) {
+    public void setCreateTime(Long createTime) {
         this.createTime = createTime;
     }
 
-    public Integer getStayTime() {
+    public Long getStayTime() {
         return stayTime;
     }
 
-    public void setStayTime(Integer stayTime) {
+    public void setStayTime(Long stayTime) {
         this.stayTime = stayTime;
     }
 }
