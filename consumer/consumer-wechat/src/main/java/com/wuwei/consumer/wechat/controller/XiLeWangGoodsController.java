@@ -27,7 +27,7 @@ public class XiLeWangGoodsController {
     @Value("${goods.radio}")
     private double raido;
 
-    private JSONObject jsonObject;
+    private JSONObject jsonObject = new JSONObject();
 
     @Autowired
     private XiLeWangPromotionService xiLeWangPromotionService;

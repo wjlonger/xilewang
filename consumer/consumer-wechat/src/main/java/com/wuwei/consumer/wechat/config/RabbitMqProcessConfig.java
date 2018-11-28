@@ -30,7 +30,7 @@ public class RabbitMqProcessConfig {
         GoodsResp goodsResp = xiLeWangGoodsService.goodsDetail(xiLeWangOrder.getSkuId());
         xiLeWangOrder.setSkuName(goodsResp.getSkuName());
         xiLeWangOrder.setCommission(goodsResp.getCommissionInfo()[0].getCommission());
-        xiLeWangOrder.setCommission(goodsResp.getCommissionInfo()[0].getCommissionShare());
+        xiLeWangOrder.setCommissionShare(goodsResp.getCommissionInfo()[0].getCommissionShare());
         StringBuilder sb = new StringBuilder();
         for(ImageInfo imageInfo : goodsResp.getImageInfo()){
             for(UrlInfo urlInfo : imageInfo.getImageList()){
