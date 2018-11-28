@@ -3,7 +3,7 @@ package com.wuwei.base.jd.model;
 import java.io.Serializable;
 import java.util.List;
 
-public class Goods implements Serializable {
+public class GoodsSearch implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

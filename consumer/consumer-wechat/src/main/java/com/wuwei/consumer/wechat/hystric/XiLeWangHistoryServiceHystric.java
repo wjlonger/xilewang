@@ -5,7 +5,7 @@ import com.wuwei.consumer.wechat.service.XiLeWangHistoryService;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class XiLeWangHistoryHystric implements XiLeWangHistoryService {
+public class XiLeWangHistoryServiceHystric implements XiLeWangHistoryService {
 
     @Override
     public XiLeWangHistory selectByPrimaryKey(Long id) {

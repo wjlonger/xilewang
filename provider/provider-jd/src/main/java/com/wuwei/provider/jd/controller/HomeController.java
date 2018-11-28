@@ -1,7 +1,8 @@
 package com.wuwei.provider.jd.controller;
 
-import com.wuwei.base.jd.model.Goods;
+import com.wuwei.base.jd.model.GoodsSearch;
 import com.wuwei.base.jd.service.HomeService;
+import jd.union.open.goods.query.response.UnionOpenGoodsQueryResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
@@ -21,10 +22,8 @@ public class HomeController {
     }
 
     @PostMapping("/explosiveGoods")
-    public String explosiveGoods(@RequestBody Goods goods) {
-        System.out.println("进入explosiveGoods");
-        System.out.println(goods.getKeyword());
-        return homeService.explosiveGoods(goods);
+    public UnionOpenGoodsQueryResponse explosiveGoods(@RequestBody GoodsSearch goodsSearch) {
+        return homeService.explosiveGoods(goodsSearch);
     }
 
 }

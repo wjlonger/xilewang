@@ -1,21 +1,28 @@
 package com.wuwei.provider.jd.serviceimpl;
 
-import com.alibaba.fastjson.JSON;
 import com.jd.open.api.sdk.JdClient;
 import com.jd.open.api.sdk.JdException;
-import com.wuwei.base.jd.model.Goods;
+import com.wuwei.base.jd.model.GoodsSearch;
 import com.wuwei.base.jd.service.HomeService;
 import jd.union.open.goods.query.request.GoodsReq;
 import jd.union.open.goods.query.request.UnionOpenGoodsQueryRequest;
+import jd.union.open.goods.query.response.CommissionInfo;
+import jd.union.open.goods.query.response.GoodsResp;
 import jd.union.open.goods.query.response.UnionOpenGoodsQueryResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
 
 @Service("homeService")
 public class HomeServiceImpl implements HomeService {
 
     @Autowired
-    private JdClient client;
+    private JdClient jdClient;
+
+    @Value("${goods.radio}")
+    private double radio;
 
     @Override
     public String slideShow() {
@@ -23,45 +30,55 @@ public class HomeServiceImpl implements HomeService {
     }
 
     @Override
-    public String explosiveGoods(Goods goods) {
+    public UnionOpenGoodsQueryResponse explosiveGoods(GoodsSearch goodsSearch) {
         UnionOpenGoodsQueryRequest request = new UnionOpenGoodsQueryRequest();
         GoodsReq goodsReq = new GoodsReq();
-        if(null != goods){
-            goodsReq.setCid1(goods.getCid1());
-            goodsReq.setCid2(goods.getCid2());
-            goodsReq.setCid3(goods.getCid3());
-            goodsReq.setPageIndex(goods.getPageIndex());
-            goodsReq.setPageSize(goods.getPageSize());
-            if(null != goods.getSkuIds() && goods.getSkuIds().size() > 0){
-                goodsReq.setSkuIds((Long[])goods.getSkuIds().toArray());
+        if(null != goodsSearch){
+            goodsReq.setCid1(goodsSearch.getCid1());
+            goodsReq.setCid2(goodsSearch.getCid2());
+            goodsReq.setCid3(goodsSearch.getCid3());
+            goodsReq.setPageIndex(goodsSearch.getPageIndex());
+            goodsReq.setPageSize(goodsSearch.getPageSize());
+            if(null != goodsSearch.getSkuIds() && goodsSearch.getSkuIds().size() > 0){
+                goodsReq.setSkuIds((Long[])goodsSearch.getSkuIds().toArray());
             }
-            goodsReq.setKeyword(goods.getKeyword());
-            goodsReq.setPricefrom(goods.getPricefrom());
-            goodsReq.setPriceto(goods.getPriceto());
-            goodsReq.setCommissionShareStart(goods.getCommissionShareStart());
-            goodsReq.setCommissionShareEnd(goods.getCommissionShareEnd());
-            goodsReq.setOwner(goods.getOwner());
-            goodsReq.setSortName(goods.getSortName());
-            goodsReq.setSort(goods.getSort());
-            goodsReq.setIsCoupon(goods.getIsCoupon());
-            goodsReq.setIsPG(goods.getIsPG());
-            goodsReq.setPingouPriceStart(goods.getPingouPriceStart());
-            goodsReq.setPingouPriceEnd(goods.getPingouPriceEnd());
-            goodsReq.setIsHot(goods.getIsHot());
-            goodsReq.setBrandCode(goods.getBrandCode());
-            goodsReq.setShopId(goods.getShopId());
+            goodsReq.setKeyword(goodsSearch.getKeyword());
+            goodsReq.setPricefrom(goodsSearch.getPricefrom());
+            goodsReq.setPriceto(goodsSearch.getPriceto());
+            goodsReq.setCommissionShareStart(goodsSearch.getCommissionShareStart());
+            goodsReq.setCommissionShareEnd(goodsSearch.getCommissionShareEnd());
+            goodsReq.setOwner(goodsSearch.getOwner());
+            goodsReq.setSortName(goodsSearch.getSortName());
+            goodsReq.setSort(goodsSearch.getSort());
+            goodsReq.setIsCoupon(goodsSearch.getIsCoupon());
+            goodsReq.setIsPG(goodsSearch.getIsPG());
+            goodsReq.setPingouPriceStart(goodsSearch.getPingouPriceStart());
+            goodsReq.setPingouPriceEnd(goodsSearch.getPingouPriceEnd());
+            goodsReq.setIsHot(goodsSearch.getIsHot());
+            goodsReq.setBrandCode(goodsSearch.getBrandCode());
+            goodsReq.setShopId(goodsSearch.getShopId());
         }
 
         UnionOpenGoodsQueryResponse response = null;
         request.setGoodsReqDTO(goodsReq);
         try {
-            response = client.execute(request);
-            System.out.println("查询结束，返回结果");
-            return JSON.toJSONString(response);
+            response = jdClient.execute(request);
+            if(null != response){
+                GoodsResp[] goodsResps = response.getData();
+                if(null != goodsResps && goodsResps.length > 0){
+                    for(GoodsResp goodsResp : goodsResps){
+                        CommissionInfo[] commissionInfos = goodsResp.getCommissionInfo();
+                        if(null != commissionInfos && commissionInfos.length > 0){
+                            for(CommissionInfo commissionInfo : commissionInfos){
+                                commissionInfo.setCommission(new BigDecimal(commissionInfo.getCommission()).multiply(new BigDecimal(radio)).divide(new BigDecimal(100)).doubleValue());
+                            }
+                        }
+                    }
+                }
+            }
         } catch (JdException e) {
         }
-        System.out.println("查询出现异常");
-        return null;
+        return response;
     }
 
 }

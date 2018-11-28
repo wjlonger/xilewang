@@ -1,9 +1,9 @@
 package com.wuwei.consumer.jd.service;
 
-import com.wuwei.base.jd.model.Goods;
+import com.wuwei.base.jd.model.GoodsSearch;
 import com.wuwei.consumer.jd.hystric.HomeServiceHystric;
-import feign.Param;
 import feign.RequestLine;
+import jd.union.open.goods.query.response.UnionOpenGoodsQueryResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -16,5 +16,5 @@ public interface HomeService extends com.wuwei.base.jd.service.HomeService {
 
     @Override
     @RequestLine("POST /explosiveGoods")
-    String explosiveGoods(@RequestBody Goods goods);
+    UnionOpenGoodsQueryResponse explosiveGoods(@RequestBody GoodsSearch goodsSearch);
 }

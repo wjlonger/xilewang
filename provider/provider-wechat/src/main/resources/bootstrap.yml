@@ -5,6 +5,7 @@ spring:
         name: provider-wechat
     cloud:
         config:
+            name: provider-wechat,common
             discovery:
                 # 通过服务发现的方式去找配置中心
                 enabled: true

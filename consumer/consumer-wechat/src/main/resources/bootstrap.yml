@@ -5,6 +5,7 @@ spring:
       name: consumer-wechat
     cloud:
         config:
+            name: consumer-wechat,common
             discovery:
                 # 通过服务发现的方式去找配置中心
                 enabled: true

@@ -1,6 +1,7 @@
 package com.wuwei.provider.jd.controller;
 
 import com.wuwei.base.jd.service.GoodsService;
+import jd.union.open.goods.query.response.GoodsResp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
@@ -17,9 +18,9 @@ public class GoodController {
     @Autowired
     private GoodsService goodsService;
 
-    @GetMapping("/{goodsId}")
-    public String goodDetail(@PathVariable("goodsId") String goodsId) {
-        return goodsService.goodsDetail(goodsId);
+    @GetMapping("/{skuId}")
+    public GoodsResp goodDetail(@PathVariable("skuId") Long skuId) {
+        return goodsService.goodsDetail(skuId);
     }
 
 }

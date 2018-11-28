@@ -11,4 +11,21 @@
     <packaging>jar</packaging>
     <artifactId>consumer-wechat</artifactId>
 
+    <dependencies>
+
+        <!-- 增加了面向产品上线相关的功能，比如测量和监控。 -->
+        <!-- 因为要使用RabbitMQ，所以加上这个依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+        <!-- 通过spring-rabbit来支持AMQP协议（Advanced Message Queuing Protocol. 。 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
+        </dependency>
+
+    </dependencies>
+
 </project>
