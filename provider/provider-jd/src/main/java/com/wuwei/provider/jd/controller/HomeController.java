@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 @RestController
-@RequestMapping("/")
 public class HomeController {
 
     @Autowired

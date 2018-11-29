@@ -12,8 +12,13 @@ import org.springframework.context.annotation.Configuration;
 public class RabbitMqSenderConfig {
 
     @Bean
-    public Queue xilewangOrderInsert() {
+    public Queue xiLeWangOrderInsert() {
         return new Queue("xilewang_order_insert");
+    }
+
+    @Bean
+    public Queue xiLeWangHistoryInsert(){
+        return new Queue("xilewang_history_insert");
     }
 
 }

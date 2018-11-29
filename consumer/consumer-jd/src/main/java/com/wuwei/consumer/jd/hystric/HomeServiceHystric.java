@@ -15,6 +15,6 @@ public class HomeServiceHystric implements HomeService {
 
     @Override
     public UnionOpenGoodsQueryResponse explosiveGoods(GoodsSearch goodsSearch) {
-        return new UnionOpenGoodsQueryResponse();
+        return null;
     }
 }
