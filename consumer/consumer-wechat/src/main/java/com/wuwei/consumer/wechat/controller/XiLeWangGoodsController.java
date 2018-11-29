@@ -24,7 +24,7 @@ import java.util.Currency;
 @RequestMapping("/api/wechat/xilewang/goods")
 public class XiLeWangGoodsController {
 
-    @Value("${goods.radio}")
+    @Value("${goods.ratio}")
     private double raido;
 
     private JSONObject jsonObject = new JSONObject();

@@ -27,8 +27,8 @@ public class RabbitMqProcessConfig {
     @Autowired
     private XiLeWangHistoryService xiLeWangHistoryService;
 
-    @Value("${goods.radio}")
-    private double radio;
+    @Value("${goods.ratio}")
+    private double ratio;
 
     @RabbitListener(queues="xilewang_order_insert")
     public void xiLeWangOrderInsert(XiLeWangOrder xiLeWangOrder) {
@@ -44,8 +44,8 @@ public class RabbitMqProcessConfig {
         }
         xiLeWangOrder.setImages(sb.toString());
         xiLeWangOrder.setPrice(goodsResp.getPriceInfo()[0].getPrice());
-        xiLeWangOrder.setRatio(radio);
-        xiLeWangOrder.setExpectMoney(new BigDecimal(xiLeWangOrder.getCommission()).multiply(new BigDecimal(radio)).divide(new BigDecimal(100)));
+        xiLeWangOrder.setRatio(ratio);
+        xiLeWangOrder.setExpectMoney(new BigDecimal(xiLeWangOrder.getCommission()).multiply(new BigDecimal(ratio)).divide(new BigDecimal(100)));
         xiLeWangOrderService.insertSelective(xiLeWangOrder);
     }
 

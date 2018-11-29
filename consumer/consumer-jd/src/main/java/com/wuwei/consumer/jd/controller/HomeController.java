@@ -22,8 +22,11 @@ public class HomeController {
     @Autowired
     private HomeService homeService;
 
-    @Value("${goods.radio}")
-    private double radio;
+    @Value("${goods.ratio}")
+    private double ratio;
+
+    @Value("${math.scale}")
+    private int scale;
 
     @GetMapping("/slideShow")
     public String slideShow(){
@@ -37,10 +40,14 @@ public class HomeController {
             GoodsResp[] goodsResps = unionOpenGoodsQueryResponse.getData();
             if(null != goodsResps && goodsResps.length > 0){
                 for(GoodsResp goodsResp : goodsResps){
-                    CommissionInfo[] commissionInfos = goodsResp.getCommissionInfo();
-                    if(null != commissionInfos && commissionInfos.length > 0){
-                        for(CommissionInfo commissionInfo : commissionInfos){
-                            commissionInfo.setCommission(new BigDecimal(commissionInfo.getCommission()).multiply(new BigDecimal(radio)).divide(new BigDecimal(100)).doubleValue());
+                    if(null != goodsResp){
+                        CommissionInfo[] commissionInfos = goodsResp.getCommissionInfo();
+                        if(null != commissionInfos && commissionInfos.length > 0){
+                            for(CommissionInfo commissionInfo : commissionInfos){
+                                if(null != commissionInfo){
+                                    commissionInfo.setCommission(new BigDecimal(commissionInfo.getCommission()).multiply(new BigDecimal(ratio)).divide(new BigDecimal(100)).setScale(scale,BigDecimal.ROUND_HALF_UP).doubleValue());
+                                }
+                            }
                         }
                     }
                 }
