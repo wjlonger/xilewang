@@ -13,11 +13,10 @@ import org.springframework.stereotype.Service;
 public class PromotionServiceImpl implements PromotionService {
 
     @Autowired
-    private JdClient client;
+    private JdClient jdClient;
 
     @Override
     public String GetBySubUnionId(PromotionSearch promotionSearch) {
-
         UnionOpenPromotionBysubunionidGetRequest request = new UnionOpenPromotionBysubunionidGetRequest();
         jd.union.open.promotion.bysubunionid.get.request.PromotionCodeReq promotionCodeReq = new jd.union.open.promotion.bysubunionid.get.request.PromotionCodeReq();
         if(null != promotionSearch){
@@ -30,7 +29,7 @@ public class PromotionServiceImpl implements PromotionService {
         request.setPromotionCodeReq(promotionCodeReq);
         UnionOpenPromotionBysubunionidGetResponse response = null;
         try {
-            response = client.execute(request);
+            response = jdClient.execute(request);
             if(response != null){
                 return response.getData().getShortURL();
             }
