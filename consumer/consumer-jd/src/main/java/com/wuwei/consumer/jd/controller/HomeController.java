@@ -2,13 +2,17 @@ package com.wuwei.consumer.jd.controller;
 
 import com.wuwei.base.jd.model.GoodsSearch;
 import com.wuwei.consumer.jd.service.HomeService;
+import jd.union.open.goods.query.response.CommissionInfo;
+import jd.union.open.goods.query.response.GoodsResp;
 import jd.union.open.goods.query.response.UnionOpenGoodsQueryResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.math.BigDecimal;
 
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 @RestController
@@ -18,6 +22,9 @@ public class HomeController {
     @Autowired
     private HomeService homeService;
 
+    @Value("${goods.radio}")
+    private double radio;
+
     @GetMapping("/slideShow")
     public String slideShow(){
         return homeService.slideShow();
@@ -25,6 +32,20 @@ public class HomeController {
 
     @PostMapping("/explosiveGoods")
     public UnionOpenGoodsQueryResponse explosiveGoods(@RequestBody GoodsSearch goodsSearch){
-        return homeService.explosiveGoods(goodsSearch);
+        UnionOpenGoodsQueryResponse unionOpenGoodsQueryResponse = homeService.explosiveGoods(goodsSearch);
+        if(null != unionOpenGoodsQueryResponse){
+            GoodsResp[] goodsResps = unionOpenGoodsQueryResponse.getData();
+            if(null != goodsResps && goodsResps.length > 0){
+                for(GoodsResp goodsResp : goodsResps){
+                    CommissionInfo[] commissionInfos = goodsResp.getCommissionInfo();
+                    if(null != commissionInfos && commissionInfos.length > 0){
+                        for(CommissionInfo commissionInfo : commissionInfos){
+                            commissionInfo.setCommission(new BigDecimal(commissionInfo.getCommission()).multiply(new BigDecimal(radio)).divide(new BigDecimal(100)).doubleValue());
+                        }
+                    }
+                }
+            }
+        }
+        return unionOpenGoodsQueryResponse;
     }
 }

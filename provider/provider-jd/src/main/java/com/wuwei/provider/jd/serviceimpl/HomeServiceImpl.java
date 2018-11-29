@@ -63,19 +63,6 @@ public class HomeServiceImpl implements HomeService {
         request.setGoodsReqDTO(goodsReq);
         try {
             response = jdClient.execute(request);
-            if(null != response){
-                GoodsResp[] goodsResps = response.getData();
-                if(null != goodsResps && goodsResps.length > 0){
-                    for(GoodsResp goodsResp : goodsResps){
-                        CommissionInfo[] commissionInfos = goodsResp.getCommissionInfo();
-                        if(null != commissionInfos && commissionInfos.length > 0){
-                            for(CommissionInfo commissionInfo : commissionInfos){
-                                commissionInfo.setCommission(new BigDecimal(commissionInfo.getCommission()).multiply(new BigDecimal(radio)).divide(new BigDecimal(100)).doubleValue());
-                            }
-                        }
-                    }
-                }
-            }
         } catch (JdException e) {
         }
         return response;
