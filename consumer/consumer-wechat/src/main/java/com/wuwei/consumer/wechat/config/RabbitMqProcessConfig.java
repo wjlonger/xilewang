@@ -51,6 +51,8 @@ public class RabbitMqProcessConfig {
 
     @RabbitListener(queues = "xilewang_history_insert")
     public void xiLeWangHistoryInsert(XiLeWangHistory xiLeWangHistory){
+        GoodsResp goodsResp = xiLeWangGoodsService.goodsDetail(xiLeWangHistory.getSkuId());
+        xiLeWangHistory.setSkuName(goodsResp.getSkuName());
         xiLeWangHistoryService.insertSelective(xiLeWangHistory);
     }
 
