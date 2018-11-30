@@ -1,152 +1,110 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.wuwei.provider.wechat.mapper.XiLeWangAssistanceMapper" >
-  <resultMap id="BaseResultMap" type="com.wuwei.base.wechat.model.XiLeWangAssistance" >
 
-    <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="openid" property="openid" jdbcType="VARCHAR" />
-    <result column="sku_id" property="skuId" jdbcType="BIGINT" />
-    <result column="sku_name" property="skuName" jdbcType="VARCHAR" />
-    <result column="images" property="images" jdbcType="VARCHAR" />
-    <result column="price" property="price" jdbcType="DOUBLE" />
-    <result column="commission" property="commission" jdbcType="DOUBLE" />
-    <result column="commission_share" property="commissionShare" jdbcType="DOUBLE" />
-    <result column="ratio" property="ratio" jdbcType="DOUBLE" />
-    <result column="assistance_ratio" property="assistanceRatio" jdbcType="DOUBLE" />
-  </resultMap>
+    <resultMap id="BaseResultMap" type="com.wuwei.base.wechat.model.XiLeWangAssistance" >
+        <id column="id" property="id" jdbcType="BIGINT" />
+        <result column="openid" property="openid" jdbcType="VARCHAR" />
+        <result column="sku_id" property="skuId" jdbcType="BIGINT" />
+        <result column="initial_ratio" property="initialRatio" jdbcType="DECIMAL" />
+        <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+        <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
+    </resultMap>
 
-  <sql id="Base_Column_List" >
-    id, openid, sku_id, sku_name, images, price, commission, commission_share, ratio, 
-    assistance_ratio
+    <sql id="Base_Column_List" >
+    id, openid, sku_id, initial_ratio, gmt_create, gmt_modified
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select 
-    <include refid="Base_Column_List" />
-    from xilewang_assistance
-    where id = #{id,jdbcType=BIGINT}
-  </select>
 
-  <insert id="insert" parameterType="com.wuwei.base.wechat.model.XiLeWangAssistance" >
-    insert into xilewang_assistance (id, openid, sku_id, 
-      sku_name, images, price, 
-      commission, commission_share, ratio, 
-      assistance_ratio)
-    values (#{id,jdbcType=BIGINT}, #{openid,jdbcType=VARCHAR}, #{skuId,jdbcType=BIGINT}, 
-      #{skuName,jdbcType=VARCHAR}, #{images,jdbcType=VARCHAR}, #{price,jdbcType=DOUBLE}, 
-      #{commission,jdbcType=DOUBLE}, #{commissionShare,jdbcType=DOUBLE}, #{ratio,jdbcType=DOUBLE}, 
-      #{assistanceRatio,jdbcType=DOUBLE})
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+        select
+        <include refid="Base_Column_List" />
+        from xilewang_assistance
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <insert id="insert" parameterType="com.wuwei.base.wechat.model.XiLeWangAssistance" >
+    insert into xilewang_assistance (id, openid, sku_id,
+      initial_ratio, gmt_create, gmt_modified
+      )
+    values (#{id,jdbcType=BIGINT}, #{openid,jdbcType=VARCHAR}, #{skuId,jdbcType=BIGINT},
+      #{initialRatio,jdbcType=DECIMAL}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.wuwei.base.wechat.model.XiLeWangAssistance" >
-    insert into xilewang_assistance
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="openid != null" >
-        openid,
-      </if>
-      <if test="skuId != null" >
-        sku_id,
-      </if>
-      <if test="skuName != null" >
-        sku_name,
-      </if>
-      <if test="images != null" >
-        images,
-      </if>
-      <if test="price != null" >
-        price,
-      </if>
-      <if test="commission != null" >
-        commission,
-      </if>
-      <if test="commissionShare != null" >
-        commission_share,
-      </if>
-      <if test="ratio != null" >
-        ratio,
-      </if>
-      <if test="assistanceRatio != null" >
-        assistance_ratio,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=BIGINT},
-      </if>
-      <if test="openid != null" >
-        #{openid,jdbcType=VARCHAR},
-      </if>
-      <if test="skuId != null" >
-        #{skuId,jdbcType=BIGINT},
-      </if>
-      <if test="skuName != null" >
-        #{skuName,jdbcType=VARCHAR},
-      </if>
-      <if test="images != null" >
-        #{images,jdbcType=VARCHAR},
-      </if>
-      <if test="price != null" >
-        #{price,jdbcType=DOUBLE},
-      </if>
-      <if test="commission != null" >
-        #{commission,jdbcType=DOUBLE},
-      </if>
-      <if test="commissionShare != null" >
-        #{commissionShare,jdbcType=DOUBLE},
-      </if>
-      <if test="ratio != null" >
-        #{ratio,jdbcType=DOUBLE},
-      </if>
-      <if test="assistanceRatio != null" >
-        #{assistanceRatio,jdbcType=DOUBLE},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.wuwei.base.wechat.model.XiLeWangAssistance" >
-    update xilewang_assistance
-    <set >
-      <if test="openid != null" >
-        openid = #{openid,jdbcType=VARCHAR},
-      </if>
-      <if test="skuId != null" >
-        sku_id = #{skuId,jdbcType=BIGINT},
-      </if>
-      <if test="skuName != null" >
-        sku_name = #{skuName,jdbcType=VARCHAR},
-      </if>
-      <if test="images != null" >
-        images = #{images,jdbcType=VARCHAR},
-      </if>
-      <if test="price != null" >
-        price = #{price,jdbcType=DOUBLE},
-      </if>
-      <if test="commission != null" >
-        commission = #{commission,jdbcType=DOUBLE},
-      </if>
-      <if test="commissionShare != null" >
-        commission_share = #{commissionShare,jdbcType=DOUBLE},
-      </if>
-      <if test="ratio != null" >
-        ratio = #{ratio,jdbcType=DOUBLE},
-      </if>
-      <if test="assistanceRatio != null" >
-        assistance_ratio = #{assistanceRatio,jdbcType=DOUBLE},
-      </if>
-    </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.wuwei.base.wechat.model.XiLeWangAssistance" >
+
+    <insert id="insertSelective" parameterType="com.wuwei.base.wechat.model.XiLeWangAssistance" >
+        insert into xilewang_assistance
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="openid != null" >
+                openid,
+            </if>
+            <if test="skuId != null" >
+                sku_id,
+            </if>
+            <if test="initialRatio != null" >
+                initial_ratio,
+            </if>
+            <if test="gmtCreate != null" >
+                gmt_create,
+            </if>
+            <if test="gmtModified != null" >
+                gmt_modified,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="openid != null" >
+                #{openid,jdbcType=VARCHAR},
+            </if>
+            <if test="skuId != null" >
+                #{skuId,jdbcType=BIGINT},
+            </if>
+            <if test="initialRatio != null" >
+                #{initialRatio,jdbcType=DECIMAL},
+            </if>
+            <if test="gmtCreate != null" >
+                #{gmtCreate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="gmtModified != null" >
+                #{gmtModified,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.wuwei.base.wechat.model.XiLeWangAssistance" >
+        update xilewang_assistance
+        <set >
+            <if test="openid != null" >
+                openid = #{openid,jdbcType=VARCHAR},
+            </if>
+            <if test="skuId != null" >
+                sku_id = #{skuId,jdbcType=BIGINT},
+            </if>
+            <if test="initialRatio != null" >
+                initial_ratio = #{initialRatio,jdbcType=DECIMAL},
+            </if>
+            <if test="gmtCreate != null" >
+                gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="gmtModified != null" >
+                gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.wuwei.base.wechat.model.XiLeWangAssistance" >
     update xilewang_assistance
     set openid = #{openid,jdbcType=VARCHAR},
       sku_id = #{skuId,jdbcType=BIGINT},
-      sku_name = #{skuName,jdbcType=VARCHAR},
-      images = #{images,jdbcType=VARCHAR},
-      price = #{price,jdbcType=DOUBLE},
-      commission = #{commission,jdbcType=DOUBLE},
-      commission_share = #{commissionShare,jdbcType=DOUBLE},
-      ratio = #{ratio,jdbcType=DOUBLE},
-      assistance_ratio = #{assistanceRatio,jdbcType=DOUBLE}
+      initial_ratio = #{initialRatio,jdbcType=DECIMAL},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
 </mapper>

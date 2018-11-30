@@ -1,5 +1,6 @@
 package com.wuwei.provider.wechat.serviceimpl;
 
+import com.wuwei.base.utils.IdGenerator;
 import com.wuwei.base.wechat.model.XiLeWangHistory;
 import com.wuwei.base.wechat.service.XiLeWangHistoryService;
 import com.wuwei.provider.wechat.mapper.XiLeWangHistoryMapper;
@@ -27,6 +28,9 @@ public class XiLeWangHistoryServiceImpl implements XiLeWangHistoryService {
         if(null == xiLeWangHistory){
             return 0;
         }
+        if(null == xiLeWangHistory.getId()){
+            xiLeWangHistory.setId(IdGenerator.nextId());
+        }
         xiLeWangHistory.setGmtCreate(new Date());
         xiLeWangHistory.setGmtModified(new Date());
         return xiLeWangHistoryMapper.insert(xiLeWangHistory);
@@ -37,6 +41,9 @@ public class XiLeWangHistoryServiceImpl implements XiLeWangHistoryService {
         if(null == xiLeWangHistory){
             return 0;
         }
+        if(null == xiLeWangHistory.getId()){
+            xiLeWangHistory.setId(IdGenerator.nextId());
+        }
         xiLeWangHistory.setGmtCreate(new Date());
         xiLeWangHistory.setGmtModified(new Date());
         return xiLeWangHistoryMapper.insertSelective(xiLeWangHistory);
@@ -44,7 +51,7 @@ public class XiLeWangHistoryServiceImpl implements XiLeWangHistoryService {
 
     @Override
     public int updateByPrimaryKeySelective(XiLeWangHistory xiLeWangHistory) {
-        if(null == xiLeWangHistory){
+        if(null == xiLeWangHistory || null == xiLeWangHistory.getId()){
             return 0;
         }
         xiLeWangHistory.setGmtModified(new Date());
@@ -53,7 +60,7 @@ public class XiLeWangHistoryServiceImpl implements XiLeWangHistoryService {
 
     @Override
     public int updateByPrimaryKey(XiLeWangHistory xiLeWangHistory) {
-        if(null == xiLeWangHistory){
+        if(null == xiLeWangHistory || null ==  xiLeWangHistory.getId()){
             return 0;
         }
         xiLeWangHistory.setGmtModified(new Date());

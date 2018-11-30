@@ -1,6 +1,7 @@
 package com.wuwei.provider.wechat.serviceimpl;
 
 
+import com.wuwei.base.utils.IdGenerator;
 import com.wuwei.base.wechat.model.XiLeWangOrder;
 import com.wuwei.base.wechat.service.XiLeWangOrderService;
 import com.wuwei.provider.wechat.mapper.XiLeWangOrderMapper;
@@ -28,6 +29,9 @@ public class XiLeWangOrderServiceImpl implements XiLeWangOrderService {
         if(null == xiLeWangOrder){
             return 0;
         }
+        if(null == xiLeWangOrder.getId()){
+            xiLeWangOrder.setId(IdGenerator.nextId());
+        }
         xiLeWangOrder.setGmtCreate(new Date());
         xiLeWangOrder.setGmtModified(new Date());
         return xiLeWangOrderMapper.insert(xiLeWangOrder);
@@ -38,6 +42,9 @@ public class XiLeWangOrderServiceImpl implements XiLeWangOrderService {
         if(null == xiLeWangOrder){
             return 0;
         }
+        if(null == xiLeWangOrder.getId()){
+            xiLeWangOrder.setId(IdGenerator.nextId());
+        }
         xiLeWangOrder.setGmtCreate(new Date());
         xiLeWangOrder.setGmtModified(new Date());
         return xiLeWangOrderMapper.insertSelective(xiLeWangOrder);
@@ -45,7 +52,7 @@ public class XiLeWangOrderServiceImpl implements XiLeWangOrderService {
 
     @Override
     public int updateByPrimaryKeySelective(XiLeWangOrder xiLeWangOrder) {
-        if(null == xiLeWangOrder){
+        if(null == xiLeWangOrder || null ==  xiLeWangOrder.getId()){
             return 0;
         }
         xiLeWangOrder.setGmtModified(new Date());
@@ -54,7 +61,7 @@ public class XiLeWangOrderServiceImpl implements XiLeWangOrderService {
 
     @Override
     public int updateByPrimaryKey(XiLeWangOrder xiLeWangOrder) {
-        if(null == xiLeWangOrder){
+        if(null == xiLeWangOrder || null ==  xiLeWangOrder.getId()){
             return 0;
         }
         xiLeWangOrder.setGmtModified(new Date());

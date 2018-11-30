@@ -100,12 +100,15 @@ public class XiLeWangUserServiceImpl implements XiLeWangUserService {
 
     @Override
     public XiLeWangUser selectByPrimaryKey(String openid) {
+        if(StringUtils.isEmpty(openid)){
+            return null;
+        }
         return xiLeWangUserMapper.selectByPrimaryKey(openid);
     }
 
     @Override
     public int insert(XiLeWangUser xiLeWangUser) {
-        if(null == xiLeWangUser){
+        if(null == xiLeWangUser || StringUtils.isEmpty(xiLeWangUser.getOpenid())){
             return 0;
         }
         xiLeWangUser.setGmtCreate(new Date());
@@ -115,7 +118,7 @@ public class XiLeWangUserServiceImpl implements XiLeWangUserService {
 
     @Override
     public int insertSelective(XiLeWangUser xiLeWangUser) {
-        if(null == xiLeWangUser){
+        if(null == xiLeWangUser || StringUtils.isEmpty(xiLeWangUser.getOpenid())){
             return 0;
         }
         xiLeWangUser.setGmtCreate(new Date());
@@ -125,7 +128,7 @@ public class XiLeWangUserServiceImpl implements XiLeWangUserService {
 
     @Override
     public int updateByPrimaryKey(XiLeWangUser xiLeWangUser) {
-        if(null == xiLeWangUser){
+        if(null == xiLeWangUser || StringUtils.isEmpty(xiLeWangUser.getOpenid())){
             return 0;
         }
         xiLeWangUser.setGmtModified(new Date());
@@ -134,7 +137,7 @@ public class XiLeWangUserServiceImpl implements XiLeWangUserService {
 
     @Override
     public int updateByPrimaryKeySelective(XiLeWangUser xiLeWangUser) {
-        if(null == xiLeWangUser){
+        if(null == xiLeWangUser || StringUtils.isEmpty(xiLeWangUser.getOpenid())){
             return 0;
         }
         xiLeWangUser.setGmtModified(new Date());
