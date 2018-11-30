@@ -1,7 +1,6 @@
 package com.wuwei.consumer.wechat.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.thoughtworks.xstream.core.ReferenceByIdMarshaller;
 import com.wuwei.base.utils.IdGenerator;
 import com.wuwei.base.wechat.model.XiLeWangHistory;
 import com.wuwei.consumer.wechat.service.XiLeWangHistoryService;
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.web.bind.annotation.*;
-
 
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 @RestController
