@@ -29,9 +29,7 @@ public class XiLeWangUserController {
     }
 
     @GetMapping("/refreshSession")
-    public String refreshSession(HttpServletRequest request){
-        return request.getSession().getId();
-    }
+    public void refreshSession(){ }
 
     @PostMapping("/save")
     public int save(@RequestBody XiLeWangUser xiLeWangUser) {

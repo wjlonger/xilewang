@@ -17,6 +17,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Date;
 
 @Service("xiLeWangUserService")
 public class XiLeWangUserServiceImpl implements XiLeWangUserService {
@@ -62,11 +63,10 @@ public class XiLeWangUserServiceImpl implements XiLeWangUserService {
                 while ((temp = br.readLine()) != null) {
                     sbf.append(temp);
                 }
-                xiLeWangUser = JSONObject.parseObject(sbf.toString(),XiLeWangUser.class);
-                if(xiLeWangUser == null){
+                if(null == (xiLeWangUser = JSONObject.parseObject(sbf.toString(),XiLeWangUser.class))){
                     return null;
                 }
-                i = this.save(xiLeWangUser);
+                this.save(xiLeWangUser);
             }
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -95,12 +95,12 @@ public class XiLeWangUserServiceImpl implements XiLeWangUserService {
                 connection = null;
             }
         }
-        return (i == 0 ? null : xiLeWangUser.getOpenid());
+        return xiLeWangUser.getOpenid();
     }
 
     @Override
-    public XiLeWangUser selectByOpenid(String openid) {
-        return xiLeWangUserMapper.selectByOpenid(openid);
+    public XiLeWangUser selectByPrimaryKey(String openid) {
+        return xiLeWangUserMapper.selectByPrimaryKey(openid);
     }
 
     @Override
@@ -108,6 +108,8 @@ public class XiLeWangUserServiceImpl implements XiLeWangUserService {
         if(null == xiLeWangUser){
             return 0;
         }
+        xiLeWangUser.setGmtCreate(new Date());
+        xiLeWangUser.setGmtModified(new Date());
         return xiLeWangUserMapper.insert(xiLeWangUser);
     }
 
@@ -116,15 +118,27 @@ public class XiLeWangUserServiceImpl implements XiLeWangUserService {
         if(null == xiLeWangUser){
             return 0;
         }
+        xiLeWangUser.setGmtCreate(new Date());
+        xiLeWangUser.setGmtModified(new Date());
         return xiLeWangUserMapper.insertSelective(xiLeWangUser);
     }
 
     @Override
-    public int updateByOpenid(XiLeWangUser xiLeWangUser) {
+    public int updateByPrimaryKey(XiLeWangUser xiLeWangUser) {
         if(null == xiLeWangUser){
             return 0;
         }
-        return xiLeWangUserMapper.updateByOpenid(xiLeWangUser);
+        xiLeWangUser.setGmtModified(new Date());
+        return xiLeWangUserMapper.updateByPrimaryKey(xiLeWangUser);
+    }
+
+    @Override
+    public int updateByPrimaryKeySelective(XiLeWangUser xiLeWangUser) {
+        if(null == xiLeWangUser){
+            return 0;
+        }
+        xiLeWangUser.setGmtModified(new Date());
+        return xiLeWangUserMapper.updateByPrimaryKeySelective(xiLeWangUser);
     }
 
     @Override
@@ -132,11 +146,10 @@ public class XiLeWangUserServiceImpl implements XiLeWangUserService {
         if(null == xiLeWangUser || StringUtils.isEmpty(xiLeWangUser.getOpenid())){
             return 0;
         }
-        if(null == xiLeWangUserMapper.selectByOpenid(xiLeWangUser.getOpenid())){
-            return xiLeWangUserMapper.insertSelective(xiLeWangUser);
+        if(null == this.selectByPrimaryKey(xiLeWangUser.getOpenid())){
+            return this.insertSelective(xiLeWangUser);
         }
-        return xiLeWangUserMapper.updateByOpenid(xiLeWangUser);
+        return this.updateByPrimaryKeySelective(xiLeWangUser);
     }
-
 
 }

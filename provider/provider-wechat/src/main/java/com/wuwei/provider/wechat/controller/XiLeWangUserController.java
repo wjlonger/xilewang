@@ -22,7 +22,7 @@ public class XiLeWangUserController {
 
     @GetMapping("/{openid}")
     public XiLeWangUser selectById(@PathVariable("openid") String openid){
-        return xiLeWangUserService.selectByOpenid(openid);
+        return xiLeWangUserService.selectByPrimaryKey(openid);
     }
 
     @PostMapping
@@ -36,8 +36,13 @@ public class XiLeWangUserController {
     }
 
     @PutMapping
-    public int updateById(@RequestBody XiLeWangUser xiLeWangUser){
-        return xiLeWangUserService.updateByOpenid(xiLeWangUser);
+    public int updateByPrimaryKey(@RequestBody XiLeWangUser xiLeWangUser){
+        return xiLeWangUserService.updateByPrimaryKey(xiLeWangUser);
+    }
+
+    @PutMapping("/updateByPrimaryKeySelective")
+    public int updateByPrimaryKeySelective(@RequestBody XiLeWangUser xiLeWangUser){
+        return xiLeWangUserService.updateByPrimaryKeySelective(xiLeWangUser);
     }
 
     @PostMapping("/save")

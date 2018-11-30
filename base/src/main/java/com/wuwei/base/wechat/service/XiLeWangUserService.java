@@ -6,14 +6,19 @@ public interface XiLeWangUserService {
 
     String code2Session(String code);
 
-    XiLeWangUser selectByOpenid(String openid);
-
     int insert(XiLeWangUser xiLeWangUser);
 
     int insertSelective(XiLeWangUser xiLeWangUser);
 
-    int updateByOpenid(XiLeWangUser xiLeWangUser);
+    XiLeWangUser selectByPrimaryKey(String openid);
+
+    int updateByPrimaryKeySelective(XiLeWangUser xiLeWangUser);
+
+    int updateByPrimaryKey(XiLeWangUser xiLeWangUser);
 
     int save(XiLeWangUser xiLeWangUser);
+
+
+
 
 }

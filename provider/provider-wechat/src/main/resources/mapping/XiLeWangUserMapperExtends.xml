@@ -2,133 +2,168 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.wuwei.provider.wechat.mapper.XiLeWangUserMapper" >
 
-  <resultMap id="BaseResultMap" type="com.wuwei.base.wechat.model.XiLeWangUser" >
-    <id column="openid" property="openid" jdbcType="VARCHAR" />
-    <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
-    <result column="avatar_url" property="avatarUrl" jdbcType="VARCHAR" />
-    <result column="gender" property="gender" jdbcType="INTEGER" />
-    <result column="language" property="language" jdbcType="VARCHAR" />
-    <result column="province" property="province" jdbcType="VARCHAR" />
-    <result column="city" property="city" jdbcType="VARCHAR" />
-    <result column="country" property="country" jdbcType="VARCHAR" />
-    <result column="sessionkey" property="sessionkey" jdbcType="VARCHAR" />
-  </resultMap>
+    <resultMap id="BaseResultMap" type="com.wuwei.base.wechat.model.XiLeWangUser" >
+        <id column="openid" property="openid" jdbcType="VARCHAR" />
+        <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+        <result column="avatar_url" property="avatarUrl" jdbcType="VARCHAR" />
+        <result column="gender" property="gender" jdbcType="BIT" />
+        <result column="language" property="language" jdbcType="VARCHAR" />
+        <result column="province" property="province" jdbcType="VARCHAR" />
+        <result column="city" property="city" jdbcType="VARCHAR" />
+        <result column="country" property="country" jdbcType="VARCHAR" />
+        <result column="sessionkey" property="sessionkey" jdbcType="VARCHAR" />
+        <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+        <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
+    </resultMap>
 
-  <sql id="Base_Column_List" >
-    openid, nick_name, avatar_url, gender, language, province, city, country, sessionkey
-  </sql>
+    <sql id="Base_Column_List" >
+        openid, nick_name, avatar_url, gender, language, province, city, country, sessionkey, gmt_create, gmt_modified
+    </sql>
 
-  <select id="selectByOpenid" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select
-        <include refid="Base_Column_List" />
-    from
-        xilewang_user
-    where
-        openid = #{openid,jdbcType=VARCHAR}
-  </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select
+            <include refid="Base_Column_List" />
+        from
+            xilewang_user
+        where
+            openid = #{openid,jdbcType=VARCHAR}
+    </select>
 
-  <insert id="insert" parameterType="com.wuwei.base.wechat.model.XiLeWangUser" >
-    insert into
-      xilewang_user (openid, nick_name, avatar_url, gender, language, province, city, country, sessionkey)
-    values
-      (#{openid,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, #{avatarUrl,jdbcType=VARCHAR},
-      #{gender,jdbcType=INTEGER}, #{language,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR},
-      #{city,jdbcType=VARCHAR}, #{country,jdbcType=VARCHAR}, #{sessionkey,jdbcType=VARCHAR})
-  </insert>
+    <insert id="insert" parameterType="com.wuwei.base.wechat.model.XiLeWangUser" >
+        insert into
+          xilewang_user (openid, nick_name, avatar_url,gender, language, province,city, country,
+                         sessionkey,gmt_create, gmt_modified)
+        values
+           (#{openid,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, #{avatarUrl,jdbcType=VARCHAR},
+                #{gender,jdbcType=BIT}, #{language,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR},
+                #{city,jdbcType=VARCHAR}, #{country,jdbcType=VARCHAR}, #{sessionkey,jdbcType=VARCHAR},
+                #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP})
+    </insert>
 
-  <insert id="insertSelective" parameterType="com.wuwei.base.wechat.model.XiLeWangUser" >
-    insert into
-        xilewang_user
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="openid != null" >
-        openid,
-      </if>
-      <if test="nickName != null" >
-        nick_name,
-      </if>
-      <if test="avatarUrl != null" >
-        avatar_url,
-      </if>
-      <if test="gender != null" >
-        gender,
-      </if>
-      <if test="language != null" >
-        language,
-      </if>
-      <if test="province != null" >
-        province,
-      </if>
-      <if test="city != null" >
-        city,
-      </if>
-      <if test="country != null" >
-        country,
-      </if>
-      <if test="sessionkey != null" >
-        sessionkey,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="openid != null" >
-        #{openid,jdbcType=VARCHAR},
-      </if>
-      <if test="nickName != null" >
-        #{nickName,jdbcType=VARCHAR},
-      </if>
-      <if test="avatarUrl != null" >
-        #{avatarUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="gender != null" >
-        #{gender,jdbcType=INTEGER},
-      </if>
-      <if test="language != null" >
-        #{language,jdbcType=VARCHAR},
-      </if>
-      <if test="province != null" >
-        #{province,jdbcType=VARCHAR},
-      </if>
-      <if test="city != null" >
-        #{city,jdbcType=VARCHAR},
-      </if>
-      <if test="country != null" >
-        #{country,jdbcType=VARCHAR},
-      </if>
-      <if test="sessionkey != null" >
-        #{sessionkey,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
+    <insert id="insertSelective" parameterType="com.wuwei.base.wechat.model.XiLeWangUser" >
+        insert into xilewang_user
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="openid != null" >
+                openid,
+            </if>
+            <if test="nickName != null" >
+                nick_name,
+            </if>
+            <if test="avatarUrl != null" >
+                avatar_url,
+            </if>
+            <if test="gender != null" >
+                gender,
+            </if>
+            <if test="language != null" >
+                language,
+            </if>
+            <if test="province != null" >
+                province,
+            </if>
+            <if test="city != null" >
+                city,
+            </if>
+            <if test="country != null" >
+                country,
+            </if>
+            <if test="sessionkey != null" >
+                sessionkey,
+            </if>
+            <if test="gmtCreate != null" >
+                gmt_create,
+            </if>
+            <if test="gmtModified != null" >
+                gmt_modified,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="openid != null" >
+                #{openid,jdbcType=VARCHAR},
+            </if>
+            <if test="nickName != null" >
+                #{nickName,jdbcType=VARCHAR},
+            </if>
+            <if test="avatarUrl != null" >
+                #{avatarUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="gender != null" >
+                #{gender,jdbcType=BIT},
+            </if>
+            <if test="language != null" >
+                #{language,jdbcType=VARCHAR},
+            </if>
+            <if test="province != null" >
+                #{province,jdbcType=VARCHAR},
+            </if>
+            <if test="city != null" >
+                #{city,jdbcType=VARCHAR},
+            </if>
+            <if test="country != null" >
+                #{country,jdbcType=VARCHAR},
+            </if>
+            <if test="sessionkey != null" >
+                #{sessionkey,jdbcType=VARCHAR},
+            </if>
+            <if test="gmtCreate != null" >
+                #{gmtCreate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="gmtModified != null" >
+                #{gmtModified,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
 
-  <update id="updateByOpenid" parameterType="com.wuwei.base.wechat.model.XiLeWangUser" >
-    update
-        xilewang_user
-    <set>
-      <if test="nickName != null" >
-        nick_name = #{nickName,jdbcType=VARCHAR},
-      </if>
-      <if test="avatarUrl != null" >
-        avatar_url = #{avatarUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="gender != null" >
-        gender = #{gender,jdbcType=INTEGER},
-      </if>
-      <if test="language != null" >
-        language = #{language,jdbcType=VARCHAR},
-      </if>
-      <if test="province != null" >
-        province = #{province,jdbcType=VARCHAR},
-      </if>
-      <if test="city != null" >
-        city = #{city,jdbcType=VARCHAR},
-      </if>
-      <if test="country != null" >
-        country = #{country,jdbcType=VARCHAR},
-      </if>
-      <if test="sessionkey != null" >
-        sessionkey = #{sessionkey,jdbcType=VARCHAR}
-      </if>
-    </set>
-    where
-      openid = #{openid,jdbcType=VARCHAR}
-  </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.wuwei.base.wechat.model.XiLeWangUser" >
+        update xilewang_user
+        <set >
+            <if test="nickName != null" >
+                nick_name = #{nickName,jdbcType=VARCHAR},
+            </if>
+            <if test="avatarUrl != null" >
+                avatar_url = #{avatarUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="gender != null" >
+                gender = #{gender,jdbcType=BIT},
+            </if>
+            <if test="language != null" >
+                language = #{language,jdbcType=VARCHAR},
+            </if>
+            <if test="province != null" >
+                province = #{province,jdbcType=VARCHAR},
+            </if>
+            <if test="city != null" >
+                city = #{city,jdbcType=VARCHAR},
+            </if>
+            <if test="country != null" >
+                country = #{country,jdbcType=VARCHAR},
+            </if>
+            <if test="sessionkey != null" >
+                sessionkey = #{sessionkey,jdbcType=VARCHAR},
+            </if>
+            <if test="gmtCreate != null" >
+                gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="gmtModified != null" >
+                gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where openid = #{openid,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.wuwei.base.wechat.model.XiLeWangUser" >
+        update xilewang_user
+        set nick_name = #{nickName,jdbcType=VARCHAR},
+            avatar_url = #{avatarUrl,jdbcType=VARCHAR},
+            gender = #{gender,jdbcType=BIT},
+            language = #{language,jdbcType=VARCHAR},
+            province = #{province,jdbcType=VARCHAR},
+            city = #{city,jdbcType=VARCHAR},
+            country = #{country,jdbcType=VARCHAR},
+            sessionkey = #{sessionkey,jdbcType=VARCHAR},
+            gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+            gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+        where openid = #{openid,jdbcType=VARCHAR}
+    </update>
+
 </mapper>

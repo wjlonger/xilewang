@@ -1,6 +1,7 @@
 package com.wuwei.base.wechat.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class XiLeWangUser implements Serializable {
 
@@ -12,7 +13,7 @@ public class XiLeWangUser implements Serializable {
 
     private String avatarUrl;
 
-    private Integer gender;
+    private Boolean gender;
 
     private String language;
 
@@ -23,6 +24,18 @@ public class XiLeWangUser implements Serializable {
     private String country;
 
     private String sessionkey;
+
+    private Date gmtCreate;
+
+    private Date gmtModified;
+
+    public String getOpenid() {
+        return openid;
+    }
+
+    public void setOpenid(String openid) {
+        this.openid = openid == null ? null : openid.trim();
+    }
 
     public String getNickName() {
         return nickName;
@@ -40,11 +53,11 @@ public class XiLeWangUser implements Serializable {
         this.avatarUrl = avatarUrl == null ? null : avatarUrl.trim();
     }
 
-    public Integer getGender() {
+    public Boolean getGender() {
         return gender;
     }
 
-    public void setGender(Integer gender) {
+    public void setGender(Boolean gender) {
         this.gender = gender;
     }
 
@@ -80,19 +93,27 @@ public class XiLeWangUser implements Serializable {
         this.country = country == null ? null : country.trim();
     }
 
-    public String getOpenid() {
-        return openid;
-    }
-
-    public void setOpenid(String openid) {
-        this.openid = openid == null ? null : openid.trim();
-    }
-
     public String getSessionkey() {
         return sessionkey;
     }
 
     public void setSessionkey(String sessionkey) {
         this.sessionkey = sessionkey == null ? null : sessionkey.trim();
+    }
+
+    public Date getGmtCreate() {
+        return gmtCreate;
+    }
+
+    public void setGmtCreate(Date gmtCreate) {
+        this.gmtCreate = gmtCreate;
+    }
+
+    public Date getGmtModified() {
+        return gmtModified;
+    }
+
+    public void setGmtModified(Date gmtModified) {
+        this.gmtModified = gmtModified;
     }
 }

@@ -7,13 +7,14 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class XiLeWangUserServiceHystric implements XiLeWangUserService {
 
+
     @Override
     public String code2Session(String code) {
         return null;
     }
 
     @Override
-    public XiLeWangUser selectByOpenid(String openid) {
+    public XiLeWangUser selectByPrimaryKey(String openid) {
         return null;
     }
 
@@ -28,7 +29,12 @@ public class XiLeWangUserServiceHystric implements XiLeWangUserService {
     }
 
     @Override
-    public int updateByOpenid(XiLeWangUser xiLeWangUser) {
+    public int updateByPrimaryKey(XiLeWangUser xiLeWangUser) {
+        return 0;
+    }
+
+    @Override
+    public int updateByPrimaryKeySelective(XiLeWangUser xiLeWangUser) {
         return 0;
     }
 

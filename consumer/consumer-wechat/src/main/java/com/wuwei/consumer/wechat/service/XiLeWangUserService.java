@@ -16,7 +16,7 @@ public interface XiLeWangUserService extends com.wuwei.base.wechat.service.XiLeW
 
     @Override
     @RequestLine("GET /{openid}")
-    XiLeWangUser selectByOpenid(@Param("openid") String openid);
+    XiLeWangUser selectByPrimaryKey (@Param("openid") String openid);
 
     @Override
     @RequestLine("POST /")
@@ -28,7 +28,11 @@ public interface XiLeWangUserService extends com.wuwei.base.wechat.service.XiLeW
 
     @Override
     @RequestLine("PUT /")
-    int updateByOpenid(@RequestBody XiLeWangUser xiLeWangUser);
+    int updateByPrimaryKey(@RequestBody XiLeWangUser xiLeWangUser);
+
+    @Override
+    @RequestLine("PUT /updateByPrimaryKeySelective")
+    int updateByPrimaryKeySelective(@RequestBody XiLeWangUser xiLeWangUser);
 
     @Override
     @RequestLine("POST /save")
