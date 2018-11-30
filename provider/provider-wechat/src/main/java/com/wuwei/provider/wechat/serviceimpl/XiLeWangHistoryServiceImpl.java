@@ -6,6 +6,8 @@ import com.wuwei.provider.wechat.mapper.XiLeWangHistoryMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service("xiLeWangHistoryService")
 public class XiLeWangHistoryServiceImpl implements XiLeWangHistoryService {
 
@@ -25,6 +27,8 @@ public class XiLeWangHistoryServiceImpl implements XiLeWangHistoryService {
         if(null == xiLeWangHistory){
             return 0;
         }
+        xiLeWangHistory.setGmtCreate(new Date());
+        xiLeWangHistory.setGmtModified(new Date());
         return xiLeWangHistoryMapper.insert(xiLeWangHistory);
     }
 
@@ -33,6 +37,8 @@ public class XiLeWangHistoryServiceImpl implements XiLeWangHistoryService {
         if(null == xiLeWangHistory){
             return 0;
         }
+        xiLeWangHistory.setGmtCreate(new Date());
+        xiLeWangHistory.setGmtModified(new Date());
         return xiLeWangHistoryMapper.insertSelective(xiLeWangHistory);
     }
 
@@ -41,6 +47,7 @@ public class XiLeWangHistoryServiceImpl implements XiLeWangHistoryService {
         if(null == xiLeWangHistory){
             return 0;
         }
+        xiLeWangHistory.setGmtModified(new Date());
         return xiLeWangHistoryMapper.updateByPrimaryKeySelective(xiLeWangHistory);
     }
 
@@ -49,6 +56,7 @@ public class XiLeWangHistoryServiceImpl implements XiLeWangHistoryService {
         if(null == xiLeWangHistory){
             return 0;
         }
+        xiLeWangHistory.setGmtModified(new Date());
         return xiLeWangHistoryMapper.updateByPrimaryKey(xiLeWangHistory);
     }
 

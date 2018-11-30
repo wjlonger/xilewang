@@ -1,104 +1,217 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.wuwei.provider.wechat.mapper.XiLeWangHistoryMapper" >
-  <resultMap id="BaseResultMap" type="com.wuwei.base.wechat.model.XiLeWangHistory" >
-    <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="sku_id" property="skuId" jdbcType="BIGINT" />
-    <result column="sku_name" property="skuName" jdbcType="VARCHAR" />
-    <result column="openid" property="openid" jdbcType="VARCHAR" />
-    <result column="create_time" property="createTime" jdbcType="BIGINT" />
-    <result column="stay_time" property="stayTime" jdbcType="BIGINT" />
-  </resultMap>
-  <sql id="Base_Column_List" >
-    id, sku_id, sku_name, openid, create_time, stay_time
-  </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select 
-    <include refid="Base_Column_List" />
-    from xilewang_history
-    where id = #{id,jdbcType=BIGINT}
-  </select>
 
-  <insert id="insert" parameterType="com.wuwei.base.wechat.model.XiLeWangHistory" >
-    insert into
-    xilewang_history (id, sku_id, sku_name, openid, create_time, stay_time)
-    values (#{id,jdbcType=BIGINT}, #{skuId,jdbcType=BIGINT}, #{skuName,jdbcType=VARCHAR},
-      #{openid,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}, #{stayTime,jdbcType=BIGINT})
-  </insert>
+    <resultMap id="BaseResultMap" type="com.wuwei.base.wechat.model.XiLeWangHistory" >
+      <id column="id" property="id" jdbcType="BIGINT" />
+      <result column="openid" property="openid" jdbcType="VARCHAR" />
+      <result column="sku_id" property="skuId" jdbcType="BIGINT" />
+      <result column="sku_name" property="skuName" jdbcType="VARCHAR" />
+      <result column="shop_id" property="shopId" jdbcType="INTEGER" />
+      <result column="shop_name" property="shopName" jdbcType="VARCHAR" />
+      <result column="category_one_id" property="categoryOneId" jdbcType="BIGINT" />
+      <result column="category_one_name" property="categoryOneName" jdbcType="VARCHAR" />
+      <result column="category_two_id" property="categoryTwoId" jdbcType="BIGINT" />
+      <result column="category_two_name" property="categoryTwoName" jdbcType="VARCHAR" />
+      <result column="category_three_id" property="categoryThreeId" jdbcType="BIGINT" />
+      <result column="category_three_name" property="categoryThreeName" jdbcType="VARCHAR" />
+      <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+      <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
+      <result column="stay_time" property="stayTime" jdbcType="BIGINT" />
+    </resultMap>
 
-  <insert id="insertSelective" parameterType="com.wuwei.base.wechat.model.XiLeWangHistory" >
-    insert into xilewang_history
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="skuId != null" >
-        sku_id,
-      </if>
-      <if test="skuName != null" >
-        sku_name,
-      </if>
-      <if test="openid != null" >
-        openid,
-      </if>
-      <if test="createTime != null" >
-        create_time,
-      </if>
-      <if test="stayTime != null" >
-        stay_time,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=BIGINT},
-      </if>
-      <if test="skuId != null" >
-        #{skuId,jdbcType=BIGINT},
-      </if>
-      <if test="skuName != null" >
-        #{skuName,jdbcType=VARCHAR},
-      </if>
-      <if test="openid != null" >
-        #{openid,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null" >
-        #{createTime,jdbcType=BIGINT},
-      </if>
-      <if test="stayTime != null" >
-        #{stayTime,jdbcType=BIGINT},
-      </if>
-    </trim>
-  </insert>
+    <sql id="Base_Column_List" >
+      id, openid, sku_id, sku_name, shop_id, shop_name, category_one_id, category_one_name,
+      category_two_id, category_two_name, category_three_id, category_three_name, gmt_create,
+      gmt_modified, stay_time
+    </sql>
 
-  <update id="updateByPrimaryKeySelective" parameterType="com.wuwei.base.wechat.model.XiLeWangHistory" >
-    update xilewang_history
-    <set >
-      <if test="skuId != null" >
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+      select
+      <include refid="Base_Column_List" />
+      from xilewang_history
+      where id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <insert id="insert" parameterType="com.wuwei.base.wechat.model.XiLeWangHistory" >
+      insert into xilewang_history (id, openid, sku_id,
+        sku_name, shop_id, shop_name,
+        category_one_id, category_one_name, category_two_id,
+        category_two_name, category_three_id, category_three_name,
+        gmt_create, gmt_modified, stay_time
+        )
+      values (#{id,jdbcType=BIGINT}, #{openid,jdbcType=VARCHAR}, #{skuId,jdbcType=BIGINT},
+        #{skuName,jdbcType=VARCHAR}, #{shopId,jdbcType=INTEGER}, #{shopName,jdbcType=VARCHAR},
+        #{categoryOneId,jdbcType=BIGINT}, #{categoryOneName,jdbcType=VARCHAR}, #{categoryTwoId,jdbcType=BIGINT},
+        #{categoryTwoName,jdbcType=VARCHAR}, #{categoryThreeId,jdbcType=BIGINT}, #{categoryThreeName,jdbcType=VARCHAR},
+        #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{stayTime,jdbcType=BIGINT}
+        )
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.wuwei.base.wechat.model.XiLeWangHistory" >
+      insert into xilewang_history
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="id != null" >
+          id,
+        </if>
+        <if test="openid != null" >
+          openid,
+        </if>
+        <if test="skuId != null" >
+          sku_id,
+        </if>
+        <if test="skuName != null" >
+          sku_name,
+        </if>
+        <if test="shopId != null" >
+          shop_id,
+        </if>
+        <if test="shopName != null" >
+          shop_name,
+        </if>
+        <if test="categoryOneId != null" >
+          category_one_id,
+        </if>
+        <if test="categoryOneName != null" >
+          category_one_name,
+        </if>
+        <if test="categoryTwoId != null" >
+          category_two_id,
+        </if>
+        <if test="categoryTwoName != null" >
+          category_two_name,
+        </if>
+        <if test="categoryThreeId != null" >
+          category_three_id,
+        </if>
+        <if test="categoryThreeName != null" >
+          category_three_name,
+        </if>
+        <if test="gmtCreate != null" >
+          gmt_create,
+        </if>
+        <if test="gmtModified != null" >
+          gmt_modified,
+        </if>
+        <if test="stayTime != null" >
+          stay_time,
+        </if>
+      </trim>
+      <trim prefix="values (" suffix=")" suffixOverrides="," >
+        <if test="id != null" >
+          #{id,jdbcType=BIGINT},
+        </if>
+        <if test="openid != null" >
+          #{openid,jdbcType=VARCHAR},
+        </if>
+        <if test="skuId != null" >
+          #{skuId,jdbcType=BIGINT},
+        </if>
+        <if test="skuName != null" >
+          #{skuName,jdbcType=VARCHAR},
+        </if>
+        <if test="shopId != null" >
+          #{shopId,jdbcType=INTEGER},
+        </if>
+        <if test="shopName != null" >
+          #{shopName,jdbcType=VARCHAR},
+        </if>
+        <if test="categoryOneId != null" >
+          #{categoryOneId,jdbcType=BIGINT},
+        </if>
+        <if test="categoryOneName != null" >
+          #{categoryOneName,jdbcType=VARCHAR},
+        </if>
+        <if test="categoryTwoId != null" >
+          #{categoryTwoId,jdbcType=BIGINT},
+        </if>
+        <if test="categoryTwoName != null" >
+          #{categoryTwoName,jdbcType=VARCHAR},
+        </if>
+        <if test="categoryThreeId != null" >
+          #{categoryThreeId,jdbcType=BIGINT},
+        </if>
+        <if test="categoryThreeName != null" >
+          #{categoryThreeName,jdbcType=VARCHAR},
+        </if>
+        <if test="gmtCreate != null" >
+          #{gmtCreate,jdbcType=TIMESTAMP},
+        </if>
+        <if test="gmtModified != null" >
+          #{gmtModified,jdbcType=TIMESTAMP},
+        </if>
+        <if test="stayTime != null" >
+          #{stayTime,jdbcType=BIGINT},
+        </if>
+      </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.wuwei.base.wechat.model.XiLeWangHistory" >
+      update xilewang_history
+      <set >
+        <if test="openid != null" >
+          openid = #{openid,jdbcType=VARCHAR},
+        </if>
+        <if test="skuId != null" >
+          sku_id = #{skuId,jdbcType=BIGINT},
+        </if>
+        <if test="skuName != null" >
+          sku_name = #{skuName,jdbcType=VARCHAR},
+        </if>
+        <if test="shopId != null" >
+          shop_id = #{shopId,jdbcType=INTEGER},
+        </if>
+        <if test="shopName != null" >
+          shop_name = #{shopName,jdbcType=VARCHAR},
+        </if>
+        <if test="categoryOneId != null" >
+          category_one_id = #{categoryOneId,jdbcType=BIGINT},
+        </if>
+        <if test="categoryOneName != null" >
+          category_one_name = #{categoryOneName,jdbcType=VARCHAR},
+        </if>
+        <if test="categoryTwoId != null" >
+          category_two_id = #{categoryTwoId,jdbcType=BIGINT},
+        </if>
+        <if test="categoryTwoName != null" >
+          category_two_name = #{categoryTwoName,jdbcType=VARCHAR},
+        </if>
+        <if test="categoryThreeId != null" >
+          category_three_id = #{categoryThreeId,jdbcType=BIGINT},
+        </if>
+        <if test="categoryThreeName != null" >
+          category_three_name = #{categoryThreeName,jdbcType=VARCHAR},
+        </if>
+        <if test="gmtCreate != null" >
+          gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+        </if>
+        <if test="gmtModified != null" >
+          gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+        </if>
+        <if test="stayTime != null" >
+          stay_time = #{stayTime,jdbcType=BIGINT},
+        </if>
+      </set>
+      where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.wuwei.base.wechat.model.XiLeWangHistory" >
+      update xilewang_history
+      set openid = #{openid,jdbcType=VARCHAR},
         sku_id = #{skuId,jdbcType=BIGINT},
-      </if>
-      <if test="skuName != null" >
         sku_name = #{skuName,jdbcType=VARCHAR},
-      </if>
-      <if test="openid != null" >
-        openid = #{openid,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null" >
-        create_time = #{createTime,jdbcType=BIGINT},
-      </if>
-      <if test="stayTime != null" >
-        stay_time = #{stayTime,jdbcType=BIGINT},
-      </if>
-    </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
+        shop_id = #{shopId,jdbcType=INTEGER},
+        shop_name = #{shopName,jdbcType=VARCHAR},
+        category_one_id = #{categoryOneId,jdbcType=BIGINT},
+        category_one_name = #{categoryOneName,jdbcType=VARCHAR},
+        category_two_id = #{categoryTwoId,jdbcType=BIGINT},
+        category_two_name = #{categoryTwoName,jdbcType=VARCHAR},
+        category_three_id = #{categoryThreeId,jdbcType=BIGINT},
+        category_three_name = #{categoryThreeName,jdbcType=VARCHAR},
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+        stay_time = #{stayTime,jdbcType=BIGINT}
+      where id = #{id,jdbcType=BIGINT}
+    </update>
 
-  <update id="updateByPrimaryKey" parameterType="com.wuwei.base.wechat.model.XiLeWangHistory" >
-    update xilewang_history
-    set sku_id = #{skuId,jdbcType=BIGINT},
-      sku_name = #{skuName,jdbcType=VARCHAR},
-      openid = #{openid,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=BIGINT},
-      stay_time = #{stayTime,jdbcType=BIGINT}
-    where id = #{id,jdbcType=BIGINT}
-  </update>
 </mapper>

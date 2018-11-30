@@ -36,7 +36,6 @@ public class XiLeWangHistoryController {
         final long id = IdGenerator.nextId();
         xiLeWangHistory.setId(id);
         xiLeWangHistory.setOpenid(Current.getOpenid());
-        xiLeWangHistory.setCreateTime(System.currentTimeMillis());
         amqpTemplate.convertAndSend("xilewang_history_insert",xiLeWangHistory);
         json.put("code",1);
         json.put("errMsg","保存成功");
