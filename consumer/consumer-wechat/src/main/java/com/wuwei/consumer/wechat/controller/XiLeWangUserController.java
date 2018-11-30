@@ -20,12 +20,8 @@ public class XiLeWangUserController {
     private XiLeWangUserService xiLeWangUserService;
 
     @GetMapping("/code2Session/{code}")
-    public String code2Session(@PathVariable("code") String code, HttpServletRequest request){
-        if(StringUtils.isEmpty(code)){
-            return null;
-        }
+    public void code2Session(@PathVariable("code") String code){
         xiLeWangUserService.code2Session(code);
-        return request.getSession().getId();
     }
 
     @GetMapping("/refreshSession")
