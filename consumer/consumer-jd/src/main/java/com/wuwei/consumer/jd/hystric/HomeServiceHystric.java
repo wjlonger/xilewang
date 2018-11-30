@@ -1,7 +1,7 @@
 package com.wuwei.consumer.jd.hystric;
 
-import com.wuwei.base.jd.model.GoodsSearch;
 import com.wuwei.consumer.jd.service.HomeService;
+import jd.union.open.goods.query.request.GoodsReq;
 import jd.union.open.goods.query.response.UnionOpenGoodsQueryResponse;
 import org.springframework.context.annotation.Configuration;
 
@@ -14,7 +14,7 @@ public class HomeServiceHystric implements HomeService {
     }
 
     @Override
-    public UnionOpenGoodsQueryResponse explosiveGoods(GoodsSearch goodsSearch) {
+    public UnionOpenGoodsQueryResponse explosiveGoods(GoodsReq goodsReq) {
         return null;
     }
 }

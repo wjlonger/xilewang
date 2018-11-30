@@ -1,13 +1,12 @@
 package com.wuwei.consumer.wechat.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.wuwei.base.jd.model.PromotionSearch;
 import com.wuwei.base.utils.IdGenerator;
 import com.wuwei.base.wechat.model.XiLeWangOrder;
 import com.wuwei.consumer.wechat.service.XiLeWangPromotionService;
 import com.wuwei.consumer.wechat.service.XiLeWangOrderService;
 import com.wuwei.consumer.wechat.utils.Current;
-import org.springframework.amqp.core.AmqpTemplate;
+import jd.union.open.promotion.bysubunionid.get.request.PromotionCodeReq;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
-import java.util.Currency;
 
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 @RestController
@@ -42,10 +40,10 @@ public class XiLeWangGoodsController {
 
         long id = IdGenerator.nextId();
 
-        PromotionSearch promotionSearch = new PromotionSearch();
-        promotionSearch.setSubUnionId(String.valueOf(id));
-        promotionSearch.setMaterialId(String.format("https://wqitem.jd.com/item/view?sku=%d",skuId));
-        String url = xiLeWangPromotionService.GetBySubUnionId(promotionSearch);
+        PromotionCodeReq promotionCodeReq = new PromotionCodeReq();
+        promotionCodeReq.setSubUnionId(String.valueOf(id));
+        promotionCodeReq.setMaterialId(String.format("https://wqitem.jd.com/item/view?sku=%d",skuId));
+        String url = xiLeWangPromotionService.getBySubUnionId(promotionCodeReq);
 
         if(!StringUtils.isEmpty(url)){
             XiLeWangOrder xiLeWangOrder = new XiLeWangOrder();

@@ -1,9 +1,9 @@
 package com.wuwei.base.jd.service;
 
-import com.wuwei.base.jd.model.PromotionSearch;
+import jd.union.open.promotion.bysubunionid.get.request.PromotionCodeReq;
 
 public interface PromotionService {
 
-    String GetBySubUnionId(PromotionSearch promotionSearch);
+    String getBySubUnionId(PromotionCodeReq promotionCodeReq);
 
 }

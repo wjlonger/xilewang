@@ -1,7 +1,7 @@
 package com.wuwei.consumer.jd.controller;
 
-import com.wuwei.base.jd.model.GoodsSearch;
 import com.wuwei.consumer.jd.service.HomeService;
+import jd.union.open.goods.query.request.GoodsReq;
 import jd.union.open.goods.query.response.CommissionInfo;
 import jd.union.open.goods.query.response.GoodsResp;
 import jd.union.open.goods.query.response.UnionOpenGoodsQueryResponse;
@@ -11,7 +11,6 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
@@ -34,8 +33,8 @@ public class HomeController {
     }
 
     @PostMapping("/explosiveGoods")
-    public UnionOpenGoodsQueryResponse explosiveGoods(@RequestBody GoodsSearch goodsSearch){
-        UnionOpenGoodsQueryResponse unionOpenGoodsQueryResponse = homeService.explosiveGoods(goodsSearch);
+    public UnionOpenGoodsQueryResponse explosiveGoods(@RequestBody GoodsReq goodsReq){
+        UnionOpenGoodsQueryResponse unionOpenGoodsQueryResponse = homeService.explosiveGoods(goodsReq);
         if(null != unionOpenGoodsQueryResponse){
             GoodsResp[] goodsResps = unionOpenGoodsQueryResponse.getData();
             if(null != goodsResps && goodsResps.length > 0){

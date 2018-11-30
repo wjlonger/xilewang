@@ -2,18 +2,13 @@ package com.wuwei.provider.jd.serviceimpl;
 
 import com.jd.open.api.sdk.JdClient;
 import com.jd.open.api.sdk.JdException;
-import com.wuwei.base.jd.model.GoodsSearch;
 import com.wuwei.base.jd.service.HomeService;
 import jd.union.open.goods.query.request.GoodsReq;
 import jd.union.open.goods.query.request.UnionOpenGoodsQueryRequest;
-import jd.union.open.goods.query.response.CommissionInfo;
 import jd.union.open.goods.query.response.GoodsResp;
 import jd.union.open.goods.query.response.UnionOpenGoodsQueryResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
-import java.math.BigDecimal;
 
 @Service("homeService")
 public class HomeServiceImpl implements HomeService {
@@ -27,33 +22,10 @@ public class HomeServiceImpl implements HomeService {
     }
 
     @Override
-    public UnionOpenGoodsQueryResponse explosiveGoods(GoodsSearch goodsSearch) {
+    public UnionOpenGoodsQueryResponse explosiveGoods(GoodsReq goodsReq) {
         UnionOpenGoodsQueryRequest request = new UnionOpenGoodsQueryRequest();
-        GoodsReq goodsReq = new GoodsReq();
-        if(null != goodsSearch){
-            goodsReq.setCid1(goodsSearch.getCid1());
-            goodsReq.setCid2(goodsSearch.getCid2());
-            goodsReq.setCid3(goodsSearch.getCid3());
-            goodsReq.setPageIndex(goodsSearch.getPageIndex());
-            goodsReq.setPageSize(goodsSearch.getPageSize());
-            if(null != goodsSearch.getSkuIds() && goodsSearch.getSkuIds().size() > 0){
-                goodsReq.setSkuIds((Long[])goodsSearch.getSkuIds().toArray());
-            }
-            goodsReq.setKeyword(goodsSearch.getKeyword());
-            goodsReq.setPricefrom(goodsSearch.getPricefrom());
-            goodsReq.setPriceto(goodsSearch.getPriceto());
-            goodsReq.setCommissionShareStart(goodsSearch.getCommissionShareStart());
-            goodsReq.setCommissionShareEnd(goodsSearch.getCommissionShareEnd());
-            goodsReq.setOwner(goodsSearch.getOwner());
-            goodsReq.setSortName(goodsSearch.getSortName());
-            goodsReq.setSort(goodsSearch.getSort());
-            goodsReq.setIsCoupon(goodsSearch.getIsCoupon());
-            goodsReq.setIsPG(goodsSearch.getIsPG());
-            goodsReq.setPingouPriceStart(goodsSearch.getPingouPriceStart());
-            goodsReq.setPingouPriceEnd(goodsSearch.getPingouPriceEnd());
-            goodsReq.setIsHot(goodsSearch.getIsHot());
-            goodsReq.setBrandCode(goodsSearch.getBrandCode());
-            goodsReq.setShopId(goodsSearch.getShopId());
+        if(null == goodsReq){
+            goodsReq = new GoodsReq();
         }
         request.setGoodsReqDTO(goodsReq);
         UnionOpenGoodsQueryResponse response = null;

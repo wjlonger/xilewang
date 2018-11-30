@@ -1,7 +1,7 @@
 package com.wuwei.provider.jd.controller;
 
-import com.wuwei.base.jd.model.PromotionSearch;
 import com.wuwei.base.jd.service.PromotionService;
+import jd.union.open.promotion.bysubunionid.get.request.PromotionCodeReq;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
@@ -18,9 +18,9 @@ public class PromotionController {
     @Autowired
     private PromotionService promotionService;
 
-    @PostMapping("/GetBySubUnionId")
-    public String GetBySubUnionId(@RequestBody PromotionSearch promotionSearch){
-        return promotionService.GetBySubUnionId(promotionSearch);
+    @PostMapping("/getBySubUnionId")
+    public String getBySubUnionId(@RequestBody PromotionCodeReq promotionCodeReq){
+        return promotionService.getBySubUnionId(promotionCodeReq);
     }
 
 }
