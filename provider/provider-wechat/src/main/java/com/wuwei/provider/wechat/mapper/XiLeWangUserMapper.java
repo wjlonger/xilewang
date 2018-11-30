@@ -1,7 +1,6 @@
 package com.wuwei.provider.wechat.mapper;
 
 import com.wuwei.base.wechat.model.XiLeWangUser;
-import org.apache.ibatis.annotations.Param;
 
 public interface XiLeWangUserMapper {
 
@@ -9,7 +8,7 @@ public interface XiLeWangUserMapper {
 
     int insertSelective(XiLeWangUser xiLeWangUser);
 
-    XiLeWangUser selectByPrimaryKey(@Param("openid") String openid);
+    XiLeWangUser selectByPrimaryKey(String openid);
 
     int updateByPrimaryKeySelective(XiLeWangUser xiLeWangUser);
 

@@ -1,12 +1,9 @@
 package com.wuwei.base.wechat.model;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 
-public class XiLeWangOrder implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-
+public class XiLeWangOrder {
     private Long id;
 
     private String openid;
@@ -18,6 +15,10 @@ public class XiLeWangOrder implements Serializable {
     private String url;
 
     private Long assistanceId;
+
+    private Date gmtCreate;
+
+    private Date gmtModified;
 
     public Long getId() {
         return id;
@@ -65,5 +66,21 @@ public class XiLeWangOrder implements Serializable {
 
     public void setAssistanceId(Long assistanceId) {
         this.assistanceId = assistanceId;
+    }
+
+    public Date getGmtCreate() {
+        return gmtCreate;
+    }
+
+    public void setGmtCreate(Date gmtCreate) {
+        this.gmtCreate = gmtCreate;
+    }
+
+    public Date getGmtModified() {
+        return gmtModified;
+    }
+
+    public void setGmtModified(Date gmtModified) {
+        this.gmtModified = gmtModified;
     }
 }
