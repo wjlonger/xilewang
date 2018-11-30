@@ -25,7 +25,7 @@ import java.math.BigDecimal;
 public class XiLeWangGoodsController {
 
     @Value("${goods.ratio}")
-    private double raido;
+    private BigDecimal ratio;
 
     @Autowired
     private XiLeWangPromotionService xiLeWangPromotionService;
@@ -51,7 +51,7 @@ public class XiLeWangGoodsController {
             xiLeWangOrder.setSkuId(skuId);
             xiLeWangOrder.setOpenid(Current.getOpenid());
             xiLeWangOrder.setUrl(url);
-            xiLeWangOrder.setInitialRatio(new BigDecimal(raido));
+            xiLeWangOrder.setInitialRatio(ratio);
             xiLeWangOrder.setAssistanceId(0L);
             int i = xiLeWangOrderService.insertSelective(xiLeWangOrder);
             if(i <= 0){

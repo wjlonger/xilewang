@@ -8,3 +8,4 @@
 /route/target/
 .gitignore
 .idea/workspace.xml
+/target/

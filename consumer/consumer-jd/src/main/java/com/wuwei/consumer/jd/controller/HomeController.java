@@ -22,7 +22,7 @@ public class HomeController {
     private HomeService homeService;
 
     @Value("${goods.ratio}")
-    private double ratio;
+    private BigDecimal ratio;
 
     @Value("${math.scale}")
     private int scale;
@@ -34,6 +34,7 @@ public class HomeController {
 
     @PostMapping("/explosiveGoods")
     public UnionOpenGoodsQueryResponse explosiveGoods(@RequestBody GoodsReq goodsReq){
+        BigDecimal percent = new BigDecimal(100);
         UnionOpenGoodsQueryResponse unionOpenGoodsQueryResponse = homeService.explosiveGoods(goodsReq);
         if(null != unionOpenGoodsQueryResponse){
             GoodsResp[] goodsResps = unionOpenGoodsQueryResponse.getData();
@@ -44,7 +45,7 @@ public class HomeController {
                         if(null != commissionInfos && commissionInfos.length > 0){
                             for(CommissionInfo commissionInfo : commissionInfos){
                                 if(null != commissionInfo){
-                                    commissionInfo.setCommission(new BigDecimal(commissionInfo.getCommission()).multiply(new BigDecimal(ratio)).divide(new BigDecimal(100)).setScale(scale,BigDecimal.ROUND_HALF_UP).doubleValue());
+                                    commissionInfo.setCommission(new BigDecimal(commissionInfo.getCommission()).multiply(ratio).divide(percent).setScale(scale,BigDecimal.ROUND_HALF_UP).doubleValue());
                                 }
                             }
                         }
