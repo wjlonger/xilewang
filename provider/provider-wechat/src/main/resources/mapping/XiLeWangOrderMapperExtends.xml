@@ -2,167 +2,109 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.wuwei.provider.wechat.mapper.XiLeWangOrderMapper" >
 
-  <resultMap id="BaseResultMap" type="com.wuwei.base.wechat.model.XiLeWangOrder" >
-    <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="sku_id" property="skuId" jdbcType="BIGINT" />
-    <result column="openid" property="openid" jdbcType="VARCHAR" />
-    <result column="sku_name" property="skuName" jdbcType="VARCHAR" />
-    <result column="commission" property="commission" jdbcType="DOUBLE" />
-    <result column="commission_share" property="commissionShare" jdbcType="DOUBLE" />
-    <result column="images" property="images" jdbcType="VARCHAR" />
-    <result column="price" property="price" jdbcType="DOUBLE" />
-    <result column="ratio" property="ratio" jdbcType="DOUBLE" />
-    <result column="expect_money" property="expectMoney" jdbcType="DECIMAL" />
-    <result column="url" property="url" jdbcType="VARCHAR" />
-  </resultMap>
+    <resultMap id="BaseResultMap" type="com.wuwei.base.wechat.model.XiLeWangOrder">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="openid" jdbcType="VARCHAR" property="openid" />
+        <result column="sku_id" jdbcType="BIGINT" property="skuId" />
+        <result column="initial_ratio" jdbcType="DECIMAL" property="initialRatio" />
+        <result column="url" jdbcType="VARCHAR" property="url" />
+        <result column="assistance_id" jdbcType="BIGINT" property="assistanceId" />
+    </resultMap>
 
-  <sql id="Base_Column_List" >
-    id, sku_id, openid, sku_name, commission, commission_share, images, price, ratio, 
-    expect_money, url
-  </sql>
+    <sql id="Base_Column_List">
+        id, openid, sku_id, initial_ratio, url, assistance_id
+    </sql>
 
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select 
-    <include refid="Base_Column_List" />
-    from xilewang_order
-    where id = #{id,jdbcType=BIGINT}
-  </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from xilewang_order
+        where id = #{id,jdbcType=BIGINT}
+    </select>
 
-  <insert id="insert" parameterType="com.wuwei.base.wechat.model.XiLeWangOrder" >
-    insert into xilewang_order (id, sku_id, openid, 
-      sku_name, commission, commission_share, 
-      images, price, ratio, 
-      expect_money, url)
-    values (#{id,jdbcType=BIGINT}, #{skuId,jdbcType=BIGINT}, #{openid,jdbcType=VARCHAR}, 
-      #{skuName,jdbcType=VARCHAR}, #{commission,jdbcType=DOUBLE}, #{commissionShare,jdbcType=DOUBLE}, 
-      #{images,jdbcType=VARCHAR}, #{price,jdbcType=DOUBLE}, #{ratio,jdbcType=DOUBLE}, 
-      #{expectMoney,jdbcType=DECIMAL}, #{url,jdbcType=VARCHAR})
-  </insert>
+    <insert id="insert" parameterType="com.wuwei.base.wechat.model.XiLeWangOrder">
+        insert into xilewang_order (id, openid, sku_id,
+          initial_ratio, url, assistance_id
+          )
+        values (#{id,jdbcType=BIGINT}, #{openid,jdbcType=VARCHAR}, #{skuId,jdbcType=BIGINT},
+          #{initialRatio,jdbcType=DECIMAL}, #{url,jdbcType=VARCHAR}, #{assistanceId,jdbcType=BIGINT}
+          )
+    </insert>
 
-  <insert id="insertSelective" parameterType="com.wuwei.base.wechat.model.XiLeWangOrder" >
-    insert into xilewang_order
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="skuId != null" >
-        sku_id,
-      </if>
-      <if test="openid != null" >
-        openid,
-      </if>
-      <if test="skuName != null" >
-        sku_name,
-      </if>
-      <if test="commission != null" >
-        commission,
-      </if>
-      <if test="commissionShare != null" >
-        commission_share,
-      </if>
-      <if test="images != null" >
-        images,
-      </if>
-      <if test="price != null" >
-        price,
-      </if>
-      <if test="ratio != null" >
-        ratio,
-      </if>
-      <if test="expectMoney != null" >
-        expect_money,
-      </if>
-      <if test="url != null" >
-        url,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=BIGINT},
-      </if>
-      <if test="skuId != null" >
-        #{skuId,jdbcType=BIGINT},
-      </if>
-      <if test="openid != null" >
-        #{openid,jdbcType=VARCHAR},
-      </if>
-      <if test="skuName != null" >
-        #{skuName,jdbcType=VARCHAR},
-      </if>
-      <if test="commission != null" >
-        #{commission,jdbcType=DOUBLE},
-      </if>
-      <if test="commissionShare != null" >
-        #{commissionShare,jdbcType=DOUBLE},
-      </if>
-      <if test="images != null" >
-        #{images,jdbcType=VARCHAR},
-      </if>
-      <if test="price != null" >
-        #{price,jdbcType=DOUBLE},
-      </if>
-      <if test="ratio != null" >
-        #{ratio,jdbcType=DOUBLE},
-      </if>
-      <if test="expectMoney != null" >
-        #{expectMoney,jdbcType=DECIMAL},
-      </if>
-      <if test="url != null" >
-        #{url,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
+    <insert id="insertSelective" parameterType="com.wuwei.base.wechat.model.XiLeWangOrder">
+        insert into xilewang_order
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="openid != null">
+                openid,
+            </if>
+            <if test="skuId != null">
+                sku_id,
+            </if>
+            <if test="initialRatio != null">
+                initial_ratio,
+            </if>
+            <if test="url != null">
+                url,
+            </if>
+            <if test="assistanceId != null">
+                assistance_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="openid != null">
+                #{openid,jdbcType=VARCHAR},
+            </if>
+            <if test="skuId != null">
+                #{skuId,jdbcType=BIGINT},
+            </if>
+            <if test="initialRatio != null">
+                #{initialRatio,jdbcType=DECIMAL},
+            </if>
+            <if test="url != null">
+                #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="assistanceId != null">
+                #{assistanceId,jdbcType=BIGINT},
+            </if>
+        </trim>
+    </insert>
 
-  <update id="updateByPrimaryKeySelective" parameterType="com.wuwei.base.wechat.model.XiLeWangOrder" >
-    update xilewang_order
-    <set >
-      <if test="skuId != null" >
-        sku_id = #{skuId,jdbcType=BIGINT},
-      </if>
-      <if test="openid != null" >
-        openid = #{openid,jdbcType=VARCHAR},
-      </if>
-      <if test="skuName != null" >
-        sku_name = #{skuName,jdbcType=VARCHAR},
-      </if>
-      <if test="commission != null" >
-        commission = #{commission,jdbcType=DOUBLE},
-      </if>
-      <if test="commissionShare != null" >
-        commission_share = #{commissionShare,jdbcType=DOUBLE},
-      </if>
-      <if test="images != null" >
-        images = #{images,jdbcType=VARCHAR},
-      </if>
-      <if test="price != null" >
-        price = #{price,jdbcType=DOUBLE},
-      </if>
-      <if test="ratio != null" >
-        ratio = #{ratio,jdbcType=DOUBLE},
-      </if>
-      <if test="expectMoney != null" >
-        expect_money = #{expectMoney,jdbcType=DECIMAL},
-      </if>
-      <if test="url != null" >
-        url = #{url,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.wuwei.base.wechat.model.XiLeWangOrder">
+        update xilewang_order
+        <set>
+            <if test="openid != null">
+                openid = #{openid,jdbcType=VARCHAR},
+            </if>
+            <if test="skuId != null">
+                sku_id = #{skuId,jdbcType=BIGINT},
+            </if>
+            <if test="initialRatio != null">
+                initial_ratio = #{initialRatio,jdbcType=DECIMAL},
+            </if>
+            <if test="url != null">
+                url = #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="assistanceId != null">
+                assistance_id = #{assistanceId,jdbcType=BIGINT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
 
-  <update id="updateByPrimaryKey" parameterType="com.wuwei.base.wechat.model.XiLeWangOrder" >
-    update xilewang_order
-    set sku_id = #{skuId,jdbcType=BIGINT},
-      openid = #{openid,jdbcType=VARCHAR},
-      sku_name = #{skuName,jdbcType=VARCHAR},
-      commission = #{commission,jdbcType=DOUBLE},
-      commission_share = #{commissionShare,jdbcType=DOUBLE},
-      images = #{images,jdbcType=VARCHAR},
-      price = #{price,jdbcType=DOUBLE},
-      ratio = #{ratio,jdbcType=DOUBLE},
-      expect_money = #{expectMoney,jdbcType=DECIMAL},
-      url = #{url,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=BIGINT}
-  </update>
+    <update id="updateByPrimaryKey" parameterType="com.wuwei.base.wechat.model.XiLeWangOrder">
+        update xilewang_order
+        set openid = #{openid,jdbcType=VARCHAR},
+          sku_id = #{skuId,jdbcType=BIGINT},
+          initial_ratio = #{initialRatio,jdbcType=DECIMAL},
+          url = #{url,jdbcType=VARCHAR},
+          assistance_id = #{assistanceId,jdbcType=BIGINT}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
 
 </mapper>

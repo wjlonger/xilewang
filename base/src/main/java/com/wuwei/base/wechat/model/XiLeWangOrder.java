@@ -9,25 +9,15 @@ public class XiLeWangOrder implements Serializable {
 
     private Long id;
 
-    private Long skuId;
-
     private String openid;
 
-    private String skuName;
+    private Long skuId;
 
-    private Double commission;
-
-    private Double commissionShare;
-
-    private String images;
-
-    private Double price;
-
-    private Double ratio;
-
-    private BigDecimal expectMoney;
+    private BigDecimal initialRatio;
 
     private String url;
+
+    private Long assistanceId;
 
     public Long getId() {
         return id;
@@ -35,14 +25,6 @@ public class XiLeWangOrder implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getSkuId() {
-        return skuId;
-    }
-
-    public void setSkuId(Long skuId) {
-        this.skuId = skuId;
     }
 
     public String getOpenid() {
@@ -53,60 +35,20 @@ public class XiLeWangOrder implements Serializable {
         this.openid = openid == null ? null : openid.trim();
     }
 
-    public String getSkuName() {
-        return skuName;
+    public Long getSkuId() {
+        return skuId;
     }
 
-    public void setSkuName(String skuName) {
-        this.skuName = skuName == null ? null : skuName.trim();
+    public void setSkuId(Long skuId) {
+        this.skuId = skuId;
     }
 
-    public Double getCommission() {
-        return commission;
+    public BigDecimal getInitialRatio() {
+        return initialRatio;
     }
 
-    public void setCommission(Double commission) {
-        this.commission = commission;
-    }
-
-    public Double getCommissionShare() {
-        return commissionShare;
-    }
-
-    public void setCommissionShare(Double commissionShare) {
-        this.commissionShare = commissionShare;
-    }
-
-    public String getImages() {
-        return images;
-    }
-
-    public void setImages(String images) {
-        this.images = images == null ? null : images.trim();
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
-    public Double getRatio() {
-        return ratio;
-    }
-
-    public void setRatio(Double ratio) {
-        this.ratio = ratio;
-    }
-
-    public BigDecimal getExpectMoney() {
-        return expectMoney;
-    }
-
-    public void setExpectMoney(BigDecimal expectMoney) {
-        this.expectMoney = expectMoney;
+    public void setInitialRatio(BigDecimal initialRatio) {
+        this.initialRatio = initialRatio;
     }
 
     public String getUrl() {
@@ -115,5 +57,13 @@ public class XiLeWangOrder implements Serializable {
 
     public void setUrl(String url) {
         this.url = url == null ? null : url.trim();
+    }
+
+    public Long getAssistanceId() {
+        return assistanceId;
+    }
+
+    public void setAssistanceId(Long assistanceId) {
+        this.assistanceId = assistanceId;
     }
 }
