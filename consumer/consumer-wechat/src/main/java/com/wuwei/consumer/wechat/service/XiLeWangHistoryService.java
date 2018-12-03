@@ -12,7 +12,7 @@ public interface XiLeWangHistoryService extends com.wuwei.base.wechat.service.Xi
 
     @Override
     @RequestLine("GET /{id}")
-    XiLeWangHistory selectByPrimaryKey(@Param("id") Long id);
+    XiLeWangHistory selectByPrimaryKey(@Param("id") final Long id);
 
     @Override
     @RequestLine("POST /")

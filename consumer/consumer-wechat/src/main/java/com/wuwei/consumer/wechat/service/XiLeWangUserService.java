@@ -12,11 +12,11 @@ public interface XiLeWangUserService extends com.wuwei.base.wechat.service.XiLeW
 
     @Override
     @RequestLine("GET /code2Session/{code}")
-    String code2Session(@Param("code") String code);
+    String code2Session(@Param("code") final String code);
 
     @Override
     @RequestLine("GET /{openid}")
-    XiLeWangUser selectByPrimaryKey (@Param("openid") String openid);
+    XiLeWangUser selectByPrimaryKey (@Param("openid") final String openid);
 
     @Override
     @RequestLine("POST /")

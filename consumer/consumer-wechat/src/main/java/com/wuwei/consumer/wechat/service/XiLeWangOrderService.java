@@ -12,7 +12,7 @@ public interface XiLeWangOrderService extends com.wuwei.base.wechat.service.XiLe
 
     @Override
     @RequestLine("GET /{id}")
-    XiLeWangOrder selectByPrimaryKey(@Param("id") Long id);
+    XiLeWangOrder selectByPrimaryKey(@Param("id") final Long id);
 
     @Override
     @RequestLine("POST /")

@@ -12,6 +12,6 @@ public interface XiLeWangGoodsService extends GoodsService {
 
     @Override
     @RequestLine("GET /{skuId}")
-    GoodsResp goodsDetail(@Param("skuId") Long skuId);
+    GoodsResp goodsDetail(@Param("skuId") final Long skuId);
 
 }

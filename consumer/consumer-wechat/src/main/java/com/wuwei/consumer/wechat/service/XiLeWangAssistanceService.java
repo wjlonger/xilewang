@@ -16,7 +16,7 @@ public interface XiLeWangAssistanceService extends com.wuwei.base.wechat.service
 
     @Override
     @RequestLine("POST /")
-    int insertSelective(@RequestBody final XiLeWangAssistance xiLeWangAssistance);
+    int insertSelective(@RequestBody XiLeWangAssistance xiLeWangAssistance);
 
     @Override
     @RequestLine("GET /{id}")
@@ -24,7 +24,7 @@ public interface XiLeWangAssistanceService extends com.wuwei.base.wechat.service
 
     @Override
     @RequestLine("PUT /")
-    int updateByPrimaryKeySelective(@RequestBody final XiLeWangAssistance xiLeWangAssistance);
+    int updateByPrimaryKeySelective(@RequestBody XiLeWangAssistance xiLeWangAssistance);
 
     @Override
     @RequestLine("GET /{openId}/{skuId}")
