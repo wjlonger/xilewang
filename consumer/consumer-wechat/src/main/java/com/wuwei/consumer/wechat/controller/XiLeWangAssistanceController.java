@@ -26,27 +26,30 @@ public class XiLeWangAssistanceController {
 
     private JSONObject jsonObject = new JSONObject();
 
-    @PostMapping
-    public JSONObject insertSelective(Long skuId) {
-        XiLeWangAssistance xiLeWangAssistance = new XiLeWangAssistance();
-        final long id = IdGenerator.nextId();
-        xiLeWangAssistance.setId(id);
-        xiLeWangAssistance.setOpenid(Current.getOpenid());
-        xiLeWangAssistance.setSkuId(skuId);
-        xiLeWangAssistance.setInitialRatio(ratio);
-        int i = xiLeWangAssistanceService.insertSelective(xiLeWangAssistance);
-        if(i <= 0){
-            jsonObject.put("code",0);
+    @GetMapping("/{skuId}")
+    public JSONObject getAssistanceId(@PathVariable Long skuId) {
+        String openId = Current.getOpenid();
+        XiLeWangAssistance xiLeWangAssistance = xiLeWangAssistanceService.selectByOpenIdAndSkuId(openId,skuId);
+        System.out.println("xiLeWangAssistance 是否为null ：" + (xiLeWangAssistance == null));
+        if(null == xiLeWangAssistance){
+            xiLeWangAssistance = new XiLeWangAssistance();
+            final long id = IdGenerator.nextId();
+            xiLeWangAssistance.setId(id);
+            xiLeWangAssistance.setOpenid(openId);
+            xiLeWangAssistance.setSkuId(skuId);
+            xiLeWangAssistance.setInitialRatio(ratio);
+            int i = xiLeWangAssistanceService.insertSelective(xiLeWangAssistance);
+            if(i <= 0){
+                jsonObject.put("code",0);
+            }else{
+                jsonObject.put("code",1);
+                jsonObject.put("assistance",id);
+            }
         }else{
             jsonObject.put("code",1);
-            jsonObject.put("assistance",id);
+            jsonObject.put("assistance",xiLeWangAssistance.getId());
         }
         return jsonObject;
-    }
-
-    @GetMapping("/{id}")
-    public XiLeWangAssistance selectByPrimaryKey(@PathVariable("id") Long id) {
-        return xiLeWangAssistanceService.selectByPrimaryKey(id);
     }
 
     @PutMapping

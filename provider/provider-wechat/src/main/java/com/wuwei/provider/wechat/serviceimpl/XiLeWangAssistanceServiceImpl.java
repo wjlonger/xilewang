@@ -44,4 +44,9 @@ public class XiLeWangAssistanceServiceImpl implements XiLeWangAssistanceService 
         xiLeWangAssistance.setGmtModified(new Date());
         return xiLeWangAssistanceMapper.updateByPrimaryKeySelective(xiLeWangAssistance);
     }
+
+    @Override
+    public XiLeWangAssistance selectByOpenIdAndSkuId(String openId, Long skuId) {
+        return xiLeWangAssistanceMapper.selectByOpenIdAndSkuId(openId,skuId);
+    }
 }

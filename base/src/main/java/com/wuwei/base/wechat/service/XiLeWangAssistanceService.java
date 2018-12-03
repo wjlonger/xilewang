@@ -10,4 +10,5 @@ public interface XiLeWangAssistanceService {
 
     int updateByPrimaryKeySelective(XiLeWangAssistance xiLeWangAssistance);
 
+    XiLeWangAssistance selectByOpenIdAndSkuId(String openId, Long skuId);
 }

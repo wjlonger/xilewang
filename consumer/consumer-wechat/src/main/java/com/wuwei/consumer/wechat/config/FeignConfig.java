@@ -16,7 +16,7 @@ public class FeignConfig{
      */
     @Bean
     public Contract feignContract() {
-        return new feign.Contract.Default();
+        return new Contract.Default();
     }
 
 }

@@ -21,4 +21,9 @@ public class XiLeWangAssistanceServiceHystric implements XiLeWangAssistanceServi
     public int updateByPrimaryKeySelective(XiLeWangAssistance xiLeWangAssistance) {
         return 0;
     }
+
+    @Override
+    public XiLeWangAssistance selectByOpenIdAndSkuId(String openId, Long skuId) {
+        return null;
+    }
 }

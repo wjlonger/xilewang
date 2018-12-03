@@ -22,13 +22,18 @@ public class XiLeWangAssistanceController {
     }
 
     @GetMapping("/{id}")
-    public XiLeWangAssistance selectByPrimaryKey(@Param("id") Long id){
+    public XiLeWangAssistance selectByPrimaryKey(@PathVariable("id") Long id){
         return xiLeWangAssistanceService.selectByPrimaryKey(id);
     }
 
     @PutMapping
     public int updateByPrimaryKeySelective(@RequestBody XiLeWangAssistance xiLeWangAssistance){
         return xiLeWangAssistanceService.updateByPrimaryKeySelective(xiLeWangAssistance);
+    }
+
+    @GetMapping("/{openId}/{skuId}")
+    public XiLeWangAssistance selectByOpenIdAndSkuId(@PathVariable("openId") String openId, @PathVariable("skuId") Long skuId){
+        return xiLeWangAssistanceService.selectByOpenIdAndSkuId(openId,skuId);
     }
 
 }
