@@ -3,10 +3,12 @@ package com.wuwei.consumer.wechat.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.wuwei.base.utils.IdGenerator;
 import com.wuwei.base.wechat.model.XiLeWangOrder;
+import com.wuwei.consumer.wechat.service.XiLeWangAssistanceService;
 import com.wuwei.consumer.wechat.service.XiLeWangPromotionService;
 import com.wuwei.consumer.wechat.service.XiLeWangOrderService;
 import com.wuwei.consumer.wechat.utils.Current;
 import jd.union.open.promotion.bysubunionid.get.request.PromotionCodeReq;
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -24,14 +26,11 @@ import java.math.BigDecimal;
 @RequestMapping("/api/wechat/xilewang/goods")
 public class XiLeWangGoodsController {
 
-    @Value("${goods.ratio}")
-    private BigDecimal ratio;
-
     @Autowired
     private XiLeWangPromotionService xiLeWangPromotionService;
 
     @Autowired
-    private XiLeWangOrderService xiLeWangOrderService;
+    private AmqpTemplate amqpTemplate;
 
     private JSONObject jsonObject = new JSONObject();
 
@@ -51,15 +50,9 @@ public class XiLeWangGoodsController {
             xiLeWangOrder.setSkuId(skuId);
             xiLeWangOrder.setOpenid(Current.getOpenid());
             xiLeWangOrder.setUrl(url);
-            xiLeWangOrder.setInitialRatio(ratio);
-            xiLeWangOrder.setAssistanceId(0L);
-            int i = xiLeWangOrderService.insertSelective(xiLeWangOrder);
-            if(i <= 0){
-                jsonObject.put("code",0);
-            }else{
-                jsonObject.put("code",1);
-                jsonObject.put("url",url);
-            }
+            amqpTemplate.convertAndSend("xilewang_order_insert",xiLeWangOrder);
+            jsonObject.put("code",1);
+            jsonObject.put("url",url);
         }else{
             jsonObject.put("code",0);
         }
