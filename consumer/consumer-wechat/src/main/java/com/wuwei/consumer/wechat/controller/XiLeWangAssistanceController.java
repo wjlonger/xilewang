@@ -30,7 +30,6 @@ public class XiLeWangAssistanceController {
     public JSONObject getAssistanceId(@PathVariable Long skuId) {
         String openId = Current.getOpenid();
         XiLeWangAssistance xiLeWangAssistance = xiLeWangAssistanceService.selectByOpenIdAndSkuId(openId,skuId);
-        System.out.println("xiLeWangAssistance 是否为null ：" + (xiLeWangAssistance == null));
         if(null == xiLeWangAssistance){
             xiLeWangAssistance = new XiLeWangAssistance();
             final long id = IdGenerator.nextId();
