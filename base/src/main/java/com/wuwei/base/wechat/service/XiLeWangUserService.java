@@ -4,7 +4,7 @@ import com.wuwei.base.wechat.model.XiLeWangUser;
 
 public interface XiLeWangUserService {
 
-    String code2Session(String code);
+    String code2Session(String code,String inviteCode);
 
     int insert(XiLeWangUser xiLeWangUser);
 
@@ -17,8 +17,5 @@ public interface XiLeWangUserService {
     int updateByPrimaryKey(XiLeWangUser xiLeWangUser);
 
     int save(XiLeWangUser xiLeWangUser);
-
-
-
 
 }

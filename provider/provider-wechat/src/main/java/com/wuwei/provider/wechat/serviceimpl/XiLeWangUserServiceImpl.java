@@ -32,7 +32,7 @@ public class XiLeWangUserServiceImpl implements XiLeWangUserService {
     private XiLeWangUserMapper xiLeWangUserMapper;
 
     @Override
-    public String code2Session(String code) {
+    public String code2Session(String code,String inviteCode) {
         if(StringUtils.isEmpty(code)){
             return null;
         }
@@ -40,7 +40,6 @@ public class XiLeWangUserServiceImpl implements XiLeWangUserService {
         InputStream is = null;
         BufferedReader br = null;
         XiLeWangUser xiLeWangUser = null;
-        int i = 0;
         try {
             String httpUrl = String.format("https://api.weixin.qq.com/sns/jscode2session?appid=%s&secret=%s&js_code=%s&grant_type=authorization_code", AES.decode(appId), AES.decode(secret),code);
             // 创建远程url连接对象
@@ -69,7 +68,7 @@ public class XiLeWangUserServiceImpl implements XiLeWangUserService {
                 if(null == (xiLeWangUser = JSONObject.parseObject(sbf.toString(),XiLeWangUser.class))){
                     return null;
                 }
-                this.save(xiLeWangUser);
+                this.save(xiLeWangUser,inviteCode);
             }
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -153,6 +152,17 @@ public class XiLeWangUserServiceImpl implements XiLeWangUserService {
             return 0;
         }
         if(null == this.selectByPrimaryKey(xiLeWangUser.getOpenid())){
+            return this.insertSelective(xiLeWangUser);
+        }
+        return this.updateByPrimaryKeySelective(xiLeWangUser);
+    }
+
+    public int save(XiLeWangUser xiLeWangUser,String inviteCode) {
+        if(null == xiLeWangUser || StringUtils.isEmpty(xiLeWangUser.getOpenid())){
+            return 0;
+        }
+        if(null == this.selectByPrimaryKey(xiLeWangUser.getOpenid())){
+            xiLeWangUser.setMasterOpenid(inviteCode);
             return this.insertSelective(xiLeWangUser);
         }
         return this.updateByPrimaryKeySelective(xiLeWangUser);

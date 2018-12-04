@@ -13,7 +13,7 @@ public class XiLeWangUser implements Serializable {
 
     private String avatarUrl;
 
-    private Integer gender;
+    private Boolean gender;
 
     private String language;
 
@@ -24,6 +24,8 @@ public class XiLeWangUser implements Serializable {
     private String country;
 
     private String sessionkey;
+
+    private String masterOpenid;
 
     private Date gmtCreate;
 
@@ -53,11 +55,11 @@ public class XiLeWangUser implements Serializable {
         this.avatarUrl = avatarUrl == null ? null : avatarUrl.trim();
     }
 
-    public Integer getGender() {
+    public Boolean getGender() {
         return gender;
     }
 
-    public void setGender(Integer gender) {
+    public void setGender(Boolean gender) {
         this.gender = gender;
     }
 
@@ -99,6 +101,14 @@ public class XiLeWangUser implements Serializable {
 
     public void setSessionkey(String sessionkey) {
         this.sessionkey = sessionkey == null ? null : sessionkey.trim();
+    }
+
+    public String getMasterOpenid() {
+        return masterOpenid;
+    }
+
+    public void setMasterOpenid(String masterOpenid) {
+        this.masterOpenid = masterOpenid == null ? null : masterOpenid.trim();
     }
 
     public Date getGmtCreate() {

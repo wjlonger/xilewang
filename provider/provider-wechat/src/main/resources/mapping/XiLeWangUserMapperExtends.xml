@@ -12,32 +12,34 @@
         <result column="city" property="city" jdbcType="VARCHAR" />
         <result column="country" property="country" jdbcType="VARCHAR" />
         <result column="sessionkey" property="sessionkey" jdbcType="VARCHAR" />
+        <result column="master_openid" property="masterOpenid" jdbcType="VARCHAR" />
         <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
         <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
     </resultMap>
 
     <sql id="Base_Column_List" >
-        openid, nick_name, avatar_url, gender, language, province, city, country, sessionkey, gmt_create, gmt_modified
+        openid, nick_name, avatar_url, gender, language, province, city, country, sessionkey,
+                master_openid, gmt_create, gmt_modified
     </sql>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
         select
-            <include refid="Base_Column_List" />
-        from
-            xilewang_user
-        where
-            openid = #{openid,jdbcType=VARCHAR}
+        <include refid="Base_Column_List" />
+        from xilewang_user
+        where openid = #{openid,jdbcType=VARCHAR}
     </select>
 
     <insert id="insert" parameterType="com.wuwei.base.wechat.model.XiLeWangUser" >
-        insert into
-          xilewang_user (openid, nick_name, avatar_url,gender, language, province,city, country,
-                         sessionkey,gmt_create, gmt_modified)
-        values
-           (#{openid,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, #{avatarUrl,jdbcType=VARCHAR},
+        insert into xilewang_user (openid, nick_name, avatar_url,
+                                   gender, language, province,
+                                   city, country, sessionkey,
+                                   master_openid, gmt_create, gmt_modified
+                )
+        values (#{openid,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, #{avatarUrl,jdbcType=VARCHAR},
                 #{gender,jdbcType=BIT}, #{language,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR},
                 #{city,jdbcType=VARCHAR}, #{country,jdbcType=VARCHAR}, #{sessionkey,jdbcType=VARCHAR},
-                #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP})
+                #{masterOpenid,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}
+                       )
     </insert>
 
     <insert id="insertSelective" parameterType="com.wuwei.base.wechat.model.XiLeWangUser" >
@@ -69,6 +71,9 @@
             </if>
             <if test="sessionkey != null" >
                 sessionkey,
+            </if>
+            <if test="masterOpenid != null" >
+                master_openid,
             </if>
             <if test="gmtCreate != null" >
                 gmt_create,
@@ -104,6 +109,9 @@
             </if>
             <if test="sessionkey != null" >
                 #{sessionkey,jdbcType=VARCHAR},
+            </if>
+            <if test="masterOpenid != null" >
+                #{masterOpenid,jdbcType=VARCHAR},
             </if>
             <if test="gmtCreate != null" >
                 #{gmtCreate,jdbcType=TIMESTAMP},
@@ -141,6 +149,9 @@
             <if test="sessionkey != null" >
                 sessionkey = #{sessionkey,jdbcType=VARCHAR},
             </if>
+            <if test="masterOpenid != null" >
+                master_openid = #{masterOpenid,jdbcType=VARCHAR},
+            </if>
             <if test="gmtCreate != null" >
                 gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
             </if>
@@ -161,6 +172,7 @@
             city = #{city,jdbcType=VARCHAR},
             country = #{country,jdbcType=VARCHAR},
             sessionkey = #{sessionkey,jdbcType=VARCHAR},
+            master_openid = #{masterOpenid,jdbcType=VARCHAR},
             gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
             gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
         where openid = #{openid,jdbcType=VARCHAR}

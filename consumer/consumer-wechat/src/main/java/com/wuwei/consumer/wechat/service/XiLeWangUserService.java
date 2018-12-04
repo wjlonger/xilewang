@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 public interface XiLeWangUserService extends com.wuwei.base.wechat.service.XiLeWangUserService{
 
     @Override
-    @RequestLine("GET /code2Session/{code}")
-    String code2Session(@Param("code") final String code);
+    @RequestLine("GET /code2Session/{code}?inviteCode={inviteCode}")
+    String code2Session(@Param("code") final String code, @Param("inviteCode") String inviteCode);
 
     @Override
     @RequestLine("GET /{openid}")

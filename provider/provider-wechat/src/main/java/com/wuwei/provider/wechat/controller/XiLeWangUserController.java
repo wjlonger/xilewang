@@ -16,8 +16,8 @@ public class XiLeWangUserController {
     private XiLeWangUserService xiLeWangUserService;
 
     @GetMapping("/code2Session/{code}")
-    public String code2session(@PathVariable("code") String code){
-        return xiLeWangUserService.code2Session(code);
+    public String code2session(@PathVariable("code") String code,@RequestParam String inviteCode){
+        return xiLeWangUserService.code2Session(code,inviteCode);
     }
 
     @GetMapping("/{openid}")
