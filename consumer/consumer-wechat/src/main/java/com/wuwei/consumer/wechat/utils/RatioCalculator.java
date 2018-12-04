@@ -18,8 +18,8 @@ public class RatioCalculator {
     /**
      * 一次助力最低比例
      */
-    @Value("${assistance.once.ratio}")
-    private int assistanceOnceRatio;
+    @Value("${assistance.once.lowest.ratio}")
+    private int assistanceOnceLowestRatio;
 
     /**
      * 助力最高比例与平均值的比
@@ -52,8 +52,8 @@ public class RatioCalculator {
         List<Integer> ratios = new ArrayList<Integer>();
         int max = (int)(assistanceMaxRatio * assistanceOnceAvgRatio / assistancePeopleNumber);
         max = Math.min(max,assistanceMaxRatio);
-        for(int i=0;i<assistancePeopleNumber;i++){
-            int ratio = randomRatio(assistanceMaxRatio, assistanceOnceRatio, max, assistancePeopleNumber-i);
+        for(int i=0; i<assistancePeopleNumber; i++){
+            int ratio = randomRatio(assistanceMaxRatio, assistanceOnceLowestRatio, max, assistancePeopleNumber-i);
             ratios.add(ratio);
             assistanceMaxRatio -= ratio;
         }
