@@ -17,7 +17,7 @@ import javax.servlet.http.HttpSession;
 @Configuration
 public class WeChatServiceAop {
 
-    @AfterReturning(returning="obj",pointcut="execution(* com.wuwei.consumer.wechat.service.XiLeWangUserService.code2Session(java.lang.String))")
+    @AfterReturning(returning="obj",pointcut="execution(* com.wuwei.consumer.wechat.service.XiLeWangUserService.code2Session(java.lang.String,java.lang.String))")
     public void afterReturningCode2Session(Object obj){
         if(obj != null && obj instanceof String) {
             HttpSession session = (HttpSession) RequestContextHolder.getRequestAttributes().resolveReference(RequestAttributes.REFERENCE_SESSION);
