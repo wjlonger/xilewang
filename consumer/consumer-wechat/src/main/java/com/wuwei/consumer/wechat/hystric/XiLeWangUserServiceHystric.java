@@ -7,9 +7,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class XiLeWangUserServiceHystric implements XiLeWangUserService {
 
-
     @Override
-    public String code2Session(String code) {
+    public String code2Session(String code, String inviteCode) {
         return null;
     }
 
