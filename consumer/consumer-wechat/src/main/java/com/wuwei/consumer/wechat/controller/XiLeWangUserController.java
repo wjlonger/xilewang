@@ -20,7 +20,7 @@ public class XiLeWangUserController {
     private XiLeWangUserService xiLeWangUserService;
 
     @GetMapping("/code2Session/{code}")
-    public String code2Session(@PathVariable("code") String code, @RequestParam String inviteCode){
+    public String code2Session(@PathVariable("code") String code, @RequestParam(name = "inviteCode", required = false) String inviteCode){
         return xiLeWangUserService.code2Session(code, inviteCode);
     }
 
