@@ -33,6 +33,9 @@ public class XiLeWangUserServiceImpl implements XiLeWangUserService {
 
     @Override
     public String code2Session(String code) {
+        if(StringUtils.isEmpty(code)){
+            return null;
+        }
         HttpURLConnection connection = null;
         InputStream is = null;
         BufferedReader br = null;

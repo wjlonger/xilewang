@@ -18,7 +18,7 @@ public class XiLeWangOrderServiceImpl implements XiLeWangOrderService {
 
     @Override
     public XiLeWangOrder selectByPrimaryKey(Long id) {
-        if(null == id){
+        if(null == id || 0 == id){
             return null;
         }
         return xiLeWangOrderMapper.selectByPrimaryKey(id);

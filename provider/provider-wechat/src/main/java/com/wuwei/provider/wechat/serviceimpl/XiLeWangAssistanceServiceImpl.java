@@ -6,6 +6,7 @@ import com.wuwei.base.wechat.service.XiLeWangAssistanceService;
 import com.wuwei.provider.wechat.mapper.XiLeWangAssistanceMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.Date;
 
@@ -30,7 +31,7 @@ public class XiLeWangAssistanceServiceImpl implements XiLeWangAssistanceService 
 
     @Override
     public XiLeWangAssistance selectByPrimaryKey(Long id) {
-        if(null == id){
+        if(null == id || 0 == id){
             return null;
         }
         return xiLeWangAssistanceMapper.selectByPrimaryKey(id);
@@ -47,6 +48,9 @@ public class XiLeWangAssistanceServiceImpl implements XiLeWangAssistanceService 
 
     @Override
     public XiLeWangAssistance selectByOpenIdAndSkuId(String openId, Long skuId) {
+        if(StringUtils.isEmpty(openId) || null == skuId || 0 == skuId){
+            return null;
+        }
         return xiLeWangAssistanceMapper.selectByOpenIdAndSkuId(openId,skuId);
     }
 }

@@ -17,7 +17,7 @@ public class XiLeWangHistoryServiceImpl implements XiLeWangHistoryService {
 
     @Override
     public XiLeWangHistory selectByPrimaryKey(Long id) {
-        if(null == id){
+        if(null == id || 0 == id){
             return null;
         }
         return xiLeWangHistoryMapper.selectByPrimaryKey(id);

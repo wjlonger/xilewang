@@ -2,7 +2,6 @@ package com.wuwei.provider.wechat.controller;
 
 import com.wuwei.base.wechat.model.XiLeWangAssistance;
 import com.wuwei.base.wechat.service.XiLeWangAssistanceService;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;

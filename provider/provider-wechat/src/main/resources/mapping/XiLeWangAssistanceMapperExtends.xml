@@ -7,12 +7,15 @@
         <result column="openid" property="openid" jdbcType="VARCHAR" />
         <result column="sku_id" property="skuId" jdbcType="BIGINT" />
         <result column="initial_ratio" property="initialRatio" jdbcType="DECIMAL" />
+        <result column="assistance_ratio" property="assistanceRatio" jdbcType="VARCHAR" />
+        <result column="assistance_people_num" property="assistancePeopleNum" jdbcType="TINYINT" />
         <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
         <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
     </resultMap>
 
     <sql id="Base_Column_List" >
-    id, openid, sku_id, initial_ratio, gmt_create, gmt_modified
+    id, openid, sku_id, initial_ratio, assistance_ratio, assistance_people_num, gmt_create,
+    gmt_modified
   </sql>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
@@ -31,11 +34,11 @@
 
     <insert id="insert" parameterType="com.wuwei.base.wechat.model.XiLeWangAssistance" >
     insert into xilewang_assistance (id, openid, sku_id,
-      initial_ratio, gmt_create, gmt_modified
-      )
+      initial_ratio, assistance_ratio, assistance_people_num,
+      gmt_create, gmt_modified)
     values (#{id,jdbcType=BIGINT}, #{openid,jdbcType=VARCHAR}, #{skuId,jdbcType=BIGINT},
-      #{initialRatio,jdbcType=DECIMAL}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}
-      )
+      #{initialRatio,jdbcType=DECIMAL}, #{assistanceRatio,jdbcType=VARCHAR}, #{assistancePeopleNum,jdbcType=TINYINT},
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP})
   </insert>
 
     <insert id="insertSelective" parameterType="com.wuwei.base.wechat.model.XiLeWangAssistance" >
@@ -52,6 +55,12 @@
             </if>
             <if test="initialRatio != null" >
                 initial_ratio,
+            </if>
+            <if test="assistanceRatio != null" >
+                assistance_ratio,
+            </if>
+            <if test="assistancePeopleNum != null" >
+                assistance_people_num,
             </if>
             <if test="gmtCreate != null" >
                 gmt_create,
@@ -72,6 +81,12 @@
             </if>
             <if test="initialRatio != null" >
                 #{initialRatio,jdbcType=DECIMAL},
+            </if>
+            <if test="assistanceRatio != null" >
+                #{assistanceRatio,jdbcType=VARCHAR},
+            </if>
+            <if test="assistancePeopleNum != null" >
+                #{assistancePeopleNum,jdbcType=TINYINT},
             </if>
             <if test="gmtCreate != null" >
                 #{gmtCreate,jdbcType=TIMESTAMP},
@@ -94,6 +109,12 @@
             <if test="initialRatio != null" >
                 initial_ratio = #{initialRatio,jdbcType=DECIMAL},
             </if>
+            <if test="assistanceRatio != null" >
+                assistance_ratio = #{assistanceRatio,jdbcType=VARCHAR},
+            </if>
+            <if test="assistancePeopleNum != null" >
+                assistance_people_num = #{assistancePeopleNum,jdbcType=TINYINT},
+            </if>
             <if test="gmtCreate != null" >
                 gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
             </if>
@@ -109,6 +130,8 @@
     set openid = #{openid,jdbcType=VARCHAR},
       sku_id = #{skuId,jdbcType=BIGINT},
       initial_ratio = #{initialRatio,jdbcType=DECIMAL},
+      assistance_ratio = #{assistanceRatio,jdbcType=VARCHAR},
+      assistance_people_num = #{assistancePeopleNum,jdbcType=TINYINT},
       gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}

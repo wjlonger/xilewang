@@ -16,6 +16,10 @@ public class XiLeWangAssistance implements Serializable {
 
     private BigDecimal initialRatio;
 
+    private String assistanceRatio;
+
+    private Integer assistancePeopleNum;
+
     private Date gmtCreate;
 
     private Date gmtModified;
@@ -50,6 +54,22 @@ public class XiLeWangAssistance implements Serializable {
 
     public void setInitialRatio(BigDecimal initialRatio) {
         this.initialRatio = initialRatio;
+    }
+
+    public String getAssistanceRatio() {
+        return assistanceRatio;
+    }
+
+    public void setAssistanceRatio(String assistanceRatio) {
+        this.assistanceRatio = assistanceRatio == null ? null : assistanceRatio.trim();
+    }
+
+    public Integer getAssistancePeopleNum() {
+        return assistancePeopleNum;
+    }
+
+    public void setAssistancePeopleNum(Integer assistancePeopleNum) {
+        this.assistancePeopleNum = assistancePeopleNum;
     }
 
     public Date getGmtCreate() {
