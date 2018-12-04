@@ -5,6 +5,7 @@ import com.wuwei.base.utils.AES;
 import com.wuwei.base.wechat.model.XiLeWangUser;
 import com.wuwei.base.wechat.service.XiLeWangUserService;
 import com.wuwei.provider.wechat.mapper.XiLeWangUserMapper;
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,9 @@ public class XiLeWangUserServiceImpl implements XiLeWangUserService {
 
     @Value("${wechat.secret}")
     private String secret;
+
+    @Autowired
+    private AmqpTemplate amqpTemplate;
 
     @Autowired
     private XiLeWangUserMapper xiLeWangUserMapper;
@@ -68,7 +72,8 @@ public class XiLeWangUserServiceImpl implements XiLeWangUserService {
                 if(null == (xiLeWangUser = JSONObject.parseObject(sbf.toString(),XiLeWangUser.class))){
                     return null;
                 }
-                this.save(xiLeWangUser,inviteCode);
+                xiLeWangUser.setMasterOpenid(inviteCode);
+                amqpTemplate.convertAndSend("xilewang_user_save",xiLeWangUser);
             }
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -152,19 +157,6 @@ public class XiLeWangUserServiceImpl implements XiLeWangUserService {
             return 0;
         }
         if(null == this.selectByPrimaryKey(xiLeWangUser.getOpenid())){
-            return this.insertSelective(xiLeWangUser);
-        }
-        return this.updateByPrimaryKeySelective(xiLeWangUser);
-    }
-
-    public int save(XiLeWangUser xiLeWangUser,String inviteCode) {
-        if(null == xiLeWangUser || StringUtils.isEmpty(xiLeWangUser.getOpenid())){
-            return 0;
-        }
-        if(null == this.selectByPrimaryKey(xiLeWangUser.getOpenid())){
-            if(!xiLeWangUser.getOpenid().equals(inviteCode) && null != this.selectByPrimaryKey(inviteCode)){
-                xiLeWangUser.setMasterOpenid(inviteCode);
-            }
             return this.insertSelective(xiLeWangUser);
         }
         return this.updateByPrimaryKeySelective(xiLeWangUser);
