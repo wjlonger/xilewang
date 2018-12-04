@@ -162,7 +162,9 @@ public class XiLeWangUserServiceImpl implements XiLeWangUserService {
             return 0;
         }
         if(null == this.selectByPrimaryKey(xiLeWangUser.getOpenid())){
-            xiLeWangUser.setMasterOpenid(inviteCode);
+            if(!xiLeWangUser.getOpenid().equals(inviteCode)){
+                xiLeWangUser.setMasterOpenid(inviteCode);
+            }
             return this.insertSelective(xiLeWangUser);
         }
         return this.updateByPrimaryKeySelective(xiLeWangUser);
