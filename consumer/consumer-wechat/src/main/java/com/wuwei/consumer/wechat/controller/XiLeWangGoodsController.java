@@ -2,6 +2,8 @@ package com.wuwei.consumer.wechat.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.wuwei.base.utils.IdGenerator;
+import com.wuwei.base.utils.StringUtil;
+import com.wuwei.base.wechat.model.XiLeWangAssistance;
 import com.wuwei.base.wechat.model.XiLeWangOrder;
 import com.wuwei.consumer.wechat.service.XiLeWangAssistanceService;
 import com.wuwei.consumer.wechat.service.XiLeWangPromotionService;
@@ -30,6 +32,9 @@ public class XiLeWangGoodsController {
     private XiLeWangPromotionService xiLeWangPromotionService;
 
     @Autowired
+    private XiLeWangAssistanceService xiLeWangAssistanceService;
+
+    @Autowired
     private AmqpTemplate amqpTemplate;
 
     private JSONObject jsonObject = new JSONObject();
@@ -55,5 +60,4 @@ public class XiLeWangGoodsController {
         }
         return jsonObject;
     }
-
 }
