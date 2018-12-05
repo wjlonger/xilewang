@@ -11,10 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 @RestController
@@ -30,11 +27,12 @@ public class XiLeWangGoodsController {
     private JSONObject jsonObject = new JSONObject();
 
     @GetMapping("/{skuId}")
-    public JSONObject buy(@PathVariable("skuId") long skuId){
+    public JSONObject buy(@PathVariable("skuId") long skuId, @RequestParam(name="couponUrl",required = false) String couponUrl){
         long id = IdGenerator.nextId();
         PromotionCodeReq promotionCodeReq = new PromotionCodeReq();
         promotionCodeReq.setSubUnionId(String.valueOf(id));
         promotionCodeReq.setMaterialId(String.format("https://wqitem.jd.com/item/view?sku=%d",skuId));
+        promotionCodeReq.setCouponUrl(couponUrl);
         String url = xiLeWangPromotionService.getBySubUnionId(promotionCodeReq);
         if(!StringUtils.isEmpty(url)){
             XiLeWangOrder xiLeWangOrder = new XiLeWangOrder();

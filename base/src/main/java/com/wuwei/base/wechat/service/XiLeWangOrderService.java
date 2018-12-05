@@ -2,6 +2,8 @@ package com.wuwei.base.wechat.service;
 
 import com.wuwei.base.wechat.model.XiLeWangOrder;
 
+import java.util.List;
+
 public interface XiLeWangOrderService {
 
     XiLeWangOrder selectByPrimaryKey(Long id);
