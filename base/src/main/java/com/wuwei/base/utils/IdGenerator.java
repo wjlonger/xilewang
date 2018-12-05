@@ -12,7 +12,7 @@ import java.util.Set;
  * @author wjl
  * @createtime 2018年11月21日11:07:34
  */
-public class IdGenerator {
+public final class IdGenerator {
 
     /**
      * 序列

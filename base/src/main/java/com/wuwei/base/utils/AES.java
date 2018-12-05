@@ -11,7 +11,7 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
-public class AES {
+public final class AES {
 
     private static final String ENCODERULES = "FOZUBAOYOUYONGWUBUG";
     /**

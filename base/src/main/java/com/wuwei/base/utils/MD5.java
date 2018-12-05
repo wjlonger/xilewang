@@ -2,7 +2,7 @@ package com.wuwei.base.utils;
 
 import java.security.MessageDigest;
 
-public class MD5 {
+public final class MD5 {
 
     private final static String[] hexDigits = {
             "0", "1", "2", "3", "4", "5", "6", "7",

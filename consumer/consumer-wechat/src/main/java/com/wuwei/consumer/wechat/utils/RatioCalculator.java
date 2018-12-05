@@ -49,7 +49,7 @@ public class RatioCalculator {
     }
 
     public List<Integer> getRatio(){
-        List<Integer> ratios = new ArrayList<Integer>();
+        List<Integer> ratios = new ArrayList<>();
         int max = (int)(assistanceMaxRatio * assistanceOnceAvgRatio / assistancePeopleNumber);
         max = Math.min(max,assistanceMaxRatio);
         for(int i=0; i<assistancePeopleNumber; i++){
