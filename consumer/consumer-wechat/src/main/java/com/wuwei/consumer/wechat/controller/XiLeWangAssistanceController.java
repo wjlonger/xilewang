@@ -87,11 +87,6 @@ public class XiLeWangAssistanceController {
         }
     }
 
-    @PutMapping
-    public int updateByPrimaryKeySelective(@RequestBody XiLeWangAssistance xiLeWangAssistance) {
-        return xiLeWangAssistanceService.updateByPrimaryKeySelective(xiLeWangAssistance);
-    }
-
     @GetMapping("/detail/{assistanceId}")
     public JSONObject getAssistanceDetail(@PathVariable("assistanceId") Long assistanceId){
         XiLeWangAssistance xiLeWangAssistance = xiLeWangAssistanceService.selectByPrimaryKey(assistanceId);
