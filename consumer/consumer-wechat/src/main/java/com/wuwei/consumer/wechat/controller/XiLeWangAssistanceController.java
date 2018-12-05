@@ -43,15 +43,33 @@ public class XiLeWangAssistanceController {
     @Autowired
     private RatioCalculator ratioCalculator;
 
+    /**
+     * 固定得到的比例
+     */
     @Value("${goods.ratio}")
     private BigDecimal initialRatio;
 
+    /**
+     * 助力最高比例
+     */
+    @Value("${assistance.max.ratio}")
+    private int assistanceMaxRatio;
+
+    /**
+     * 最多助力人数
+     */
     @Value("${assistance.people.number}")
     private int assistancePeopleNum;
 
+    /**
+     * 被助力者得到的比例
+     */
     @Value("${assistance.ratio}")
     private BigDecimal assistanceRatio;
 
+    /**
+     * 助力者得到的比例
+     */
     @Value("${reward.ratio}")
     private BigDecimal rewardRatio;
 
@@ -81,7 +99,7 @@ public class XiLeWangAssistanceController {
             xiLeWangAssistance.setSkuId(skuId);
             xiLeWangAssistance.setOpenid(Current.getOpenid());
             xiLeWangAssistance.setInitialRatio(initialRatio);
-            xiLeWangAssistance.setAssistanceRatio(CollectionUtil.join(ratioCalculator.getRatio(),","));
+            xiLeWangAssistance.setAssistanceRatio(CollectionUtil.join(ratioCalculator.getRatio(assistanceMaxRatio),","));
             xiLeWangAssistance.setAssistancePeopleNum(assistancePeopleNum);
             xiLeWangAssistanceService.insertSelective(xiLeWangAssistance);
         }
@@ -94,13 +112,14 @@ public class XiLeWangAssistanceController {
             jsonObject.put("code",0);
             jsonObject.put("goods",null);
             jsonObject.put("users",null);
-            return null;
+
+        } else {
+            GoodsResp goodsResp = xiLeWangGoodsService.goodsDetail(xiLeWangAssistance.getSkuId());
+            List<XiLeWangAssistanceUser> xiLeWangAssistanceUsers = xiLeWangAssistanceUserService.selectByAssistanceId(assistanceId);
+            jsonObject.put("code",1);
+            jsonObject.put("goods",goodsResp);
+            jsonObject.put("users",xiLeWangAssistanceUsers);
         }
-        GoodsResp goodsResp = xiLeWangGoodsService.goodsDetail(xiLeWangAssistance.getSkuId());
-        List<XiLeWangAssistanceUser> xiLeWangAssistanceUsers = xiLeWangAssistanceUserService.selectByAssistanceId(assistanceId);
-        jsonObject.put("code",1);
-        jsonObject.put("goods",goodsResp);
-        jsonObject.put("users",xiLeWangAssistanceUsers);
         return jsonObject;
     }
 

@@ -60,17 +60,4 @@ public class XiLeWangHistoryController {
         return json.toJSONString();
     }
 
-    @PostMapping("/save")
-    public String save(@RequestBody XiLeWangHistory xiLeWangHistory){
-        if(null == xiLeWangHistory){
-            json.put("code",0);
-            json.put("errMsg","更新失败!");
-            return json.toJSONString();
-        }
-        if(null == xiLeWangHistory.getId()){
-            return this.insertSelective(xiLeWangHistory);
-        }
-        return this.updateByPrimaryKeySelective(xiLeWangHistory);
-    }
-
 }

@@ -10,12 +10,6 @@ import java.util.List;
 public class RatioCalculator {
 
     /**
-     * 助力最高比例
-     */
-    @Value("${assistance.max.ratio}")
-    private int assistanceMaxRatio;
-
-    /**
      * 一次助力最低比例
      */
     @Value("${assistance.once.lowest.ratio}")
@@ -48,7 +42,7 @@ public class RatioCalculator {
         return (int)Math.rint(Math.random()*(max-min) +min);
     }
 
-    public List<Integer> getRatio(){
+    public List<Integer> getRatio(int assistanceMaxRatio){
         List<Integer> ratios = new ArrayList<>();
         int max = (int)(assistanceMaxRatio * assistanceOnceAvgRatio / assistancePeopleNumber);
         max = Math.min(max,assistanceMaxRatio);

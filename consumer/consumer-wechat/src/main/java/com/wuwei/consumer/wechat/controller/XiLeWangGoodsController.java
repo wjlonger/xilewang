@@ -36,14 +36,11 @@ public class XiLeWangGoodsController {
 
     @GetMapping("/{skuId}")
     public JSONObject buy(@PathVariable("skuId") long skuId){
-
         long id = IdGenerator.nextId();
-
         PromotionCodeReq promotionCodeReq = new PromotionCodeReq();
         promotionCodeReq.setSubUnionId(String.valueOf(id));
         promotionCodeReq.setMaterialId(String.format("https://wqitem.jd.com/item/view?sku=%d",skuId));
         String url = xiLeWangPromotionService.getBySubUnionId(promotionCodeReq);
-
         if(!StringUtils.isEmpty(url)){
             XiLeWangOrder xiLeWangOrder = new XiLeWangOrder();
             xiLeWangOrder.setId(id);
