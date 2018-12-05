@@ -38,6 +38,10 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
         SimpleModule simpleModule = new SimpleModule();
         simpleModule.addSerializer(Long.class, ToStringSerializer.instance);
         simpleModule.addSerializer(Long.TYPE, ToStringSerializer.instance);
+        simpleModule.addSerializer(Double.class, ToStringSerializer.instance);
+        simpleModule.addSerializer(Double.TYPE, ToStringSerializer.instance);
+        simpleModule.addSerializer(Float.class, ToStringSerializer.instance);
+        simpleModule.addSerializer(Float.TYPE, ToStringSerializer.instance);
         objectMapper.registerModule(simpleModule);
         jackson2HttpMessageConverter.setObjectMapper(objectMapper);
         converters.add(jackson2HttpMessageConverter);
