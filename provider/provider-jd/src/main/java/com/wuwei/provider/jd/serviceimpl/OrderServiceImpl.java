@@ -7,7 +7,9 @@ import jd.union.open.order.query.request.OrderReq;
 import jd.union.open.order.query.request.UnionOpenOrderQueryRequest;
 import jd.union.open.order.query.response.UnionOpenOrderQueryResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service("orderService")
 public class OrderServiceImpl implements OrderService {
 
     @Autowired

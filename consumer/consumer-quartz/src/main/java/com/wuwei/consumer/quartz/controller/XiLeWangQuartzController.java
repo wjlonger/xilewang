@@ -6,16 +6,16 @@ import org.quartz.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 @RestController
-@RequestMapping("/job")
+@RequestMapping("/quartz/job")
 public class XiLeWangQuartzController {
 
     @Autowired
@@ -23,6 +23,20 @@ public class XiLeWangQuartzController {
     @Autowired
     private XiLeWangQuartzService xiLeWangQuartzService;
 
+    /**
+     *任务列表
+     * @return
+     */
+    @GetMapping("/list")
+    public List<XiLeWangQuartz> list(){
+        return xiLeWangQuartzService.listXiLeWangQuartz();
+    }
+
+    /**
+     * 新增任务
+     * @param xiLeWangQuartz
+     * @return
+     */
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @PostMapping("/add")
     public int save(XiLeWangQuartz xiLeWangQuartz){
@@ -51,11 +65,11 @@ public class XiLeWangQuartzController {
         return 1;
     }
 
-    @PostMapping("/list")
-    public List<XiLeWangQuartz> list(XiLeWangQuartz xiLeWangQuartz,Integer pageIndex,Integer pageSize){
-        return xiLeWangQuartzService.listXiLeWangQuartz(xiLeWangQuartz, pageIndex, pageSize);
-    }
-
+    /**
+     * 触发任务
+     * @param xiLeWangQuartz
+     * @return
+     */
     @PostMapping("/trigger")
     public  int trigger(XiLeWangQuartz xiLeWangQuartz) {
         try {
@@ -68,6 +82,11 @@ public class XiLeWangQuartzController {
         return 1;
     }
 
+    /**
+     * 暂停任务
+     * @param xiLeWangQuartz
+     * @return
+     */
     @PostMapping("/pause")
     public int pause(XiLeWangQuartz xiLeWangQuartz) {
         try {
@@ -80,6 +99,11 @@ public class XiLeWangQuartzController {
         return 1;
     }
 
+    /**
+     * 恢复任务
+     * @param xiLeWangQuartz
+     * @return
+     */
     @PostMapping("/resume")
     public  int resume(XiLeWangQuartz xiLeWangQuartz) {
         try {
@@ -92,6 +116,11 @@ public class XiLeWangQuartzController {
         return 1;
     }
 
+    /**
+     * 移除任务
+     * @param xiLeWangQuartz
+     * @return
+     */
     @PostMapping("/remove")
     public int remove(XiLeWangQuartz xiLeWangQuartz) {
         try {
