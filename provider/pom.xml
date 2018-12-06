@@ -12,6 +12,7 @@
     <modules>
         <module>provider-wechat</module>
         <module>provider-jd</module>
+        <module>provider-quartz</module>
     </modules>
     <artifactId>provider</artifactId>
 

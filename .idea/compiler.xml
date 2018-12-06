@@ -12,6 +12,7 @@
         <module name="consumerjd" />
         <module name="consumerwechat" />
         <module name="providerjd" />
+        <module name="providerquartz" />
         <module name="providerwechat" />
         <module name="route" />
       </profile>

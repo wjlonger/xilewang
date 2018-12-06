@@ -1,7 +1,7 @@
 package com.wuwei.consumer.wechat.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.wuwei.base.utils.CollectionUtil;
+import com.wuwei.base.utils.CollectionUtils;
 import com.wuwei.base.utils.IdGenerator;
 import com.wuwei.base.wechat.model.XiLeWangAssistance;
 import com.wuwei.base.wechat.model.XiLeWangAssistanceUser;
@@ -99,7 +99,7 @@ public class XiLeWangAssistanceController {
             xiLeWangAssistance.setSkuId(skuId);
             xiLeWangAssistance.setOpenid(Current.getOpenid());
             xiLeWangAssistance.setInitialRatio(initialRatio);
-            xiLeWangAssistance.setAssistanceRatio(CollectionUtil.join(ratioCalculator.getRatio(assistanceMaxRatio),","));
+            xiLeWangAssistance.setAssistanceRatio(CollectionUtils.join(ratioCalculator.getRatio(assistanceMaxRatio),","));
             xiLeWangAssistance.setAssistancePeopleNum(assistancePeopleNum);
             xiLeWangAssistanceService.insertSelective(xiLeWangAssistance);
         }

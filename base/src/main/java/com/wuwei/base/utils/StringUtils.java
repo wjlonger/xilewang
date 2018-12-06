@@ -1,6 +1,6 @@
 package com.wuwei.base.utils;
 
-public final class StringUtil {
+public final class StringUtils {
 
     public static String EMPTY = "";
 
