@@ -23,8 +23,8 @@ public class GrabOrderJob implements Job, Serializable {
 
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
-        System.out.println("运行开始");
-        System.out.println("运行结束");
+        System.out.println(System.currentTimeMillis() + "           运行开始");
+        System.out.println(System.currentTimeMillis() + "           运行结束");
     }
 
 }

@@ -26,7 +26,7 @@ public class XiLeWangQuartzController {
      */
     @GetMapping("/list")
     public List<XiLeWangQuartz> list(){
-        return xiLeWangQuartzService.listXiLeWangQuartz();
+        return xiLeWangQuartzService.listQuartz();
     }
 
     /**
