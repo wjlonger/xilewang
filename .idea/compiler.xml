@@ -10,6 +10,7 @@
         <module name="center" />
         <module name="config" />
         <module name="consumerjd" />
+        <module name="consumerquartz" />
         <module name="consumerwechat" />
         <module name="providerjd" />
         <module name="providerquartz" />
