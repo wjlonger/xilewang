@@ -6,20 +6,6 @@ public class XiLeWangQuartz implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public XiLeWangQuartz() {
-        super();
-    }
-
-    public XiLeWangQuartz(String jobName, String jobGroup, String description, String jobClassName, String cronExpression, String triggerName) {
-        super();
-        this.jobName = jobName;
-        this.jobGroup = jobGroup;
-        this.description = description;
-        this.jobClassName = jobClassName;
-        this.cronExpression = cronExpression;
-        this.triggerName = triggerName;
-    }
-
     /**
      * 任务名称
      */

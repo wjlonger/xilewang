@@ -38,6 +38,11 @@ zuul:
             serviceId: consumer-jd
             stripPrefix: false
             sensitiveHeaders: "*"
+        consumer-quartz:
+            path: /api/quartz/**
+            serviceId: consumer-quartz
+            stripPrefix: false
+            sensitiveHeaders: "*"
 ribbon:
     ReadTimeout: 10000
     ConnectTimeout: 10000
