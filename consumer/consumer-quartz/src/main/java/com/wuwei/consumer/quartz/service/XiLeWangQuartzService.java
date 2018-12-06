@@ -15,6 +15,6 @@ public interface XiLeWangQuartzService extends com.wuwei.base.quartz.service.XiL
 
     @Override
     @RequestLine("GET /")
-    List<XiLeWangQuartz> listXiLeWangQuartz();
+    List<XiLeWangQuartz> listQuartz();
 
 }

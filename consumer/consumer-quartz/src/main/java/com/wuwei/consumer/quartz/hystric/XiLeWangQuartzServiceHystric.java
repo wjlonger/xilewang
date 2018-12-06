@@ -9,7 +9,8 @@ import java.util.List;
 public class XiLeWangQuartzServiceHystric implements XiLeWangQuartzService {
 
     @Override
-    public List<XiLeWangQuartz> listXiLeWangQuartz() {
+    public List<XiLeWangQuartz> listQuartz() {
         return null;
     }
+
 }

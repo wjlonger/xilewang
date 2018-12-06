@@ -15,7 +15,7 @@ public class XiLeWangQuartzServiceImpl implements XiLeWangQuartzService {
     private XiLeWangQuartzMapper xiLeWangQuartzMapper;
 
     @Override
-    public List<XiLeWangQuartz> listXiLeWangQuartz() {
+    public List<XiLeWangQuartz> listQuartz() {
         return xiLeWangQuartzMapper.listQuartz();
     }
 

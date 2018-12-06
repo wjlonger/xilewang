@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wuwei.provider.quartz.mapper.XiLeWangQuartzMapper" >
+
+    <resultMap id="BaseResultMap" type="com.wuwei.base.quartz.model.XiLeWangQuartz" >
+        <result column="job_name" property="jobName" />
+        <result column="job_group" property="jobGroup" />
+        <result column="description" property="description" />
+        <result column="job_class_name" property="jobClassName" />
+        <result column="cron_expression" property="cronExpression" />
+        <result column="trigger_name" property="triggerName" />
+        <result column="trigger_state" property="triggerState" />
+        <result column="old_job_name" property="oldJobName" />
+        <result column="old_job_group" property="oldJobGroup" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+      job_name,job_group,description,job_class_name,cron_expression,trigger_name,trigger_state,old_job_name,old_job_group
+    </sql>
+
+    <select id="listQuartz" resultMap="BaseResultMap" >
+      select
+            qrtz_job_details.job_name as job_name,
+            qrtz_job_details.job_group as job_group,
+            qrtz_job_details.description as description,
+            qrtz_job_details.job_class_name as job_class_name,
+            qrtz_cron_triggers.cron_expression as cron_expression,
+            qrtz_triggers.trigger_name as trigger_name,
+            qrtz_triggers.trigger_state as trigger_state,
+            qrtz_job_details.job_name as old_job_name,
+            qrtz_job_details.job_group as old_job_group
+        from
+            qrtz_job_details
+        left join qrtz_triggers on qrtz_job_details.job_name = qrtz_triggers.job_name
+        left join qrtz_cron_triggers on qrtz_cron_triggers.trigger_name = qrtz_triggers.trigger_name
+        where
+            qrtz_triggers.trigger_type='cron'
+
+    </select>
+
+</mapper>

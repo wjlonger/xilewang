@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface XiLeWangQuartzService {
 
-    List<XiLeWangQuartz> listXiLeWangQuartz();
+    List<XiLeWangQuartz> listQuartz();
 
 }
