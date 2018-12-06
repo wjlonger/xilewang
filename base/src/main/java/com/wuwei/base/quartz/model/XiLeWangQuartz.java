@@ -1,4 +1,4 @@
-package com.wuwei.base.com.wuwei.base.quartz.model;
+package com.wuwei.base.quartz.model;
 
 import java.io.Serializable;
 
