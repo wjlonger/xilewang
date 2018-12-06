@@ -6,10 +6,7 @@ import org.quartz.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -39,7 +36,7 @@ public class XiLeWangQuartzController {
      */
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @PostMapping("/add")
-    public int save(XiLeWangQuartz xiLeWangQuartz){
+    public int save(@RequestBody XiLeWangQuartz xiLeWangQuartz){
         try {
             //如果是修改  展示旧的 任务
             if(xiLeWangQuartz.getOldJobGroup() != null){
@@ -71,7 +68,7 @@ public class XiLeWangQuartzController {
      * @return
      */
     @PostMapping("/trigger")
-    public  int trigger(XiLeWangQuartz xiLeWangQuartz) {
+    public  int trigger(@RequestBody XiLeWangQuartz xiLeWangQuartz) {
         try {
             JobKey key = new JobKey(xiLeWangQuartz.getJobName(),xiLeWangQuartz.getJobGroup());
             scheduler.triggerJob(key);
@@ -87,8 +84,8 @@ public class XiLeWangQuartzController {
      * @param xiLeWangQuartz
      * @return
      */
-    @PostMapping("/pause")
-    public int pause(XiLeWangQuartz xiLeWangQuartz) {
+    @PutMapping("/pause")
+    public int pause(@RequestBody XiLeWangQuartz xiLeWangQuartz) {
         try {
             JobKey key = new JobKey(xiLeWangQuartz.getJobName(),xiLeWangQuartz.getJobGroup());
             scheduler.pauseJob(key);
@@ -104,8 +101,8 @@ public class XiLeWangQuartzController {
      * @param xiLeWangQuartz
      * @return
      */
-    @PostMapping("/resume")
-    public  int resume(XiLeWangQuartz xiLeWangQuartz) {
+    @PutMapping("/resume")
+    public  int resume(@RequestBody XiLeWangQuartz xiLeWangQuartz) {
         try {
             JobKey key = new JobKey(xiLeWangQuartz.getJobName(),xiLeWangQuartz.getJobGroup());
             scheduler.resumeJob(key);
@@ -121,8 +118,8 @@ public class XiLeWangQuartzController {
      * @param xiLeWangQuartz
      * @return
      */
-    @PostMapping("/remove")
-    public int remove(XiLeWangQuartz xiLeWangQuartz) {
+    @DeleteMapping("/remove")
+    public int remove(@RequestBody XiLeWangQuartz xiLeWangQuartz) {
         try {
             TriggerKey triggerKey = TriggerKey.triggerKey(xiLeWangQuartz.getJobName(), xiLeWangQuartz.getJobGroup());
             // 停止触发器
