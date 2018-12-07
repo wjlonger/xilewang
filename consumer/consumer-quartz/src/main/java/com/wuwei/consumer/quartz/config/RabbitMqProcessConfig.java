@@ -1,6 +1,9 @@
 package com.wuwei.consumer.quartz.config;
 
+import com.wuwei.consumer.quartz.service.GoodsService;
 import com.wuwei.consumer.quartz.service.JdOrderService;
+import com.wuwei.consumer.quartz.service.XiLeWangJdOrderService;
+import com.wuwei.consumer.quartz.service.XiLeWangJdOrderSkuInfoService;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -11,9 +14,19 @@ public class RabbitMqProcessConfig {
     @Autowired
     private JdOrderService jdOrderService;
 
+    @Autowired
+    private GoodsService goodsService;
+
+    @Autowired
+    private XiLeWangJdOrderService xiLeWangJdOrderService;
+
+    @Autowired
+    private XiLeWangJdOrderSkuInfoService xiLeWangJdOrderSkuInfoService;
+
+
     @RabbitListener(queues = "quartz_jdorder_save")
-    public void quartzJdOrderSave(){
-        System.out.println("抓取订单并保存");
+    public void quartzJdOrderSave(String time){
+        System.out.println(time + "         抓取订单并保存");
     }
 
 }

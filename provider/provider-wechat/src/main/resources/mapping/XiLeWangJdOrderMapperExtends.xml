@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wuwei.provider.wechat.mapper.XiLeWangJdOrderMapper" >
+
+    <resultMap id="BaseResultMap" type="com.wuwei.base.wechat.model.XiLeWangJdOrder" >
+      <id column="order_id" property="orderId" jdbcType="BIGINT" />
+      <result column="finish_time" property="finishTime" jdbcType="BIGINT" />
+      <result column="order_emt" property="orderEmt" jdbcType="INTEGER" />
+      <result column="order_time" property="orderTime" jdbcType="BIGINT" />
+      <result column="parent_id" property="parentId" jdbcType="BIGINT" />
+      <result column="pay_month" property="payMonth" jdbcType="VARCHAR" />
+      <result column="plus" property="plus" jdbcType="INTEGER" />
+      <result column="pop_id" property="popId" jdbcType="BIGINT" />
+      <result column="union_id" property="unionId" jdbcType="BIGINT" />
+      <result column="ext1" property="ext1" jdbcType="VARCHAR" />
+      <result column="valid_code" property="validCode" jdbcType="INTEGER" />
+      <result column="openid" property="openid" jdbcType="VARCHAR" />
+      <result column="goods_num" property="goodsNum" jdbcType="INTEGER" />
+      <result column="order_money" property="orderMoney" jdbcType="DECIMAL" />
+      <result column="rebate_money" property="rebateMoney" jdbcType="DECIMAL" />
+      <result column="imgs" property="imgs" jdbcType="VARCHAR" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+      order_id, finish_time, order_emt, order_time, parent_id, pay_month, plus, pop_id,
+      union_id, ext1, valid_code, openid, goods_num, order_money, rebate_money, imgs
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+      select
+      <include refid="Base_Column_List" />
+      from xilewang_jd_order
+      where order_id = #{orderId,jdbcType=BIGINT}
+    </select>
+    <insert id="insert" parameterType="com.wuwei.base.wechat.model.XiLeWangJdOrder" >
+      insert into xilewang_jd_order (order_id, finish_time, order_emt,
+        order_time, parent_id, pay_month,
+        plus, pop_id, union_id,
+        ext1, valid_code, openid,
+        goods_num, order_money, rebate_money,
+        imgs)
+      values (#{orderId,jdbcType=BIGINT}, #{finishTime,jdbcType=BIGINT}, #{orderEmt,jdbcType=INTEGER},
+        #{orderTime,jdbcType=BIGINT}, #{parentId,jdbcType=BIGINT}, #{payMonth,jdbcType=VARCHAR},
+        #{plus,jdbcType=INTEGER}, #{popId,jdbcType=BIGINT}, #{unionId,jdbcType=BIGINT},
+        #{ext1,jdbcType=VARCHAR}, #{validCode,jdbcType=INTEGER}, #{openid,jdbcType=VARCHAR},
+        #{goodsNum,jdbcType=INTEGER}, #{orderMoney,jdbcType=DECIMAL}, #{rebateMoney,jdbcType=DECIMAL},
+        #{imgs,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.wuwei.base.wechat.model.XiLeWangJdOrder" >
+      insert into xilewang_jd_order
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="orderId != null" >
+          order_id,
+        </if>
+        <if test="finishTime != null" >
+          finish_time,
+        </if>
+        <if test="orderEmt != null" >
+          order_emt,
+        </if>
+        <if test="orderTime != null" >
+          order_time,
+        </if>
+        <if test="parentId != null" >
+          parent_id,
+        </if>
+        <if test="payMonth != null" >
+          pay_month,
+        </if>
+        <if test="plus != null" >
+          plus,
+        </if>
+        <if test="popId != null" >
+          pop_id,
+        </if>
+        <if test="unionId != null" >
+          union_id,
+        </if>
+        <if test="ext1 != null" >
+          ext1,
+        </if>
+        <if test="validCode != null" >
+          valid_code,
+        </if>
+        <if test="openid != null" >
+          openid,
+        </if>
+        <if test="goodsNum != null" >
+          goods_num,
+        </if>
+        <if test="orderMoney != null" >
+          order_money,
+        </if>
+        <if test="rebateMoney != null" >
+          rebate_money,
+        </if>
+        <if test="imgs != null" >
+          imgs,
+        </if>
+      </trim>
+      <trim prefix="values (" suffix=")" suffixOverrides="," >
+        <if test="orderId != null" >
+          #{orderId,jdbcType=BIGINT},
+        </if>
+        <if test="finishTime != null" >
+          #{finishTime,jdbcType=BIGINT},
+        </if>
+        <if test="orderEmt != null" >
+          #{orderEmt,jdbcType=INTEGER},
+        </if>
+        <if test="orderTime != null" >
+          #{orderTime,jdbcType=BIGINT},
+        </if>
+        <if test="parentId != null" >
+          #{parentId,jdbcType=BIGINT},
+        </if>
+        <if test="payMonth != null" >
+          #{payMonth,jdbcType=VARCHAR},
+        </if>
+        <if test="plus != null" >
+          #{plus,jdbcType=INTEGER},
+        </if>
+        <if test="popId != null" >
+          #{popId,jdbcType=BIGINT},
+        </if>
+        <if test="unionId != null" >
+          #{unionId,jdbcType=BIGINT},
+        </if>
+        <if test="ext1 != null" >
+          #{ext1,jdbcType=VARCHAR},
+        </if>
+        <if test="validCode != null" >
+          #{validCode,jdbcType=INTEGER},
+        </if>
+        <if test="openid != null" >
+          #{openid,jdbcType=VARCHAR},
+        </if>
+        <if test="goodsNum != null" >
+          #{goodsNum,jdbcType=INTEGER},
+        </if>
+        <if test="orderMoney != null" >
+          #{orderMoney,jdbcType=DECIMAL},
+        </if>
+        <if test="rebateMoney != null" >
+          #{rebateMoney,jdbcType=DECIMAL},
+        </if>
+        <if test="imgs != null" >
+          #{imgs,jdbcType=VARCHAR},
+        </if>
+      </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.wuwei.base.wechat.model.XiLeWangJdOrder" >
+      update xilewang_jd_order
+      <set >
+        <if test="finishTime != null" >
+          finish_time = #{finishTime,jdbcType=BIGINT},
+        </if>
+        <if test="orderEmt != null" >
+          order_emt = #{orderEmt,jdbcType=INTEGER},
+        </if>
+        <if test="orderTime != null" >
+          order_time = #{orderTime,jdbcType=BIGINT},
+        </if>
+        <if test="parentId != null" >
+          parent_id = #{parentId,jdbcType=BIGINT},
+        </if>
+        <if test="payMonth != null" >
+          pay_month = #{payMonth,jdbcType=VARCHAR},
+        </if>
+        <if test="plus != null" >
+          plus = #{plus,jdbcType=INTEGER},
+        </if>
+        <if test="popId != null" >
+          pop_id = #{popId,jdbcType=BIGINT},
+        </if>
+        <if test="unionId != null" >
+          union_id = #{unionId,jdbcType=BIGINT},
+        </if>
+        <if test="ext1 != null" >
+          ext1 = #{ext1,jdbcType=VARCHAR},
+        </if>
+        <if test="validCode != null" >
+          valid_code = #{validCode,jdbcType=INTEGER},
+        </if>
+        <if test="openid != null" >
+          openid = #{openid,jdbcType=VARCHAR},
+        </if>
+        <if test="goodsNum != null" >
+          goods_num = #{goodsNum,jdbcType=INTEGER},
+        </if>
+        <if test="orderMoney != null" >
+          order_money = #{orderMoney,jdbcType=DECIMAL},
+        </if>
+        <if test="rebateMoney != null" >
+          rebate_money = #{rebateMoney,jdbcType=DECIMAL},
+        </if>
+        <if test="imgs != null" >
+          imgs = #{imgs,jdbcType=VARCHAR},
+        </if>
+      </set>
+      where order_id = #{orderId,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.wuwei.base.wechat.model.XiLeWangJdOrder" >
+      update xilewang_jd_order
+      set finish_time = #{finishTime,jdbcType=BIGINT},
+        order_emt = #{orderEmt,jdbcType=INTEGER},
+        order_time = #{orderTime,jdbcType=BIGINT},
+        parent_id = #{parentId,jdbcType=BIGINT},
+        pay_month = #{payMonth,jdbcType=VARCHAR},
+        plus = #{plus,jdbcType=INTEGER},
+        pop_id = #{popId,jdbcType=BIGINT},
+        union_id = #{unionId,jdbcType=BIGINT},
+        ext1 = #{ext1,jdbcType=VARCHAR},
+        valid_code = #{validCode,jdbcType=INTEGER},
+        openid = #{openid,jdbcType=VARCHAR},
+        goods_num = #{goodsNum,jdbcType=INTEGER},
+        order_money = #{orderMoney,jdbcType=DECIMAL},
+        rebate_money = #{rebateMoney,jdbcType=DECIMAL},
+        imgs = #{imgs,jdbcType=VARCHAR}
+      where order_id = #{orderId,jdbcType=BIGINT}
+    </update>
+</mapper>
