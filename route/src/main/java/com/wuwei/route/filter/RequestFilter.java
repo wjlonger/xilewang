@@ -3,7 +3,7 @@ package com.wuwei.route.filter;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;
-import com.wuwei.base.utils.MD5;
+import com.wuwei.base.util.MD5;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;

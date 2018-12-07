@@ -1,6 +1,6 @@
 package com.wuwei.consumer.wechat.utils;
 
-import com.wuwei.base.utils.SessionKey;
+import com.wuwei.base.util.SessionKey;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 

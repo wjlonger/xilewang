@@ -1,4 +1,4 @@
-package com.wuwei.base.utils;
+package com.wuwei.base.util;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -8,6 +8,10 @@ public final class CollectionUtils {
 
     public static boolean isNullOrEmpty(Collection collection){
         return (null == collection || collection.isEmpty());
+    }
+
+    public static boolean isNullOrEmpty(Object[] objects){
+        return (null == objects || objects.length <= 0);
     }
 
     public static String join(List<Integer> objs, String separator){

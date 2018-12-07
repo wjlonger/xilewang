@@ -1,7 +1,7 @@
 package com.wuwei.provider.wechat.serviceimpl;
 
 import com.alibaba.fastjson.JSONObject;
-import com.wuwei.base.utils.AES;
+import com.wuwei.base.util.AES;
 import com.wuwei.base.wechat.model.XiLeWangUser;
 import com.wuwei.base.wechat.service.XiLeWangUserService;
 import com.wuwei.provider.wechat.mapper.XiLeWangUserMapper;

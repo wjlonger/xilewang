@@ -1,4 +1,4 @@
-package com.wuwei.base.utils;
+package com.wuwei.base.util;
 
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;

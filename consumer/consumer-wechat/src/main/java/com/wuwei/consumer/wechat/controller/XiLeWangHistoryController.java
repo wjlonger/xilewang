@@ -1,7 +1,7 @@
 package com.wuwei.consumer.wechat.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.wuwei.base.utils.IdGenerator;
+import com.wuwei.base.util.IdGenerator;
 import com.wuwei.base.wechat.model.XiLeWangHistory;
 import com.wuwei.consumer.wechat.service.XiLeWangHistoryService;
 import com.wuwei.consumer.wechat.utils.Current;

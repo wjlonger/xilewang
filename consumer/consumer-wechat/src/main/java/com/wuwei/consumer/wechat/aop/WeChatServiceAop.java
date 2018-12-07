@@ -1,13 +1,10 @@
 package com.wuwei.consumer.wechat.aop;
 
 
-import com.wuwei.base.utils.SessionKey;
-import com.wuwei.base.wechat.model.XiLeWangUser;
+import com.wuwei.base.util.SessionKey;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 

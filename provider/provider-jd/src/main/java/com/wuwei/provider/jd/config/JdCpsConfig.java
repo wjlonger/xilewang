@@ -2,7 +2,7 @@ package com.wuwei.provider.jd.config;
 
 import com.jd.open.api.sdk.DefaultJdClient;
 import com.jd.open.api.sdk.JdClient;
-import com.wuwei.base.utils.AES;
+import com.wuwei.base.util.AES;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,12 +1,10 @@
-package com.wuwei.base.utils;
+package com.wuwei.base.util;
 
 import java.lang.management.ManagementFactory;
 import java.lang.management.RuntimeMXBean;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.Enumeration;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * @author wjl

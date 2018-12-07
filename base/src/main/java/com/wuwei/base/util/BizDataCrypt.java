@@ -1,4 +1,4 @@
-package com.wuwei.base.utils;
+package com.wuwei.base.util;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.util.Base64;

@@ -1,6 +1,6 @@
 package com.wuwei.provider.wechat.serviceimpl;
 
-import com.wuwei.base.utils.IdGenerator;
+import com.wuwei.base.util.IdGenerator;
 import com.wuwei.base.wechat.model.XiLeWangAssistance;
 import com.wuwei.base.wechat.service.XiLeWangAssistanceService;
 import com.wuwei.provider.wechat.mapper.XiLeWangAssistanceMapper;
