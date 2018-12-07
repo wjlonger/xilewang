@@ -3,7 +3,6 @@ package com.wuwei.consumer.quartz.service;
 
 import com.wuwei.base.quartz.model.XiLeWangQuartz;
 import com.wuwei.consumer.quartz.config.FeignConfig;
-import com.wuwei.consumer.quartz.hystric.JdOrderServiceHystric;
 import com.wuwei.consumer.quartz.hystric.XiLeWangQuartzServiceHystric;
 import feign.RequestLine;
 import org.springframework.cloud.openfeign.FeignClient;
