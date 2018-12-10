@@ -33,8 +33,8 @@ public class OrderServiceTest {
         OrderReq orderReq = new OrderReq();
         orderReq.setPageNo(1);
         orderReq.setPageSize(100);
-        orderReq.setTime("201810241516");
-        orderReq.setType(3);
+        orderReq.setTime("2018111918");
+        orderReq.setType(1);
         UnionOpenOrderQueryRequest unionOpenOrderQueryRequest = new UnionOpenOrderQueryRequest();
         unionOpenOrderQueryRequest.setOrderReq(orderReq);
         UnionOpenOrderQueryResponse response = null;

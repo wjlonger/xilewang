@@ -1,6 +1,7 @@
 package com.wuwei.consumer.quartz.config;
 
 import com.wuwei.base.util.CollectionUtils;
+import com.wuwei.base.util.IdGenerator;
 import com.wuwei.base.util.StringUtils;
 import com.wuwei.base.wechat.model.*;
 import com.wuwei.consumer.quartz.service.*;
@@ -111,13 +112,24 @@ public class RabbitMqProcessConfig {
                                             }else{
                                                 xiLeWangJdOrderSkuInfo.setRebatePrice(new BigDecimal(skuInfo.getEstimateFee()).multiply(xiLeWangOrder.getInitialRatio()).divide(new BigDecimal(100)));
                                             }
-                                            xiLeWangJdOrderSkuInfoService.insert(xiLeWangJdOrderSkuInfo);
+                                            XiLeWangJdOrderSkuInfo temp = xiLeWangJdOrderSkuInfoService.selectBySkuIdAndOrderId(xiLeWangJdOrderSkuInfo.getSkuId(),xiLeWangJdOrderSkuInfo.getJdOrderId());
+                                            if(null == temp){
+                                                xiLeWangJdOrderSkuInfo.setId(IdGenerator.nextId());
+                                                xiLeWangJdOrderSkuInfoService.insertSelective(xiLeWangJdOrderSkuInfo);
+                                            }else{
+                                                xiLeWangJdOrderSkuInfo.setId(temp.getId());
+                                                xiLeWangJdOrderSkuInfoService.updateByPrimaryKeySelective(xiLeWangJdOrderSkuInfo);
+                                            }
                                         }
                                     }
                                 }
                                 //endregion
                             }
-                            xiLeWangJdOrderService.insert(xiLeWangJdOrder);
+                            if(null == xiLeWangJdOrderService.selectByPrimaryKey(xiLeWangJdOrder.getOrderId())){
+                                xiLeWangJdOrderService.insertSelective(xiLeWangJdOrder);
+                            }else{
+                                xiLeWangJdOrderService.updateByPrimaryKeySelective(xiLeWangJdOrder);
+                            }
                         }
                         //endregion
                     }

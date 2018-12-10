@@ -25,7 +25,7 @@
         where id = #{id,jdbcType=BIGINT}
     </select>
 
-    <select id="selectByOpenIdAndSkuId" resultMap="BaseResultMap" parameterType="com.wuwei.base.wechat.model.XiLeWangAssistance" >
+    <select id="selectByOpenIdAndSkuId" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List" />
         from xilewang_assistance

@@ -10,9 +10,8 @@ import org.springframework.cloud.openfeign.FeignClient;
 import java.util.List;
 
 @FeignClient(value = "provider-quartz",configuration = FeignConfig.class, fallback= XiLeWangQuartzServiceHystric.class, path = "/quartz/job")
-public interface XiLeWangQuartzService extends com.wuwei.base.quartz.service.XiLeWangQuartzService {
+public interface XiLeWangQuartzService{
 
-    @Override
     @RequestLine("GET /")
     List<XiLeWangQuartz> listQuartz();
 

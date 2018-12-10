@@ -14,4 +14,6 @@ public interface XiLeWangJdOrderSkuInfoService {
 
     int updateByPrimaryKey(XiLeWangJdOrderSkuInfo xiLeWangJdOrderSkuInfo);
 
+    XiLeWangJdOrderSkuInfo selectBySkuIdAndOrderId(Long skuId,Long jdOrderId);
+
 }

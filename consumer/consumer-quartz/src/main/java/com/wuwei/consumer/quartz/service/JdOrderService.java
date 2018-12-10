@@ -1,6 +1,5 @@
 package com.wuwei.consumer.quartz.service;
 
-import com.wuwei.base.jd.service.OrderService;
 import com.wuwei.consumer.quartz.config.FeignConfig;
 import com.wuwei.consumer.quartz.hystric.JdOrderServiceHystric;
 import feign.RequestLine;
@@ -10,9 +9,8 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @FeignClient(value = "provider-jd",configuration = FeignConfig.class, fallback= JdOrderServiceHystric.class, path = "/order")
-public interface JdOrderService extends OrderService {
+public interface JdOrderService {
 
-    @Override
     @RequestLine("POST /")
     UnionOpenOrderQueryResponse query(@RequestBody OrderReq orderReq);
 }

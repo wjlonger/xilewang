@@ -1,6 +1,7 @@
 package com.wuwei.base.wechat.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class XiLeWangUser implements Serializable {
@@ -13,7 +14,7 @@ public class XiLeWangUser implements Serializable {
 
     private String avatarUrl;
 
-    private Integer gender;
+    private Byte gender;
 
     private String language;
 
@@ -27,9 +28,19 @@ public class XiLeWangUser implements Serializable {
 
     private String masterOpenid;
 
+    private BigDecimal money;
+
+    private BigDecimal rebateMoney;
+
+    private BigDecimal assistanceMoney;
+
+    private BigDecimal masterMoney;
+
     private Date gmtCreate;
 
     private Date gmtModified;
+
+    private
 
     public String getOpenid() {
         return openid;
@@ -55,11 +66,11 @@ public class XiLeWangUser implements Serializable {
         this.avatarUrl = avatarUrl == null ? null : avatarUrl.trim();
     }
 
-    public Integer getGender() {
+    public Byte getGender() {
         return gender;
     }
 
-    public void setGender(Integer gender) {
+    public void setGender(Byte gender) {
         this.gender = gender;
     }
 
@@ -109,6 +120,38 @@ public class XiLeWangUser implements Serializable {
 
     public void setMasterOpenid(String masterOpenid) {
         this.masterOpenid = masterOpenid == null ? null : masterOpenid.trim();
+    }
+
+    public BigDecimal getMoney() {
+        return money;
+    }
+
+    public void setMoney(BigDecimal money) {
+        this.money = money;
+    }
+
+    public BigDecimal getRebateMoney() {
+        return rebateMoney;
+    }
+
+    public void setRebateMoney(BigDecimal rebateMoney) {
+        this.rebateMoney = rebateMoney;
+    }
+
+    public BigDecimal getAssistanceMoney() {
+        return assistanceMoney;
+    }
+
+    public void setAssistanceMoney(BigDecimal assistanceMoney) {
+        this.assistanceMoney = assistanceMoney;
+    }
+
+    public BigDecimal getMasterMoney() {
+        return masterMoney;
+    }
+
+    public void setMasterMoney(BigDecimal masterMoney) {
+        this.masterMoney = masterMoney;
     }
 
     public Date getGmtCreate() {

@@ -59,4 +59,12 @@ public class XiLeWangJdOrderSkuInfoServiceImpl implements XiLeWangJdOrderSkuInfo
         xiLeWangJdOrderSkuInfo.setGmtModified(new Date());
         return xiLeWangJdOrderSkuInfoMapper.updateByPrimaryKey(xiLeWangJdOrderSkuInfo);
     }
+
+    @Override
+    public XiLeWangJdOrderSkuInfo selectBySkuIdAndOrderId(Long skuId, Long jdOrderId) {
+        if(null == skuId || null == jdOrderId){
+            return null;
+        }
+        return xiLeWangJdOrderSkuInfoMapper.selectBySkuIdAndOrderId(skuId,jdOrderId);
+    }
 }

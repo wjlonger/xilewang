@@ -14,4 +14,11 @@ public interface XiLeWangUserMapper {
 
     int updateByPrimaryKey(XiLeWangUser xiLeWangUser);
 
+    int updateRebateMoneyByPrimaryKey(XiLeWangUser xiLeWangUser);
+
+    int updateAssistanceMoneyByPrimaryKey(XiLeWangUser xiLeWangUser);
+
+    int updateMasterMoneyByPrimaryKey(XiLeWangUser xiLeWangUser);
+
+
 }

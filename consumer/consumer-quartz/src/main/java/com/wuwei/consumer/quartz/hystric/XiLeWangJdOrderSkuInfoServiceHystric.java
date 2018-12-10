@@ -31,4 +31,9 @@ public class XiLeWangJdOrderSkuInfoServiceHystric implements XiLeWangJdOrderSkuI
     public int updateByPrimaryKey(XiLeWangJdOrderSkuInfo xiLeWangJdOrderSkuInfo) {
         return 0;
     }
+
+    @Override
+    public XiLeWangJdOrderSkuInfo selectBySkuIdAndOrderId(Long skuId, Long jdOrderId) {
+        return null;
+    }
 }

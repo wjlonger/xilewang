@@ -11,13 +11,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.util.List;
 
 @FeignClient(value = "provider-wechat",configuration = FeignConfig.class, fallback= XiLeWangAssistanceUserServiceHystric.class, path = "/xilewang/assistance/user")
-public interface XiLeWangAssistanceUserService extends com.wuwei.base.wechat.service.XiLeWangAssistanceUserService {
+public interface XiLeWangAssistanceUserService{
 
-    @Override
     @RequestLine("GET /{assistanceId}")
     List<XiLeWangAssistanceUser> selectByAssistanceId(@PathVariable("assistanceId") Long assistanceId);
-
-    @Override
-    @RequestLine("POST /")
-    int insert(@RequestBody XiLeWangAssistanceUser xiLeWangAssistanceUser);
+    
 }

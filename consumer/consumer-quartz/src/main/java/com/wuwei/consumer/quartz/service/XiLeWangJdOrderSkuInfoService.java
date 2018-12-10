@@ -9,25 +9,23 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @FeignClient(value = "provider-wechat",configuration = FeignConfig.class, fallback= XiLeWangJdOrderSkuInfoServiceHystric.class, path = "/xilewang/jdorderskuinfo")
-public interface XiLeWangJdOrderSkuInfoService extends com.wuwei.base.wechat.service.XiLeWangJdOrderSkuInfoService {
+public interface XiLeWangJdOrderSkuInfoService{
 
-    @Override
     @RequestLine("POST /")
     int insert(@RequestBody XiLeWangJdOrderSkuInfo xiLeWangJdOrderSkuInfo);
 
-    @Override
     @RequestLine("POST /insertSelective")
     int insertSelective(@RequestBody XiLeWangJdOrderSkuInfo xiLeWangJdOrderSkuInfo);
 
-    @Override
     @RequestLine("GET /{id}")
     XiLeWangJdOrderSkuInfo selectByPrimaryKey(@PathVariable("id") Long id);
 
-    @Override
     @RequestLine("PUT /updateByPrimaryKeySelective")
     int updateByPrimaryKeySelective(@RequestBody XiLeWangJdOrderSkuInfo xiLeWangJdOrderSkuInfo);
 
-    @Override
     @RequestLine("PUT /")
     int updateByPrimaryKey(@RequestBody XiLeWangJdOrderSkuInfo xiLeWangJdOrderSkuInfo);
+
+    @RequestLine("GET /{jdOrderId}/{skuId}")
+    XiLeWangJdOrderSkuInfo selectBySkuIdAndOrderId(Long skuId, Long jdOrderId);
 }

@@ -2,6 +2,8 @@ package com.wuwei.base.wechat.service;
 
 import com.wuwei.base.wechat.model.XiLeWangUser;
 
+import java.math.BigDecimal;
+
 public interface XiLeWangUserService {
 
     String code2Session(String code,String inviteCode);
@@ -17,5 +19,7 @@ public interface XiLeWangUserService {
     int updateByPrimaryKey(XiLeWangUser xiLeWangUser);
 
     int save(XiLeWangUser xiLeWangUser);
+
+    int updateMoneyByPrimaryKey(int type, BigDecimal addMoney, String openid);
 
 }

@@ -40,4 +40,8 @@ public class XiLeWangJdOrderSkuInfoController {
         return xiLeWangJdOrderSkuInfoService.updateByPrimaryKey(xiLeWangJdOrderSkuInfo);
     }
 
+    @GetMapping("/{jdOrderId}/{skuId}")
+    public XiLeWangJdOrderSkuInfo selectBySkuIdAndOrderId(@PathVariable("jdOrderId") Long jdOrderId, @PathVariable("skuId") Long skuId){
+        return xiLeWangJdOrderSkuInfoService.selectBySkuIdAndOrderId(skuId,jdOrderId);
+    }
 }

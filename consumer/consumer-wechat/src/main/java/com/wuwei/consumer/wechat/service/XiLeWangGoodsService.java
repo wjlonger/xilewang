@@ -8,9 +8,8 @@ import jd.union.open.goods.query.response.GoodsResp;
 import org.springframework.cloud.openfeign.FeignClient;
 
 @FeignClient(value = "provider-jd",fallback= XiLeWangGoodsServiceHystric.class, path = "/goods")
-public interface XiLeWangGoodsService extends GoodsService {
+public interface XiLeWangGoodsService{
 
-    @Override
     @RequestLine("GET /{skuId}")
     GoodsResp goodsDetail(@Param("skuId") final Long skuId);
 
