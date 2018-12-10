@@ -40,8 +40,6 @@ public class XiLeWangUser implements Serializable {
 
     private Date gmtModified;
 
-    private
-
     public String getOpenid() {
         return openid;
     }
