@@ -1,10 +1,15 @@
 package com.wuwei.base.wechat.model;
+
 import jd.union.open.order.query.response.SkuInfo;
+import sun.plugin2.message.Serializer;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 
 public class XiLeWangJdOrderSkuInfo implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     public XiLeWangJdOrderSkuInfo(){}
 
@@ -18,11 +23,8 @@ public class XiLeWangJdOrderSkuInfo implements Serializable {
             this.finalRate = new BigDecimal(skuInfo.getFinalRate());
             this.cid1 = skuInfo.getCid1();
             this.frozenSkuNum = skuInfo.getFrozenSkuNum();
-            this.pid = skuInfo.getPid();
-            this.positionId = skuInfo.getPositionId();
             this.price = new BigDecimal(skuInfo.getPrice());
             this.cid2 = skuInfo.getCid2();
-            this.siteId = skuInfo.getSiteId();
             this.skuId = skuInfo.getSkuId();
             this.skuName = skuInfo.getSkuName();
             this.skuNum = skuInfo.getSkuNum();
@@ -30,17 +32,10 @@ public class XiLeWangJdOrderSkuInfo implements Serializable {
             this.subSideRate = new BigDecimal(skuInfo.getSubSideRate());
             this.subsidyRate = new BigDecimal(skuInfo.getSubsidyRate());
             this.cid3 = skuInfo.getCid3();
-            this.unionAlias = skuInfo.getUnionAlias();
-            this.unionTag = skuInfo.getUnionTag();
-            this.unionTrafficGroup = skuInfo.getUnionTrafficGroup();
             this.validCode = skuInfo.getValidCode();
             this.subUnionId = skuInfo.getSubUnionId();
-            this.traceType = skuInfo.getTraceType();
         }
     }
-
-
-    private static final long serialVersionUID = 1L;
 
     private Long id;
 
@@ -60,15 +55,9 @@ public class XiLeWangJdOrderSkuInfo implements Serializable {
 
     private Long frozenSkuNum;
 
-    private String pid;
-
-    private Long positionId;
-
     private BigDecimal price;
 
     private Long cid2;
-
-    private Long siteId;
 
     private Long skuId;
 
@@ -84,19 +73,19 @@ public class XiLeWangJdOrderSkuInfo implements Serializable {
 
     private Long cid3;
 
-    private String unionAlias;
-
-    private String unionTag;
-
-    private Integer unionTrafficGroup;
-
     private Integer validCode;
 
     private String subUnionId;
 
-    private Integer traceType;
+    private String img;
+
+    private BigDecimal rebatePrice;
 
     private Long jdOrderId;
+
+    private Date gmtCreate;
+
+    private Date gmtModified;
 
     public Long getId() {
         return id;
@@ -170,22 +159,6 @@ public class XiLeWangJdOrderSkuInfo implements Serializable {
         this.frozenSkuNum = frozenSkuNum;
     }
 
-    public String getPid() {
-        return pid;
-    }
-
-    public void setPid(String pid) {
-        this.pid = pid == null ? null : pid.trim();
-    }
-
-    public Long getPositionId() {
-        return positionId;
-    }
-
-    public void setPositionId(Long positionId) {
-        this.positionId = positionId;
-    }
-
     public BigDecimal getPrice() {
         return price;
     }
@@ -200,14 +173,6 @@ public class XiLeWangJdOrderSkuInfo implements Serializable {
 
     public void setCid2(Long cid2) {
         this.cid2 = cid2;
-    }
-
-    public Long getSiteId() {
-        return siteId;
-    }
-
-    public void setSiteId(Long siteId) {
-        this.siteId = siteId;
     }
 
     public Long getSkuId() {
@@ -266,30 +231,6 @@ public class XiLeWangJdOrderSkuInfo implements Serializable {
         this.cid3 = cid3;
     }
 
-    public String getUnionAlias() {
-        return unionAlias;
-    }
-
-    public void setUnionAlias(String unionAlias) {
-        this.unionAlias = unionAlias == null ? null : unionAlias.trim();
-    }
-
-    public String getUnionTag() {
-        return unionTag;
-    }
-
-    public void setUnionTag(String unionTag) {
-        this.unionTag = unionTag == null ? null : unionTag.trim();
-    }
-
-    public Integer getUnionTrafficGroup() {
-        return unionTrafficGroup;
-    }
-
-    public void setUnionTrafficGroup(Integer unionTrafficGroup) {
-        this.unionTrafficGroup = unionTrafficGroup;
-    }
-
     public Integer getValidCode() {
         return validCode;
     }
@@ -306,12 +247,20 @@ public class XiLeWangJdOrderSkuInfo implements Serializable {
         this.subUnionId = subUnionId == null ? null : subUnionId.trim();
     }
 
-    public Integer getTraceType() {
-        return traceType;
+    public String getImg() {
+        return img;
     }
 
-    public void setTraceType(Integer traceType) {
-        this.traceType = traceType;
+    public void setImg(String img) {
+        this.img = img == null ? null : img.trim();
+    }
+
+    public BigDecimal getRebatePrice() {
+        return rebatePrice;
+    }
+
+    public void setRebatePrice(BigDecimal rebatePrice) {
+        this.rebatePrice = rebatePrice;
     }
 
     public Long getJdOrderId() {
@@ -320,5 +269,21 @@ public class XiLeWangJdOrderSkuInfo implements Serializable {
 
     public void setJdOrderId(Long jdOrderId) {
         this.jdOrderId = jdOrderId;
+    }
+
+    public Date getGmtCreate() {
+        return gmtCreate;
+    }
+
+    public void setGmtCreate(Date gmtCreate) {
+        this.gmtCreate = gmtCreate;
+    }
+
+    public Date getGmtModified() {
+        return gmtModified;
+    }
+
+    public void setGmtModified(Date gmtModified) {
+        this.gmtModified = gmtModified;
     }
 }

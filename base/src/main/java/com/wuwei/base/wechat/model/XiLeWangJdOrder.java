@@ -1,11 +1,31 @@
 package com.wuwei.base.wechat.model;
 
+import jd.union.open.order.query.response.OrderResp;
+
 import java.io.Serializable;
-import java.math.BigDecimal;
+import java.util.Date;
 
 public class XiLeWangJdOrder implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
+    public XiLeWangJdOrder(){}
+
+    public XiLeWangJdOrder(OrderResp orderResp){
+        if(null != orderResp){
+            this.orderId = orderResp.getOrderId();
+            this.finishTime = orderResp.getFinishTime();
+            this.orderEmt = orderResp.getOrderEmt();
+            this.orderTime = orderResp.getOrderTime();
+            this.parentId = orderResp.getParentId();
+            this.payMonth = orderResp.getPayMonth();
+            this.plus = orderResp.getPlus();
+            this.popId = orderResp.getPopId();
+            this.unionId = orderResp.getUnionId();
+            this.ext1 = orderResp.getExt1();
+            this.validCode = orderResp.getValidCode();
+        }
+    }
 
     private Long orderId;
 
@@ -31,13 +51,9 @@ public class XiLeWangJdOrder implements Serializable {
 
     private String openid;
 
-    private Integer goodsNum;
+    private Date gmtCreate;
 
-    private BigDecimal orderMoney;
-
-    private Long rebateMoney;
-
-    private String imgs;
+    private Date gmtModified;
 
     public Long getOrderId() {
         return orderId;
@@ -135,35 +151,19 @@ public class XiLeWangJdOrder implements Serializable {
         this.openid = openid == null ? null : openid.trim();
     }
 
-    public Integer getGoodsNum() {
-        return goodsNum;
+    public Date getGmtCreate() {
+        return gmtCreate;
     }
 
-    public void setGoodsNum(Integer goodsNum) {
-        this.goodsNum = goodsNum;
+    public void setGmtCreate(Date gmtCreate) {
+        this.gmtCreate = gmtCreate;
     }
 
-    public BigDecimal getOrderMoney() {
-        return orderMoney;
+    public Date getGmtModified() {
+        return gmtModified;
     }
 
-    public void setOrderMoney(BigDecimal orderMoney) {
-        this.orderMoney = orderMoney;
-    }
-
-    public Long getRebateMoney() {
-        return rebateMoney;
-    }
-
-    public void setRebateMoney(Long rebateMoney) {
-        this.rebateMoney = rebateMoney;
-    }
-
-    public String getImgs() {
-        return imgs;
-    }
-
-    public void setImgs(String imgs) {
-        this.imgs = imgs == null ? null : imgs.trim();
+    public void setGmtModified(Date gmtModified) {
+        this.gmtModified = gmtModified;
     }
 }

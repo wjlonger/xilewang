@@ -25,7 +25,12 @@ public class GrabOrderJob implements Job, Serializable {
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
         System.out.println("开始抓取订单");
-        amqpTemplate.convertAndSend("quartz_jdorder_save",DateUtils.getOrderTimeForJd());
+        OrderReq orderReq = new OrderReq();
+        orderReq.setPageNo(1);
+        orderReq.setPageSize(500);
+        orderReq.setType(3);
+        orderReq.setTime(DateUtils.getOrderTimeForJd());
+        amqpTemplate.convertAndSend("quartz_jdorder_save",orderReq);
     }
 
 }

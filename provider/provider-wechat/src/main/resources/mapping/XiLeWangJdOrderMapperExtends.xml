@@ -15,14 +15,12 @@
       <result column="ext1" property="ext1" jdbcType="VARCHAR" />
       <result column="valid_code" property="validCode" jdbcType="INTEGER" />
       <result column="openid" property="openid" jdbcType="VARCHAR" />
-      <result column="goods_num" property="goodsNum" jdbcType="INTEGER" />
-      <result column="order_money" property="orderMoney" jdbcType="DECIMAL" />
-      <result column="rebate_money" property="rebateMoney" jdbcType="DECIMAL" />
-      <result column="imgs" property="imgs" jdbcType="VARCHAR" />
+      <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+      <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
     </resultMap>
     <sql id="Base_Column_List" >
       order_id, finish_time, order_emt, order_time, parent_id, pay_month, plus, pop_id,
-      union_id, ext1, valid_code, openid, goods_num, order_money, rebate_money, imgs
+      union_id, ext1, valid_code, openid, gmt_create, gmt_modified
     </sql>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
       select
@@ -35,14 +33,12 @@
         order_time, parent_id, pay_month,
         plus, pop_id, union_id,
         ext1, valid_code, openid,
-        goods_num, order_money, rebate_money,
-        imgs)
+        gmt_create, gmt_modified)
       values (#{orderId,jdbcType=BIGINT}, #{finishTime,jdbcType=BIGINT}, #{orderEmt,jdbcType=INTEGER},
         #{orderTime,jdbcType=BIGINT}, #{parentId,jdbcType=BIGINT}, #{payMonth,jdbcType=VARCHAR},
         #{plus,jdbcType=INTEGER}, #{popId,jdbcType=BIGINT}, #{unionId,jdbcType=BIGINT},
         #{ext1,jdbcType=VARCHAR}, #{validCode,jdbcType=INTEGER}, #{openid,jdbcType=VARCHAR},
-        #{goodsNum,jdbcType=INTEGER}, #{orderMoney,jdbcType=DECIMAL}, #{rebateMoney,jdbcType=DECIMAL},
-        #{imgs,jdbcType=VARCHAR})
+        #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP})
     </insert>
     <insert id="insertSelective" parameterType="com.wuwei.base.wechat.model.XiLeWangJdOrder" >
       insert into xilewang_jd_order
@@ -83,17 +79,11 @@
         <if test="openid != null" >
           openid,
         </if>
-        <if test="goodsNum != null" >
-          goods_num,
+        <if test="gmtCreate != null" >
+          gmt_create,
         </if>
-        <if test="orderMoney != null" >
-          order_money,
-        </if>
-        <if test="rebateMoney != null" >
-          rebate_money,
-        </if>
-        <if test="imgs != null" >
-          imgs,
+        <if test="gmtModified != null" >
+          gmt_modified,
         </if>
       </trim>
       <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -133,17 +123,11 @@
         <if test="openid != null" >
           #{openid,jdbcType=VARCHAR},
         </if>
-        <if test="goodsNum != null" >
-          #{goodsNum,jdbcType=INTEGER},
+        <if test="gmtCreate != null" >
+          #{gmtCreate,jdbcType=TIMESTAMP},
         </if>
-        <if test="orderMoney != null" >
-          #{orderMoney,jdbcType=DECIMAL},
-        </if>
-        <if test="rebateMoney != null" >
-          #{rebateMoney,jdbcType=DECIMAL},
-        </if>
-        <if test="imgs != null" >
-          #{imgs,jdbcType=VARCHAR},
+        <if test="gmtModified != null" >
+          #{gmtModified,jdbcType=TIMESTAMP},
         </if>
       </trim>
     </insert>
@@ -183,17 +167,11 @@
         <if test="openid != null" >
           openid = #{openid,jdbcType=VARCHAR},
         </if>
-        <if test="goodsNum != null" >
-          goods_num = #{goodsNum,jdbcType=INTEGER},
+        <if test="gmtCreate != null" >
+          gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
         </if>
-        <if test="orderMoney != null" >
-          order_money = #{orderMoney,jdbcType=DECIMAL},
-        </if>
-        <if test="rebateMoney != null" >
-          rebate_money = #{rebateMoney,jdbcType=DECIMAL},
-        </if>
-        <if test="imgs != null" >
-          imgs = #{imgs,jdbcType=VARCHAR},
+        <if test="gmtModified != null" >
+          gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
         </if>
       </set>
       where order_id = #{orderId,jdbcType=BIGINT}
@@ -211,10 +189,9 @@
         ext1 = #{ext1,jdbcType=VARCHAR},
         valid_code = #{validCode,jdbcType=INTEGER},
         openid = #{openid,jdbcType=VARCHAR},
-        goods_num = #{goodsNum,jdbcType=INTEGER},
-        order_money = #{orderMoney,jdbcType=DECIMAL},
-        rebate_money = #{rebateMoney,jdbcType=DECIMAL},
-        imgs = #{imgs,jdbcType=VARCHAR}
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
       where order_id = #{orderId,jdbcType=BIGINT}
     </update>
+
 </mapper>
