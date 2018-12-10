@@ -1,6 +1,10 @@
 package com.wuwei.provider.wechat.mapper;
 
 import com.wuwei.base.wechat.model.XiLeWangUser;
+import org.apache.ibatis.annotations.Param;
+
+import java.math.BigDecimal;
+import java.util.Date;
 
 public interface XiLeWangUserMapper {
 
@@ -14,11 +18,11 @@ public interface XiLeWangUserMapper {
 
     int updateByPrimaryKey(XiLeWangUser xiLeWangUser);
 
-    int updateRebateMoneyByPrimaryKey(XiLeWangUser xiLeWangUser);
+    int updateRebateMoneyByPrimaryKey(@Param("modifyMoney")BigDecimal modifyMoney, @Param("openid") String openid, @Param("gmtModified")Date gmtModified);
 
-    int updateAssistanceMoneyByPrimaryKey(XiLeWangUser xiLeWangUser);
+    int updateAssistanceMoneyByPrimaryKey(@Param("modifyMoney")BigDecimal modifyMoney, @Param("openid") String openid, @Param("gmtModified")Date gmtModified);
 
-    int updateMasterMoneyByPrimaryKey(XiLeWangUser xiLeWangUser);
+    int updateMasterMoneyByPrimaryKey(@Param("modifyMoney")BigDecimal modifyMoney, @Param("openid") String openid, @Param("gmtModified")Date gmtModified);
 
 
 }

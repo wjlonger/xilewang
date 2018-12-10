@@ -20,6 +20,6 @@ public interface XiLeWangUserService {
 
     int save(XiLeWangUser xiLeWangUser);
 
-    int updateMoneyByPrimaryKey(int type, BigDecimal addMoney, String openid);
+    int updateMoneyByPrimaryKey(int type, BigDecimal modifyMoney, String openid);
 
 }

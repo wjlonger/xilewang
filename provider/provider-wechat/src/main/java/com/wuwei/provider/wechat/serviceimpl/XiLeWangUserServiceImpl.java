@@ -15,6 +15,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.math.BigDecimal;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -160,6 +161,20 @@ public class XiLeWangUserServiceImpl implements XiLeWangUserService {
             return this.insertSelective(xiLeWangUser);
         }
         return this.updateByPrimaryKeySelective(xiLeWangUser);
+    }
+
+    @Override
+    public int updateMoneyByPrimaryKey(int type, BigDecimal modifyMoney, String openid) {
+        switch (type){
+            case 0:
+                return xiLeWangUserMapper.updateRebateMoneyByPrimaryKey(modifyMoney,openid,new Date());
+            case 1:
+                return xiLeWangUserMapper.updateAssistanceMoneyByPrimaryKey(modifyMoney,openid,new Date());
+            case 2:
+                return xiLeWangUserMapper.updateMasterMoneyByPrimaryKey(modifyMoney,openid,new Date());
+            default:
+                return 0;
+        }
     }
 
 }

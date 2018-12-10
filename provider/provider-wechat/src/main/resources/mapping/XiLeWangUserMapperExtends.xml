@@ -177,18 +177,6 @@
             <if test="masterOpenid != null" >
                 master_openid = #{masterOpenid,jdbcType=VARCHAR},
             </if>
-            <if test="money != null" >
-                money = #{money,jdbcType=DECIMAL},
-            </if>
-            <if test="rebateMoney != null" >
-                rebate_money = #{rebateMoney,jdbcType=DECIMAL},
-            </if>
-            <if test="assistanceMoney != null" >
-                assistance_money = #{assistanceMoney,jdbcType=DECIMAL},
-            </if>
-            <if test="masterMoney != null" >
-                master_money = #{masterMoney,jdbcType=DECIMAL},
-            </if>
             <if test="gmtCreate != null" >
                 gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
             </if>
@@ -209,10 +197,6 @@
             country = #{country,jdbcType=VARCHAR},
             sessionkey = #{sessionkey,jdbcType=VARCHAR},
             master_openid = #{masterOpenid,jdbcType=VARCHAR},
-            money = #{money,jdbcType=DECIMAL},
-            rebate_money = #{rebateMoney,jdbcType=DECIMAL},
-            assistance_money = #{assistanceMoney,jdbcType=DECIMAL},
-            master_money = #{masterMoney,jdbcType=DECIMAL},
             gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
             gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
         where openid = #{openid,jdbcType=VARCHAR}
@@ -221,27 +205,27 @@
         update
             xilewang_user
         set
-            money = money + #{modifyMoney},
-            rebate_money = rebate_money + #{modifyMoney},
+            money = money + #{modifyMoney, jdbcType=DECIMAL},
+            rebate_money = rebate_money + #{modifyMoney, jdbcType=DECIMAL},
             gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
         where
             openid = #{openid,jdbcType=VARCHAR}
     </update>
-    <update id="updateAssistanceMoneyByPrimaryKey" parameterType="com.wuwei.base.wechat.model.XiLeWangUser" >
+    <update id="updateAssistanceMoneyByPrimaryKey"  >
         update
             xilewang_user
         set
-            money = money + #{addMoney},
-            assistance_money = assistance_money + #{addMoney},
+            money = money + #{modifyMoney, jdbcType=DECIMAL},
+            assistance_money = assistance_money + #{modifyMoney, jdbcType=DECIMAL},
             gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
         where
             openid = #{openid,jdbcType=VARCHAR}
     </update>
-    <update id="updateMasterMoneyByPrimaryKey" parameterType="com.wuwei.base.wechat.model.XiLeWangUser" >
+    <update id="updateMasterMoneyByPrimaryKey" >
         update xilewang_user
         set
-            money = money + #{addMoney},
-            master_money = master_money + #{addMoney},
+            money = money + #{modifyMoney, jdbcType=DECIMAL},
+            master_money = master_money + #{modifyMoney, jdbcType=DECIMAL},
             gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
         where openid = #{openid,jdbcType=VARCHAR}
     </update>
