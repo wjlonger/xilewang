@@ -18,6 +18,8 @@ public class XiLeWangIncomeReport implements Serializable {
 
     private Long jdOrderId;
 
+    private Long jdOrderSkuId;
+
     private BigDecimal money;
 
     private Date gmtCreate;
@@ -62,6 +64,14 @@ public class XiLeWangIncomeReport implements Serializable {
 
     public void setJdOrderId(Long jdOrderId) {
         this.jdOrderId = jdOrderId;
+    }
+
+    public Long getJdOrderSkuId() {
+        return jdOrderSkuId;
+    }
+
+    public void setJdOrderSkuId(Long jdOrderSkuId) {
+        this.jdOrderSkuId = jdOrderSkuId;
     }
 
     public BigDecimal getMoney() {

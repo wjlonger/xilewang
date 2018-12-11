@@ -14,6 +14,6 @@ public interface XiLeWangIncomeReportService {
 
     int updateByPrimaryKey(XiLeWangIncomeReport xiLeWangIncomeReport);
 
-    XiLeWangIncomeReport selectByOpenidAndJdOrderId(String openid, Long jdOrderId);
+    XiLeWangIncomeReport selectByOpenidAndJdOrderIdAndSkuId(String openid, Long jdOrderId,Long skuId);
 
 }

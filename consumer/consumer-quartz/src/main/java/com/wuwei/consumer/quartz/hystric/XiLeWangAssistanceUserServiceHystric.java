@@ -14,8 +14,4 @@ public class XiLeWangAssistanceUserServiceHystric implements XiLeWangAssistanceU
         return null;
     }
 
-    @Override
-    public int insert(XiLeWangAssistanceUser xiLeWangAssistanceUser) {
-        return 0;
-    }
 }

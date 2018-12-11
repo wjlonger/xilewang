@@ -40,9 +40,9 @@ public class XiLeWangIncomeReportController {
         return xiLeWangIncomeReportService.updateByPrimaryKey(xiLeWangIncomeReport);
     }
 
-    @GetMapping("/{openid}/{jdOrderId}")
-    public XiLeWangIncomeReport selectByOpenidAndJdOrderId(@PathVariable("openid") String openid, @PathVariable("jdOrderId") Long jdOrderId){
-        return xiLeWangIncomeReportService.selectByOpenidAndJdOrderId(openid, jdOrderId);
+    @GetMapping("/{openid}/{jdOrderId}/{skuId}")
+    public XiLeWangIncomeReport selectByOpenidAndJdOrderIdAndSkuId(@PathVariable("openid") String openid, @PathVariable("jdOrderId") Long jdOrderId,@PathVariable("skuId") Long skuId){
+        return xiLeWangIncomeReportService.selectByOpenidAndJdOrderIdAndSkuId(openid, jdOrderId,skuId);
     }
 
 }

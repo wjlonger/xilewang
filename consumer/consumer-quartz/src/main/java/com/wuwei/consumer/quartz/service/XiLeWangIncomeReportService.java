@@ -20,7 +20,7 @@ public interface XiLeWangIncomeReportService {
     @RequestLine("PUT /updateByPrimaryKeySelective")
     int updateByPrimaryKeySelective(@RequestBody XiLeWangIncomeReport xiLeWangIncomeReport);
 
-    @GetMapping("/{openid}/{jdOrderId}")
-    XiLeWangIncomeReport selectByOpenidAndJdOrderId(@Param("openid") String openid, @Param("jdOrderId") Long jdOrderId);
+    @GetMapping("/{openid}/{jdOrderId}/{skuId}")
+    XiLeWangIncomeReport selectByOpenidAndJdOrderIdAndSkuId(@Param("openid") String openid, @Param("jdOrderId") Long jdOrderId,@Param("skuId") Long skuId);
 
 }

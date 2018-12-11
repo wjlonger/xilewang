@@ -72,12 +72,16 @@ public class RabbitMqProcessConfig {
         if(null == xiLeWangOrder || StringUtils.isEmpty(xiLeWangOrder.getSkuId()) || StringUtils.isEmpty(xiLeWangOrder.getOpenid())){
             return;
         }
+        GoodsResp goodsResp = xiLeWangGoodsService.goodsDetail(xiLeWangOrder.getSkuId());
+        if(null != goodsResp && null != goodsResp.getCommissionInfo() && goodsResp.getCommissionInfo().length > 0){
+            xiLeWangOrder.setInitialRatio(new BigDecimal(goodsResp.getCommissionInfo()[0].getCommissionShare()));
+        }else{
+            xiLeWangOrder.setInitialRatio(new BigDecimal(0));
+        }
         XiLeWangAssistance xiLeWangAssistance = xiLeWangAssistanceService.selectByOpenIdAndSkuId(xiLeWangOrder.getOpenid(),xiLeWangOrder.getSkuId());
-        if(xiLeWangAssistance == null){
-            xiLeWangOrder.setInitialRatio(ratio);
+        if(null == xiLeWangAssistance){
             xiLeWangOrder.setAssistanceId(0L);
         }else{
-            xiLeWangOrder.setInitialRatio(xiLeWangAssistance.getInitialRatio());
             xiLeWangOrder.setAssistanceId(xiLeWangAssistance.getId());
         }
         xiLeWangOrderService.insertSelective(xiLeWangOrder);

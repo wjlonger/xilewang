@@ -15,6 +15,6 @@ public interface XiLeWangIncomeReportMapper {
 
     int updateByPrimaryKey(XiLeWangIncomeReport xiLeWangIncomeReport);
 
-    XiLeWangIncomeReport selectByOpenidAndJdOrderId(@Param("openid") String openid, @Param("jdOrderId") Long jdOrderId);
+    XiLeWangIncomeReport selectByOpenidAndJdOrderIdAndSkuId(@Param("openid") String openid, @Param("jdOrderId") Long jdOrderId,@Param("skuId") Long skuId);
 
 }

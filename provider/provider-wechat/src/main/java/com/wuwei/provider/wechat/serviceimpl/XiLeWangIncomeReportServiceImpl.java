@@ -62,10 +62,10 @@ public class XiLeWangIncomeReportServiceImpl implements XiLeWangIncomeReportServ
     }
 
     @Override
-    public XiLeWangIncomeReport selectByOpenidAndJdOrderId(String openid, Long jdOrderId) {
-        if(StringUtils.isNullOrEmpty(openid) || null == jdOrderId){
+    public XiLeWangIncomeReport selectByOpenidAndJdOrderIdAndSkuId(String openid, Long jdOrderId,Long skuId) {
+        if(StringUtils.isNullOrEmpty(openid) || null == jdOrderId || null == skuId){
             return null;
         }
-        return xiLeWangIncomeReportMapper.selectByOpenidAndJdOrderId(openid,jdOrderId);
+        return xiLeWangIncomeReportMapper.selectByOpenidAndJdOrderIdAndSkuId(openid,jdOrderId,skuId);
     }
 }

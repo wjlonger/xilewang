@@ -14,7 +14,7 @@ public class XiLeWangUser implements Serializable {
 
     private String avatarUrl;
 
-    private Byte gender;
+    private Integer gender;
 
     private String language;
 
@@ -64,11 +64,11 @@ public class XiLeWangUser implements Serializable {
         this.avatarUrl = avatarUrl == null ? null : avatarUrl.trim();
     }
 
-    public Byte getGender() {
+    public Integer getGender() {
         return gender;
     }
 
-    public void setGender(Byte gender) {
+    public void setGender(Integer gender) {
         this.gender = gender;
     }
 

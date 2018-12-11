@@ -29,11 +29,11 @@ public class OrderServiceTest {
 
     @Test
     public void query() {
-        JdClient jdClient = new DefaultJdClient("https://router.jd.com/api",null, "a36b7dfb48074b50b534ddf11bba5cc7","56e43d07fe76477c96ea2b4a2f2a980b");
+        JdClient jdClient = new DefaultJdClient("https://router.jd.com/api",null, "0f7076d0d77949e9a44002773574c53c","156e0e5268c3448da16f66bd3771f1e3");
         OrderReq orderReq = new OrderReq();
         orderReq.setPageNo(1);
         orderReq.setPageSize(100);
-        orderReq.setTime("2018111918");
+        orderReq.setTime("201812111104");
         orderReq.setType(1);
         UnionOpenOrderQueryRequest unionOpenOrderQueryRequest = new UnionOpenOrderQueryRequest();
         unionOpenOrderQueryRequest.setOrderReq(orderReq);
