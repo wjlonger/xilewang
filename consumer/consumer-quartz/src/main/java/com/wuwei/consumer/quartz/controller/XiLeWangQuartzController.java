@@ -1,7 +1,7 @@
 package com.wuwei.consumer.quartz.controller;
 
 import com.wuwei.base.quartz.model.XiLeWangQuartz;
-import com.wuwei.base.quartz.service.XiLeWangQuartzService;
+import com.wuwei.consumer.quartz.service.XiLeWangQuartzService;
 import org.quartz.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;

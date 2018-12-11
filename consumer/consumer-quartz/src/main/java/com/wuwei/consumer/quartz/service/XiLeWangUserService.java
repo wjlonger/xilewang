@@ -16,5 +16,5 @@ public interface XiLeWangUserService  {
     XiLeWangUser selectByPrimaryKey(@Param("openid") String openid);
 
     @RequestLine("POST /updateMoneyByPrimaryKey")
-    int updateMoneyByPrimaryKey(int type, BigDecimal modifyMoney, String openid);
+    int updateMoneyByPrimaryKey(@Param("type") int type, @Param("modifyMoney")BigDecimal modifyMoney, @Param("openid")String openid);
 }

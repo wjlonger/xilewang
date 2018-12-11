@@ -24,7 +24,7 @@ public class OrderTest {
         orderReq.setPageNo(1);
         orderReq.setPageSize(500);
         orderReq.setType(1);
-        orderReq.setTime("2018121111");
+        orderReq.setTime("201812111557");
         amqpTemplate.convertAndSend("quartz_jdorder_save",orderReq);
     }
 
