@@ -3,6 +3,7 @@ package com.wuwei.consumer.quartz.service;
 import com.wuwei.base.wechat.model.XiLeWangAssistanceUser;
 import com.wuwei.consumer.quartz.config.FeignConfig;
 import com.wuwei.consumer.quartz.hystric.XiLeWangAssistanceUserServiceHystric;
+import feign.Param;
 import feign.RequestLine;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +15,6 @@ import java.util.List;
 public interface XiLeWangAssistanceUserService{
 
     @RequestLine("GET /{assistanceId}")
-    List<XiLeWangAssistanceUser> selectByAssistanceId(@PathVariable("assistanceId") Long assistanceId);
-    
+    List<XiLeWangAssistanceUser> selectByAssistanceId(@Param("assistanceId") Long assistanceId);
+
 }

@@ -3,6 +3,7 @@ package com.wuwei.consumer.quartz.service;
 import com.wuwei.base.wechat.model.XiLeWangAssistance;
 import com.wuwei.consumer.quartz.config.FeignConfig;
 import com.wuwei.consumer.quartz.hystric.XiLeWangAssistanceServiceHystric;
+import feign.Param;
 import feign.RequestLine;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,11 +16,11 @@ public interface XiLeWangAssistanceService{
     int insertSelective(@RequestBody XiLeWangAssistance xiLeWangAssistance);
 
     @RequestLine("GET /{id}")
-    XiLeWangAssistance selectByPrimaryKey(@PathVariable("id") Long id);
+    XiLeWangAssistance selectByPrimaryKey(@Param("id") Long id);
 
     @RequestLine("PUT /")
     int updateByPrimaryKeySelective(@RequestBody XiLeWangAssistance xiLeWangAssistance);
 
     @RequestLine("GET /{openId}/{skuId}")
-    XiLeWangAssistance selectByOpenIdAndSkuId(@PathVariable("openId") String openId, @PathVariable("skuId") Long skuId);
+    XiLeWangAssistance selectByOpenIdAndSkuId(@Param("openId") String openId, @Param("skuId") Long skuId);
 }

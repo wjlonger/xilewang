@@ -3,9 +3,9 @@ package com.wuwei.consumer.quartz.service;
 import com.wuwei.base.wechat.model.XiLeWangUser;
 import com.wuwei.consumer.quartz.config.FeignConfig;
 import com.wuwei.consumer.quartz.hystric.XiLeWangUserServiceHystric;
+import feign.Param;
 import feign.RequestLine;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.math.BigDecimal;
 
@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 public interface XiLeWangUserService  {
 
     @RequestLine("GET /{openid}")
-    XiLeWangUser selectByPrimaryKey(@PathVariable("openid") String openid);
+    XiLeWangUser selectByPrimaryKey(@Param("openid") String openid);
 
     @RequestLine("POST /updateMoneyByPrimaryKey")
     int updateMoneyByPrimaryKey(int type, BigDecimal modifyMoney, String openid);

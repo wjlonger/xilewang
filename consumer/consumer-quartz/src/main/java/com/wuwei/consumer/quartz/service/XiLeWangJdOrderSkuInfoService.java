@@ -3,6 +3,7 @@ package com.wuwei.consumer.quartz.service;
 import com.wuwei.base.wechat.model.XiLeWangJdOrderSkuInfo;
 import com.wuwei.consumer.quartz.config.FeignConfig;
 import com.wuwei.consumer.quartz.hystric.XiLeWangJdOrderSkuInfoServiceHystric;
+import feign.Param;
 import feign.RequestLine;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,7 +19,7 @@ public interface XiLeWangJdOrderSkuInfoService{
     int insertSelective(@RequestBody XiLeWangJdOrderSkuInfo xiLeWangJdOrderSkuInfo);
 
     @RequestLine("GET /{id}")
-    XiLeWangJdOrderSkuInfo selectByPrimaryKey(@PathVariable("id") Long id);
+    XiLeWangJdOrderSkuInfo selectByPrimaryKey(@Param("id") Long id);
 
     @RequestLine("PUT /updateByPrimaryKeySelective")
     int updateByPrimaryKeySelective(@RequestBody XiLeWangJdOrderSkuInfo xiLeWangJdOrderSkuInfo);
@@ -27,5 +28,5 @@ public interface XiLeWangJdOrderSkuInfoService{
     int updateByPrimaryKey(@RequestBody XiLeWangJdOrderSkuInfo xiLeWangJdOrderSkuInfo);
 
     @RequestLine("GET /{jdOrderId}/{skuId}")
-    XiLeWangJdOrderSkuInfo selectBySkuIdAndOrderId(Long skuId, Long jdOrderId);
+    XiLeWangJdOrderSkuInfo selectBySkuIdAndOrderId(@Param("skuId") Long skuId,@Param("jdOrderId") Long jdOrderId);
 }

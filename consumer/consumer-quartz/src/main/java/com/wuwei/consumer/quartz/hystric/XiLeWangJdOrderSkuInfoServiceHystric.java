@@ -33,7 +33,7 @@ public class XiLeWangJdOrderSkuInfoServiceHystric implements XiLeWangJdOrderSkuI
     }
 
     @Override
-    public XiLeWangJdOrderSkuInfo selectBySkuIdAndOrderId(Long skuId, Long jdOrderId) {
+    public XiLeWangJdOrderSkuInfo selectBySkuIdAndOrderId(Long skuId,Long jdOrderId) {
         return null;
     }
 }
