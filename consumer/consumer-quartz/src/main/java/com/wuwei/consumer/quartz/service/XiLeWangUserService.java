@@ -7,10 +7,14 @@ import feign.RequestLine;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.math.BigDecimal;
+
 @FeignClient(value = "provider-wechat",configuration = FeignConfig.class, fallback= XiLeWangUserServiceHystric.class, path = "/xilewang/user")
 public interface XiLeWangUserService  {
 
     @RequestLine("GET /{openid}")
     XiLeWangUser selectByPrimaryKey(@PathVariable("openid") String openid);
 
+    @RequestLine("POST /updateMoneyByPrimaryKey")
+    int updateMoneyByPrimaryKey(int type, BigDecimal modifyMoney, String openid);
 }

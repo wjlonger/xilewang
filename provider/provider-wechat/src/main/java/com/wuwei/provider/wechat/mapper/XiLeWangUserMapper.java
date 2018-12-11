@@ -24,5 +24,5 @@ public interface XiLeWangUserMapper {
 
     int updateMasterMoneyByPrimaryKey(@Param("modifyMoney")BigDecimal modifyMoney, @Param("openid") String openid, @Param("gmtModified")Date gmtModified);
 
-
+    int updateMoneyByPrimaryKey(@Param("modifyMoney")BigDecimal modifyMoney, @Param("openid") String openid, @Param("gmtModified")Date gmtModified);
 }

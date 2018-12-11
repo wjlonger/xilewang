@@ -166,11 +166,17 @@ public class XiLeWangUserServiceImpl implements XiLeWangUserService {
     @Override
     public int updateMoneyByPrimaryKey(int type, BigDecimal modifyMoney, String openid) {
         switch (type){
+            case -1:
+                // 提现佣金
+                return xiLeWangUserMapper.updateMoneyByPrimaryKey(modifyMoney,openid,new Date());
             case 0:
+                // 返利佣金
                 return xiLeWangUserMapper.updateRebateMoneyByPrimaryKey(modifyMoney,openid,new Date());
             case 1:
+                // 助力奖励
                 return xiLeWangUserMapper.updateAssistanceMoneyByPrimaryKey(modifyMoney,openid,new Date());
             case 2:
+                // 师徒奖励
                 return xiLeWangUserMapper.updateMasterMoneyByPrimaryKey(modifyMoney,openid,new Date());
             default:
                 return 0;

@@ -46,6 +46,9 @@ public class RabbitMqProcessConfig {
     private XiLeWangUserService xiLeWangUserService;
 
     @Autowired
+    private XiLeWangIncomeReportService xiLeWangIncomeReportService;
+
+    @Autowired
     private AmqpTemplate amqpTemplate;
 
     @Value("${goods.ratio}")

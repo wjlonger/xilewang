@@ -7,6 +7,8 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
+
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 @RestController
 @RequestMapping("/xilewang/user")
@@ -50,4 +52,8 @@ public class XiLeWangUserController {
         return xiLeWangUserService.save(xiLeWangUser);
     }
 
+    @PostMapping("/updateMoneyByPrimaryKey")
+    public int updateMoneyByPrimaryKey(int type, BigDecimal modifyMoney, String openid){
+        return xiLeWangUserService.updateMoneyByPrimaryKey(type, modifyMoney, openid);
+    }
 }
