@@ -7,6 +7,8 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 @RestController
 @RequestMapping("/xilewang/jdorder")
@@ -38,6 +40,11 @@ public class XiLeWangJdOrderController {
     @PutMapping
     public int updateByPrimaryKey(@RequestBody XiLeWangJdOrder xiLeWangJdOrder){
         return xiLeWangJdOrderService.updateByPrimaryKey(xiLeWangJdOrder);
+    }
+
+    @GetMapping("/selectByOpenid/{openid}")
+    public List<XiLeWangJdOrder> selectByOpenid(@PathVariable("openid") String openid){
+        return xiLeWangJdOrderService.selectByOpenid(openid);
     }
 
 }

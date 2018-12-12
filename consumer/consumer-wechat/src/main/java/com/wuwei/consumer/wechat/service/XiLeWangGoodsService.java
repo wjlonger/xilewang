@@ -1,6 +1,5 @@
 package com.wuwei.consumer.wechat.service;
 
-import com.wuwei.base.jd.service.GoodsService;
 import com.wuwei.consumer.wechat.hystric.XiLeWangGoodsServiceHystric;
 import feign.Param;
 import feign.RequestLine;

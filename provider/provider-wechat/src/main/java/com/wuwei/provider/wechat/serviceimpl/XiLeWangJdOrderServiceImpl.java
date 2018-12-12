@@ -1,5 +1,6 @@
 package com.wuwei.provider.wechat.serviceimpl;
 
+import com.wuwei.base.util.StringUtils;
 import com.wuwei.base.wechat.model.XiLeWangJdOrder;
 import com.wuwei.base.wechat.service.XiLeWangJdOrderService;
 import com.wuwei.provider.wechat.mapper.XiLeWangJdOrderMapper;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 @Service("xiLeWangJdOrderService")
 public class XiLeWangJdOrderServiceImpl implements XiLeWangJdOrderService {
@@ -58,5 +60,13 @@ public class XiLeWangJdOrderServiceImpl implements XiLeWangJdOrderService {
         }
         xiLeWangJdOrder.setGmtModified(new Date());
         return xiLeWangJdOrderMapper.updateByPrimaryKey(xiLeWangJdOrder);
+    }
+
+    @Override
+    public List<XiLeWangJdOrder> selectByOpenid(String openid) {
+        if(StringUtils.isNullOrEmpty(openid)){
+            return null;
+        }
+        return xiLeWangJdOrderMapper.selectByOpenid(openid);
     }
 }

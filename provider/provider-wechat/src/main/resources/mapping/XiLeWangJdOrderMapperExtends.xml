@@ -28,6 +28,12 @@
       from xilewang_jd_order
       where order_id = #{orderId,jdbcType=BIGINT}
     </select>
+    <select id="selectByOpenid" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+      <include refid="Base_Column_List" />
+    from xilewang_jd_order
+    where openid = #{openid,jdbcType=VARCHAR}
+  </select>
     <insert id="insert" parameterType="com.wuwei.base.wechat.model.XiLeWangJdOrder" >
       insert into xilewang_jd_order (order_id, finish_time, order_emt,
         order_time, parent_id, pay_month,
