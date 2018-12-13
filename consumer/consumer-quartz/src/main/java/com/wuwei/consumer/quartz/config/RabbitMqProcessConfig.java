@@ -322,11 +322,4 @@ public class RabbitMqProcessConfig {
         }
     }
 
-    public static void main(String[] args) {
-        BigDecimal bigDecimal = BigDecimal.valueOf(0);
-        bigDecimal.add(BigDecimal.valueOf(1));
-        System.out.println(bigDecimal);
-        bigDecimal = bigDecimal.add(BigDecimal.valueOf(1));
-        System.out.println(bigDecimal);
-    }
 }
