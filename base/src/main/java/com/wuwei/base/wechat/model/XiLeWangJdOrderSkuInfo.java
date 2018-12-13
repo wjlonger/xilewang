@@ -1,7 +1,6 @@
 package com.wuwei.base.wechat.model;
 
 import jd.union.open.order.query.response.SkuInfo;
-import sun.plugin2.message.Serializer;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -9,33 +8,33 @@ import java.util.Date;
 
 public class XiLeWangJdOrderSkuInfo implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
     public XiLeWangJdOrderSkuInfo(){}
 
     public XiLeWangJdOrderSkuInfo(SkuInfo skuInfo){
         if(null != skuInfo){
-            this.actualCosPrice = new BigDecimal(skuInfo.getActualCosPrice());
-            this.actualFee = new BigDecimal(skuInfo.getActualFee());
-            this.commissionRate = new BigDecimal(skuInfo.getCommissionRate());
-            this.estimateCosPrice = new BigDecimal(skuInfo.getEstimateCosPrice());
-            this.estimateFee = new BigDecimal(skuInfo.getEstimateFee());
-            this.finalRate = new BigDecimal(skuInfo.getFinalRate());
+            this.actualCosPrice = BigDecimal.valueOf(skuInfo.getActualCosPrice());
+            this.actualFee = BigDecimal.valueOf(skuInfo.getActualFee());
+            this.commissionRate = BigDecimal.valueOf(skuInfo.getCommissionRate());
+            this.estimateCosPrice = BigDecimal.valueOf(skuInfo.getEstimateCosPrice());
+            this.estimateFee = BigDecimal.valueOf(skuInfo.getEstimateFee());
+            this.finalRate = BigDecimal.valueOf(skuInfo.getFinalRate());
             this.cid1 = skuInfo.getCid1();
             this.frozenSkuNum = skuInfo.getFrozenSkuNum();
-            this.price = new BigDecimal(skuInfo.getPrice());
+            this.price = BigDecimal.valueOf(skuInfo.getPrice());
             this.cid2 = skuInfo.getCid2();
             this.skuId = skuInfo.getSkuId();
             this.skuName = skuInfo.getSkuName();
             this.skuNum = skuInfo.getSkuNum();
             this.skuReturnNum = skuInfo.getSkuReturnNum();
-            this.subSideRate = new BigDecimal(skuInfo.getSubSideRate());
-            this.subsidyRate = new BigDecimal(skuInfo.getSubsidyRate());
+            this.subSideRate = BigDecimal.valueOf(skuInfo.getSubSideRate());
+            this.subsidyRate = BigDecimal.valueOf(skuInfo.getSubsidyRate());
             this.cid3 = skuInfo.getCid3();
             this.validCode = skuInfo.getValidCode();
             this.subUnionId = skuInfo.getSubUnionId();
         }
     }
+
+    private static final long serialVersionUID = 1L;
 
     private Long id;
 
@@ -82,6 +81,10 @@ public class XiLeWangJdOrderSkuInfo implements Serializable {
     private BigDecimal rebatePrice;
 
     private Long jdOrderId;
+
+    private Integer skuIndex;
+
+    private Integer state;
 
     private Date gmtCreate;
 
@@ -269,6 +272,22 @@ public class XiLeWangJdOrderSkuInfo implements Serializable {
 
     public void setJdOrderId(Long jdOrderId) {
         this.jdOrderId = jdOrderId;
+    }
+
+    public Integer getSkuIndex() {
+        return skuIndex;
+    }
+
+    public void setSkuIndex(Integer skuIndex) {
+        this.skuIndex = skuIndex;
+    }
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
     }
 
     public Date getGmtCreate() {

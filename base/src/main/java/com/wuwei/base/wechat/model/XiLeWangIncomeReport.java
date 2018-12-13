@@ -12,7 +12,7 @@ public class XiLeWangIncomeReport implements Serializable {
 
     private Integer type;
 
-    private Integer state;
+    private Integer validCode;
 
     private String openid;
 
@@ -20,7 +20,11 @@ public class XiLeWangIncomeReport implements Serializable {
 
     private Long jdOrderSkuId;
 
+    private Integer jdOrderSkuIndex;
+
     private BigDecimal money;
+
+    private Integer state;
 
     private Date gmtCreate;
 
@@ -42,12 +46,12 @@ public class XiLeWangIncomeReport implements Serializable {
         this.type = type;
     }
 
-    public Integer getState() {
-        return state;
+    public Integer getValidCode() {
+        return validCode;
     }
 
-    public void setState(Integer state) {
-        this.state = state;
+    public void setValidCode(Integer validCode) {
+        this.validCode = validCode;
     }
 
     public String getOpenid() {
@@ -74,12 +78,28 @@ public class XiLeWangIncomeReport implements Serializable {
         this.jdOrderSkuId = jdOrderSkuId;
     }
 
+    public Integer getJdOrderSkuIndex() {
+        return jdOrderSkuIndex;
+    }
+
+    public void setJdOrderSkuIndex(Integer jdOrderSkuIndex) {
+        this.jdOrderSkuIndex = jdOrderSkuIndex;
+    }
+
     public BigDecimal getMoney() {
         return money;
     }
 
     public void setMoney(BigDecimal money) {
         this.money = money;
+    }
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
     }
 
     public Date getGmtCreate() {

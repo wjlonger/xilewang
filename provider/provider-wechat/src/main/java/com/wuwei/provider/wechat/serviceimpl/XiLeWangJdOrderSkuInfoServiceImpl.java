@@ -61,10 +61,10 @@ public class XiLeWangJdOrderSkuInfoServiceImpl implements XiLeWangJdOrderSkuInfo
     }
 
     @Override
-    public XiLeWangJdOrderSkuInfo selectBySkuIdAndOrderId(Long skuId, Long jdOrderId) {
-        if(null == skuId || null == jdOrderId){
+    public XiLeWangJdOrderSkuInfo selectByOrderIdAndSkuIndex(Long jdOrderId,Integer skuIndex) {
+        if(null == jdOrderId || null == skuIndex){
             return null;
         }
-        return xiLeWangJdOrderSkuInfoMapper.selectBySkuIdAndOrderId(skuId,jdOrderId);
+        return xiLeWangJdOrderSkuInfoMapper.selectByOrderIdAndSkuIndex(jdOrderId,skuIndex);
     }
 }

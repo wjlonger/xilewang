@@ -15,5 +15,5 @@ public interface XiLeWangJdOrderSkuInfoMapper {
 
     int updateByPrimaryKey(XiLeWangJdOrderSkuInfo xiLeWangJdOrderSkuInfo);
 
-    XiLeWangJdOrderSkuInfo selectBySkuIdAndOrderId(@Param("skuId") Long skuId, @Param("jdOrderId") Long jdOrderId);
+    XiLeWangJdOrderSkuInfo selectByOrderIdAndSkuIndex(@Param("jdOrderId") Long jdOrderId,@Param("skuIndex") Integer skuIndex);
 }

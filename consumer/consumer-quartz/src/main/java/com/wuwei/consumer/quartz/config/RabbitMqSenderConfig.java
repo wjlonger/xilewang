@@ -8,8 +8,17 @@ import org.springframework.context.annotation.Configuration;
 public class RabbitMqSenderConfig {
 
     @Bean
-    public Queue xiLeWangHistoryInsert(){
+    public Queue quartzJdOrderSave(){
         return new Queue("quartz_jdorder_save");
     }
 
+    @Bean
+    public Queue quartzSkuRebatePrice(){
+        return new Queue("quartz_sku_rebate_price");
+    }
+
+    @Bean
+    public Queue quartzIncomeReportSave(){
+        return new Queue("quartz_income_report_save");
+    }
 }

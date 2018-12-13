@@ -2,52 +2,54 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.wuwei.provider.wechat.mapper.XiLeWangJdOrderSkuInfoMapper" >
 
-    <resultMap id="BaseResultMap" type="com.wuwei.base.wechat.model.XiLeWangJdOrderSkuInfo" >
-        <id column="id" property="id" jdbcType="BIGINT" />
-        <result column="actual_cos_price" property="actualCosPrice" jdbcType="DECIMAL" />
-        <result column="actual_fee" property="actualFee" jdbcType="DECIMAL" />
-        <result column="commission_rate" property="commissionRate" jdbcType="DECIMAL" />
-        <result column="estimate_cos_price" property="estimateCosPrice" jdbcType="DECIMAL" />
-        <result column="estimate_fee" property="estimateFee" jdbcType="DECIMAL" />
-        <result column="final_rate" property="finalRate" jdbcType="DECIMAL" />
-        <result column="cid1" property="cid1" jdbcType="BIGINT" />
-        <result column="frozen_sku_num" property="frozenSkuNum" jdbcType="BIGINT" />
-        <result column="price" property="price" jdbcType="DECIMAL" />
-        <result column="cid2" property="cid2" jdbcType="BIGINT" />
-        <result column="sku_id" property="skuId" jdbcType="BIGINT" />
-        <result column="sku_name" property="skuName" jdbcType="VARCHAR" />
-        <result column="sku_num" property="skuNum" jdbcType="BIGINT" />
-        <result column="sku_return_num" property="skuReturnNum" jdbcType="BIGINT" />
-        <result column="sub_side_rate" property="subSideRate" jdbcType="DECIMAL" />
-        <result column="subsidy_rate" property="subsidyRate" jdbcType="DECIMAL" />
-        <result column="cid3" property="cid3" jdbcType="BIGINT" />
-        <result column="valid_code" property="validCode" jdbcType="INTEGER" />
-        <result column="sub_union_id" property="subUnionId" jdbcType="VARCHAR" />
-        <result column="img" property="img" jdbcType="VARCHAR" />
-        <result column="rebate_price" property="rebatePrice" jdbcType="DECIMAL" />
-        <result column="jd_order_id" property="jdOrderId" jdbcType="BIGINT" />
-        <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
-        <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
+    <resultMap id="BaseResultMap" type="com.wuwei.base.wechat.model.XiLeWangJdOrderSkuInfo">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="actual_cos_price" jdbcType="DECIMAL" property="actualCosPrice" />
+        <result column="actual_fee" jdbcType="DECIMAL" property="actualFee" />
+        <result column="commission_rate" jdbcType="DECIMAL" property="commissionRate" />
+        <result column="estimate_cos_price" jdbcType="DECIMAL" property="estimateCosPrice" />
+        <result column="estimate_fee" jdbcType="DECIMAL" property="estimateFee" />
+        <result column="final_rate" jdbcType="DECIMAL" property="finalRate" />
+        <result column="cid1" jdbcType="BIGINT" property="cid1" />
+        <result column="frozen_sku_num" jdbcType="BIGINT" property="frozenSkuNum" />
+        <result column="price" jdbcType="DECIMAL" property="price" />
+        <result column="cid2" jdbcType="BIGINT" property="cid2" />
+        <result column="sku_id" jdbcType="BIGINT" property="skuId" />
+        <result column="sku_name" jdbcType="VARCHAR" property="skuName" />
+        <result column="sku_num" jdbcType="BIGINT" property="skuNum" />
+        <result column="sku_return_num" jdbcType="BIGINT" property="skuReturnNum" />
+        <result column="sub_side_rate" jdbcType="DECIMAL" property="subSideRate" />
+        <result column="subsidy_rate" jdbcType="DECIMAL" property="subsidyRate" />
+        <result column="cid3" jdbcType="BIGINT" property="cid3" />
+        <result column="valid_code" jdbcType="INTEGER" property="validCode" />
+        <result column="sub_union_id" jdbcType="VARCHAR" property="subUnionId" />
+        <result column="img" jdbcType="VARCHAR" property="img" />
+        <result column="rebate_price" jdbcType="DECIMAL" property="rebatePrice" />
+        <result column="jd_order_id" jdbcType="BIGINT" property="jdOrderId" />
+        <result column="sku_index" jdbcType="INTEGER" property="skuIndex" />
+        <result column="state" jdbcType="INTEGER" property="state" />
+        <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+        <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
     </resultMap>
-    <sql id="Base_Column_List" >
+    <sql id="Base_Column_List">
     id, actual_cos_price, actual_fee, commission_rate, estimate_cos_price, estimate_fee,
     final_rate, cid1, frozen_sku_num, price, cid2, sku_id, sku_name, sku_num, sku_return_num,
     sub_side_rate, subsidy_rate, cid3, valid_code, sub_union_id, img, rebate_price, jd_order_id,
-    gmt_create, gmt_modified
+    sku_index, state, gmt_create, gmt_modified
   </sql>
-    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List" />
         from xilewang_jd_order_skuinfo
         where id = #{id,jdbcType=BIGINT}
     </select>
-    <select id="selectBySkuIdAndOrderId" resultMap="BaseResultMap" parameterType="com.wuwei.base.wechat.model.XiLeWangJdOrderSkuInfo" >
+    <select id="selectByOrderIdAndSkuIndex" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List" />
         from xilewang_jd_order_skuinfo
-        where sku_id = #{skuId,jdbcType=BIGINT} and jd_order_id = #{jdOrderId,jdbcType=BIGINT}
+        where jd_order_id = #{jdOrderId,jdbcType=BIGINT} and  sku_index = #{skuIndex,jdbcType=INTEGER}
     </select>
-    <insert id="insert" parameterType="com.wuwei.base.wechat.model.XiLeWangJdOrderSkuInfo" >
+    <insert id="insert" parameterType="com.wuwei.base.wechat.model.XiLeWangJdOrderSkuInfo">
     insert into xilewang_jd_order_skuinfo (id, actual_cos_price, actual_fee,
       commission_rate, estimate_cos_price, estimate_fee,
       final_rate, cid1, frozen_sku_num,
@@ -55,8 +57,8 @@
       sku_num, sku_return_num, sub_side_rate,
       subsidy_rate, cid3, valid_code,
       sub_union_id, img, rebate_price,
-      jd_order_id, gmt_create, gmt_modified
-      )
+      jd_order_id, sku_index, state,
+      gmt_create, gmt_modified)
     values (#{id,jdbcType=BIGINT}, #{actualCosPrice,jdbcType=DECIMAL}, #{actualFee,jdbcType=DECIMAL},
       #{commissionRate,jdbcType=DECIMAL}, #{estimateCosPrice,jdbcType=DECIMAL}, #{estimateFee,jdbcType=DECIMAL},
       #{finalRate,jdbcType=DECIMAL}, #{cid1,jdbcType=BIGINT}, #{frozenSkuNum,jdbcType=BIGINT},
@@ -64,245 +66,263 @@
       #{skuNum,jdbcType=BIGINT}, #{skuReturnNum,jdbcType=BIGINT}, #{subSideRate,jdbcType=DECIMAL},
       #{subsidyRate,jdbcType=DECIMAL}, #{cid3,jdbcType=BIGINT}, #{validCode,jdbcType=INTEGER},
       #{subUnionId,jdbcType=VARCHAR}, #{img,jdbcType=VARCHAR}, #{rebatePrice,jdbcType=DECIMAL},
-      #{jdOrderId,jdbcType=BIGINT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}
-      )
+      #{jdOrderId,jdbcType=BIGINT}, #{skuIndex,jdbcType=INTEGER}, #{state,jdbcType=INTEGER},
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP})
   </insert>
-    <insert id="insertSelective" parameterType="com.wuwei.base.wechat.model.XiLeWangJdOrderSkuInfo" >
+    <insert id="insertSelective" parameterType="com.wuwei.base.wechat.model.XiLeWangJdOrderSkuInfo">
         insert into xilewang_jd_order_skuinfo
-        <trim prefix="(" suffix=")" suffixOverrides="," >
-            <if test="id != null" >
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
                 id,
             </if>
-            <if test="actualCosPrice != null" >
+            <if test="actualCosPrice != null">
                 actual_cos_price,
             </if>
-            <if test="actualFee != null" >
+            <if test="actualFee != null">
                 actual_fee,
             </if>
-            <if test="commissionRate != null" >
+            <if test="commissionRate != null">
                 commission_rate,
             </if>
-            <if test="estimateCosPrice != null" >
+            <if test="estimateCosPrice != null">
                 estimate_cos_price,
             </if>
-            <if test="estimateFee != null" >
+            <if test="estimateFee != null">
                 estimate_fee,
             </if>
-            <if test="finalRate != null" >
+            <if test="finalRate != null">
                 final_rate,
             </if>
-            <if test="cid1 != null" >
+            <if test="cid1 != null">
                 cid1,
             </if>
-            <if test="frozenSkuNum != null" >
+            <if test="frozenSkuNum != null">
                 frozen_sku_num,
             </if>
-            <if test="price != null" >
+            <if test="price != null">
                 price,
             </if>
-            <if test="cid2 != null" >
+            <if test="cid2 != null">
                 cid2,
             </if>
-            <if test="skuId != null" >
+            <if test="skuId != null">
                 sku_id,
             </if>
-            <if test="skuName != null" >
+            <if test="skuName != null">
                 sku_name,
             </if>
-            <if test="skuNum != null" >
+            <if test="skuNum != null">
                 sku_num,
             </if>
-            <if test="skuReturnNum != null" >
+            <if test="skuReturnNum != null">
                 sku_return_num,
             </if>
-            <if test="subSideRate != null" >
+            <if test="subSideRate != null">
                 sub_side_rate,
             </if>
-            <if test="subsidyRate != null" >
+            <if test="subsidyRate != null">
                 subsidy_rate,
             </if>
-            <if test="cid3 != null" >
+            <if test="cid3 != null">
                 cid3,
             </if>
-            <if test="validCode != null" >
+            <if test="validCode != null">
                 valid_code,
             </if>
-            <if test="subUnionId != null" >
+            <if test="subUnionId != null">
                 sub_union_id,
             </if>
-            <if test="img != null" >
+            <if test="img != null">
                 img,
             </if>
-            <if test="rebatePrice != null" >
+            <if test="rebatePrice != null">
                 rebate_price,
             </if>
-            <if test="jdOrderId != null" >
+            <if test="jdOrderId != null">
                 jd_order_id,
             </if>
-            <if test="gmtCreate != null" >
+            <if test="skuIndex != null">
+                sku_index,
+            </if>
+            <if test="state != null">
+                state,
+            </if>
+            <if test="gmtCreate != null">
                 gmt_create,
             </if>
-            <if test="gmtModified != null" >
+            <if test="gmtModified != null">
                 gmt_modified,
             </if>
         </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides="," >
-            <if test="id != null" >
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
                 #{id,jdbcType=BIGINT},
             </if>
-            <if test="actualCosPrice != null" >
+            <if test="actualCosPrice != null">
                 #{actualCosPrice,jdbcType=DECIMAL},
             </if>
-            <if test="actualFee != null" >
+            <if test="actualFee != null">
                 #{actualFee,jdbcType=DECIMAL},
             </if>
-            <if test="commissionRate != null" >
+            <if test="commissionRate != null">
                 #{commissionRate,jdbcType=DECIMAL},
             </if>
-            <if test="estimateCosPrice != null" >
+            <if test="estimateCosPrice != null">
                 #{estimateCosPrice,jdbcType=DECIMAL},
             </if>
-            <if test="estimateFee != null" >
+            <if test="estimateFee != null">
                 #{estimateFee,jdbcType=DECIMAL},
             </if>
-            <if test="finalRate != null" >
+            <if test="finalRate != null">
                 #{finalRate,jdbcType=DECIMAL},
             </if>
-            <if test="cid1 != null" >
+            <if test="cid1 != null">
                 #{cid1,jdbcType=BIGINT},
             </if>
-            <if test="frozenSkuNum != null" >
+            <if test="frozenSkuNum != null">
                 #{frozenSkuNum,jdbcType=BIGINT},
             </if>
-            <if test="price != null" >
+            <if test="price != null">
                 #{price,jdbcType=DECIMAL},
             </if>
-            <if test="cid2 != null" >
+            <if test="cid2 != null">
                 #{cid2,jdbcType=BIGINT},
             </if>
-            <if test="skuId != null" >
+            <if test="skuId != null">
                 #{skuId,jdbcType=BIGINT},
             </if>
-            <if test="skuName != null" >
+            <if test="skuName != null">
                 #{skuName,jdbcType=VARCHAR},
             </if>
-            <if test="skuNum != null" >
+            <if test="skuNum != null">
                 #{skuNum,jdbcType=BIGINT},
             </if>
-            <if test="skuReturnNum != null" >
+            <if test="skuReturnNum != null">
                 #{skuReturnNum,jdbcType=BIGINT},
             </if>
-            <if test="subSideRate != null" >
+            <if test="subSideRate != null">
                 #{subSideRate,jdbcType=DECIMAL},
             </if>
-            <if test="subsidyRate != null" >
+            <if test="subsidyRate != null">
                 #{subsidyRate,jdbcType=DECIMAL},
             </if>
-            <if test="cid3 != null" >
+            <if test="cid3 != null">
                 #{cid3,jdbcType=BIGINT},
             </if>
-            <if test="validCode != null" >
+            <if test="validCode != null">
                 #{validCode,jdbcType=INTEGER},
             </if>
-            <if test="subUnionId != null" >
+            <if test="subUnionId != null">
                 #{subUnionId,jdbcType=VARCHAR},
             </if>
-            <if test="img != null" >
+            <if test="img != null">
                 #{img,jdbcType=VARCHAR},
             </if>
-            <if test="rebatePrice != null" >
+            <if test="rebatePrice != null">
                 #{rebatePrice,jdbcType=DECIMAL},
             </if>
-            <if test="jdOrderId != null" >
+            <if test="jdOrderId != null">
                 #{jdOrderId,jdbcType=BIGINT},
             </if>
-            <if test="gmtCreate != null" >
+            <if test="skuIndex != null">
+                #{skuIndex,jdbcType=INTEGER},
+            </if>
+            <if test="state != null">
+                #{state,jdbcType=INTEGER},
+            </if>
+            <if test="gmtCreate != null">
                 #{gmtCreate,jdbcType=TIMESTAMP},
             </if>
-            <if test="gmtModified != null" >
+            <if test="gmtModified != null">
                 #{gmtModified,jdbcType=TIMESTAMP},
             </if>
         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.wuwei.base.wechat.model.XiLeWangJdOrderSkuInfo" >
+    <update id="updateByPrimaryKeySelective" parameterType="com.wuwei.base.wechat.model.XiLeWangJdOrderSkuInfo">
         update xilewang_jd_order_skuinfo
-        <set >
-            <if test="actualCosPrice != null" >
+        <set>
+            <if test="actualCosPrice != null">
                 actual_cos_price = #{actualCosPrice,jdbcType=DECIMAL},
             </if>
-            <if test="actualFee != null" >
+            <if test="actualFee != null">
                 actual_fee = #{actualFee,jdbcType=DECIMAL},
             </if>
-            <if test="commissionRate != null" >
+            <if test="commissionRate != null">
                 commission_rate = #{commissionRate,jdbcType=DECIMAL},
             </if>
-            <if test="estimateCosPrice != null" >
+            <if test="estimateCosPrice != null">
                 estimate_cos_price = #{estimateCosPrice,jdbcType=DECIMAL},
             </if>
-            <if test="estimateFee != null" >
+            <if test="estimateFee != null">
                 estimate_fee = #{estimateFee,jdbcType=DECIMAL},
             </if>
-            <if test="finalRate != null" >
+            <if test="finalRate != null">
                 final_rate = #{finalRate,jdbcType=DECIMAL},
             </if>
-            <if test="cid1 != null" >
+            <if test="cid1 != null">
                 cid1 = #{cid1,jdbcType=BIGINT},
             </if>
-            <if test="frozenSkuNum != null" >
+            <if test="frozenSkuNum != null">
                 frozen_sku_num = #{frozenSkuNum,jdbcType=BIGINT},
             </if>
-            <if test="price != null" >
+            <if test="price != null">
                 price = #{price,jdbcType=DECIMAL},
             </if>
-            <if test="cid2 != null" >
+            <if test="cid2 != null">
                 cid2 = #{cid2,jdbcType=BIGINT},
             </if>
-            <if test="skuId != null" >
+            <if test="skuId != null">
                 sku_id = #{skuId,jdbcType=BIGINT},
             </if>
-            <if test="skuName != null" >
+            <if test="skuName != null">
                 sku_name = #{skuName,jdbcType=VARCHAR},
             </if>
-            <if test="skuNum != null" >
+            <if test="skuNum != null">
                 sku_num = #{skuNum,jdbcType=BIGINT},
             </if>
-            <if test="skuReturnNum != null" >
+            <if test="skuReturnNum != null">
                 sku_return_num = #{skuReturnNum,jdbcType=BIGINT},
             </if>
-            <if test="subSideRate != null" >
+            <if test="subSideRate != null">
                 sub_side_rate = #{subSideRate,jdbcType=DECIMAL},
             </if>
-            <if test="subsidyRate != null" >
+            <if test="subsidyRate != null">
                 subsidy_rate = #{subsidyRate,jdbcType=DECIMAL},
             </if>
-            <if test="cid3 != null" >
+            <if test="cid3 != null">
                 cid3 = #{cid3,jdbcType=BIGINT},
             </if>
-            <if test="validCode != null" >
+            <if test="validCode != null">
                 valid_code = #{validCode,jdbcType=INTEGER},
             </if>
-            <if test="subUnionId != null" >
+            <if test="subUnionId != null">
                 sub_union_id = #{subUnionId,jdbcType=VARCHAR},
             </if>
-            <if test="img != null" >
+            <if test="img != null">
                 img = #{img,jdbcType=VARCHAR},
             </if>
-            <if test="rebatePrice != null" >
+            <if test="rebatePrice != null">
                 rebate_price = #{rebatePrice,jdbcType=DECIMAL},
             </if>
-            <if test="jdOrderId != null" >
+            <if test="jdOrderId != null">
                 jd_order_id = #{jdOrderId,jdbcType=BIGINT},
             </if>
-            <if test="gmtCreate != null" >
+            <if test="skuIndex != null">
+                sku_index = #{skuIndex,jdbcType=INTEGER},
+            </if>
+            <if test="state != null">
+                state = #{state,jdbcType=INTEGER},
+            </if>
+            <if test="gmtCreate != null">
                 gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
             </if>
-            <if test="gmtModified != null" >
+            <if test="gmtModified != null">
                 gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
             </if>
         </set>
         where id = #{id,jdbcType=BIGINT}
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.wuwei.base.wechat.model.XiLeWangJdOrderSkuInfo" >
+    <update id="updateByPrimaryKey" parameterType="com.wuwei.base.wechat.model.XiLeWangJdOrderSkuInfo">
     update xilewang_jd_order_skuinfo
     set actual_cos_price = #{actualCosPrice,jdbcType=DECIMAL},
       actual_fee = #{actualFee,jdbcType=DECIMAL},
@@ -326,6 +346,8 @@
       img = #{img,jdbcType=VARCHAR},
       rebate_price = #{rebatePrice,jdbcType=DECIMAL},
       jd_order_id = #{jdOrderId,jdbcType=BIGINT},
+      sku_index = #{skuIndex,jdbcType=INTEGER},
+      state = #{state,jdbcType=INTEGER},
       gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
