@@ -24,7 +24,7 @@ public class PromotionServiceImpl implements PromotionService {
         UnionOpenPromotionBysubunionidGetResponse response = null;
         try {
             response = jdClient.execute(request);
-            if(response != null){
+            if(null != response && null != response.getData()){
                 return response.getData().getShortURL();
             }
         } catch (JdException e) {
