@@ -2,6 +2,8 @@ package com.wuwei.base.wechat.service;
 
 import com.wuwei.base.wechat.model.XiLeWangIncomeReport;
 
+import java.util.List;
+
 public interface XiLeWangIncomeReportService {
 
     int insert(XiLeWangIncomeReport xiLeWangIncomeReport);
@@ -14,6 +16,8 @@ public interface XiLeWangIncomeReportService {
 
     int updateByPrimaryKey(XiLeWangIncomeReport xiLeWangIncomeReport);
 
-    XiLeWangIncomeReport selectByOpenidAndJdOrderIdAndSkuId(String openid, Long jdOrderId,Long skuId);
+    XiLeWangIncomeReport selectByProperty(Integer type,String openid, Long jdOrderId,Integer jdOrderSkuIndex);
+
+    List<XiLeWangIncomeReport> selectByJdOrderId(Long jdOrderId);
 
 }

@@ -8,6 +8,8 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.List;
+
 @FeignClient(value = "provider-wechat",fallback= XiLeWangIncomeReportServiceHystric.class, path = "/xilewang/incomereport")
 public interface XiLeWangIncomeReportService {
 
@@ -20,7 +22,10 @@ public interface XiLeWangIncomeReportService {
     @RequestLine("PUT /updateByPrimaryKeySelective")
     int updateByPrimaryKeySelective(@RequestBody XiLeWangIncomeReport xiLeWangIncomeReport);
 
-    @RequestLine("GET /{openid}/{jdOrderId}/{skuId}")
-    XiLeWangIncomeReport selectByOpenidAndJdOrderIdAndSkuId(@Param("openid") String openid, @Param("jdOrderId") Long jdOrderId,@Param("skuId") Long skuId);
+    @RequestLine("GET /?type={type}&openid={openid}&jdOrderId={jdOrderId}&jdOrderSkuIndex={jdOrderSkuIndex}")
+    XiLeWangIncomeReport selectByProperty(@Param("type") Integer type, @Param("openid") String openid,
+                                          @Param("jdOrderId") Long jdOrderId, @Param("jdOrderSkuIndex") Integer jdOrderSkuIndex);
 
+    @RequestLine("GET /selectByJdOrderId/{jdOrderId}")
+    List<XiLeWangIncomeReport> selectByJdOrderId(@Param("jdOrderId") Long jdOrderId);
 }

@@ -4,6 +4,8 @@ import com.wuwei.base.wechat.model.XiLeWangIncomeReport;
 import com.wuwei.consumer.quartz.service.XiLeWangIncomeReportService;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.List;
+
 @Configuration
 public class XiLeWangIncomeReportServiceHystric implements XiLeWangIncomeReportService {
 
@@ -23,7 +25,12 @@ public class XiLeWangIncomeReportServiceHystric implements XiLeWangIncomeReportS
     }
 
     @Override
-    public XiLeWangIncomeReport selectByOpenidAndJdOrderIdAndSkuId(String openid, Long jdOrderId, Long skuId) {
+    public XiLeWangIncomeReport selectByProperty(Integer type, String openid, Long jdOrderId, Integer jdOrderSkuIndex) {
+        return null;
+    }
+
+    @Override
+    public List<XiLeWangIncomeReport> selectByJdOrderId(Long jdOrderId) {
         return null;
     }
 

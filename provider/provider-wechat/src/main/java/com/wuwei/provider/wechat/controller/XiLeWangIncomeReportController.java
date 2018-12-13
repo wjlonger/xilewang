@@ -7,6 +7,8 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 @RestController
 @RequestMapping("/xilewang/incomereport")
@@ -40,9 +42,15 @@ public class XiLeWangIncomeReportController {
         return xiLeWangIncomeReportService.updateByPrimaryKey(xiLeWangIncomeReport);
     }
 
-    @GetMapping("/{openid}/{jdOrderId}/{skuId}")
-    public XiLeWangIncomeReport selectByOpenidAndJdOrderIdAndSkuId(@PathVariable("openid") String openid, @PathVariable("jdOrderId") Long jdOrderId,@PathVariable("skuId") Long skuId){
-        return xiLeWangIncomeReportService.selectByOpenidAndJdOrderIdAndSkuId(openid, jdOrderId,skuId);
+    @GetMapping
+    public XiLeWangIncomeReport selectByProperty(@RequestParam("type") Integer type, @RequestParam("openid") String openid,
+                                                 @RequestParam("jdOrderId") Long jdOrderId, @RequestParam("jdOrderSkuIndex") Integer jdOrderSkuIndex){
+        return xiLeWangIncomeReportService.selectByProperty(type, openid, jdOrderId, jdOrderSkuIndex);
+    }
+
+    @GetMapping("/selectByProperty/{jdOrderId}")
+    public List<XiLeWangIncomeReport> selectByJdOrderId(@PathVariable("jdOrderId") Long jdOrderId){
+        return xiLeWangIncomeReportService.selectByJdOrderId(jdOrderId);
     }
 
 }

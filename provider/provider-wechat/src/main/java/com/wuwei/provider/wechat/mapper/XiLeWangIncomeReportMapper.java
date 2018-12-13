@@ -3,6 +3,8 @@ package com.wuwei.provider.wechat.mapper;
 import com.wuwei.base.wechat.model.XiLeWangIncomeReport;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 public interface XiLeWangIncomeReportMapper {
 
     int insert(XiLeWangIncomeReport xiLeWangIncomeReport);
@@ -15,6 +17,8 @@ public interface XiLeWangIncomeReportMapper {
 
     int updateByPrimaryKey(XiLeWangIncomeReport xiLeWangIncomeReport);
 
-    XiLeWangIncomeReport selectByOpenidAndJdOrderIdAndSkuId(@Param("openid") String openid, @Param("jdOrderId") Long jdOrderId,@Param("skuId") Long skuId);
+    XiLeWangIncomeReport selectByProperty(@Param("type") Integer type, @Param("openid") String openid, @Param("jdOrderId") Long jdOrderId,@Param("jdOrderSkuIndex") Integer jdOrderSkuIndex);
+
+    List<XiLeWangIncomeReport> selectByJdOrderId(@Param("jdOrderId") Long jdOrderId);
 
 }

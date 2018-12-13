@@ -91,7 +91,12 @@ public class XiLeWangIncomeReport implements Serializable {
     }
 
     public void setMoney(BigDecimal money) {
-        this.money = money;
+        if(null == money || BigDecimal.valueOf(0.01).compareTo(money) <= 0){
+            this.money = money;
+        }else{
+            this.money = BigDecimal.valueOf(0.01);
+        }
+
     }
 
     public Integer getState() {

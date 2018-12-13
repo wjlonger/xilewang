@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 @Service("xiLeWangIncomeReportService")
 public class XiLeWangIncomeReportServiceImpl implements XiLeWangIncomeReportService {
@@ -62,10 +63,19 @@ public class XiLeWangIncomeReportServiceImpl implements XiLeWangIncomeReportServ
     }
 
     @Override
-    public XiLeWangIncomeReport selectByOpenidAndJdOrderIdAndSkuId(String openid, Long jdOrderId,Long skuId) {
-        if(StringUtils.isNullOrEmpty(openid) || null == jdOrderId || null == skuId){
+    public XiLeWangIncomeReport selectByProperty(Integer type, String openid, Long jdOrderId, Integer jdOrderSkuIndex) {
+        if(null == type || StringUtils.isNullOrEmpty(openid) || null == jdOrderId || null == jdOrderSkuIndex){
             return null;
         }
-        return xiLeWangIncomeReportMapper.selectByOpenidAndJdOrderIdAndSkuId(openid,jdOrderId,skuId);
+        return xiLeWangIncomeReportMapper.selectByProperty(type, openid, jdOrderId, jdOrderSkuIndex);
     }
+
+    @Override
+    public List<XiLeWangIncomeReport> selectByJdOrderId(Long jdOrderId) {
+        if(null == jdOrderId){
+            return null;
+        }
+        return xiLeWangIncomeReportMapper.selectByJdOrderId(jdOrderId);
+    }
+
 }

@@ -16,7 +16,6 @@ import jd.union.open.order.query.response.UnionOpenOrderQueryResponse;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 
 import java.math.BigDecimal;
@@ -124,6 +123,13 @@ public class RabbitMqProcessConfig {
                                     }
                                 }
                             }
+                            xiLeWangJdOrder.setOpenid(openid);
+                            XiLeWangJdOrder temp = xiLeWangJdOrderService.selectByPrimaryKey(xiLeWangJdOrder.getOrderId());
+                            if(null == temp){
+                                xiLeWangJdOrderService.insertSelective(xiLeWangJdOrder);
+                            }else{
+                                xiLeWangJdOrderService.updateByPrimaryKeySelective(xiLeWangJdOrder);
+                            }
                         }
                     }
                 }
@@ -170,10 +176,6 @@ public class RabbitMqProcessConfig {
                     }
                 }
                 temp.setRebatePrice(rebate.multiply(ratio).divide(BigDecimal.valueOf(100L)));
-                // 少于1分钱 给1分
-                if(BigDecimal.valueOf(0.01).compareTo(temp.getRebatePrice()) == 1){
-                    temp.setRebatePrice(BigDecimal.valueOf(0.01));
-                }
             }
             int result = xiLeWangJdOrderSkuInfoService.updateByPrimaryKeySelective(temp);
             if(result > 0){
@@ -198,18 +200,104 @@ public class RabbitMqProcessConfig {
                     List<XiLeWangAssistanceUser> xiLeWangAssistanceUsers = xiLeWangAssistanceUserService.selectByAssistanceId(xiLeWangOrder.getAssistanceId());
                     if(!CollectionUtils.isNullOrEmpty(xiLeWangAssistanceUsers)){
                         int length = Math.min(xiLeWangAssistanceUsers.size(),xiLeWangAssistance.getAssistancePeopleNum());
+                        BigDecimal rebate = xiLeWangJdOrderSkuInfo.getEstimateFee();
+                        // validCode详见 https://media.jd.com/jhtml/page/apidetail/apidetail.html
+                        // 18为已结算
+                        if(xiLeWangJdOrderSkuInfo.getValidCode() == 18){
+                            rebate = xiLeWangJdOrderSkuInfo.getActualFee();
+                        }
                         for(int i=0; i<length; i++){
                             XiLeWangAssistanceUser xiLeWangAssistanceUser = xiLeWangAssistanceUsers.get(i);
                             if(null != xiLeWangAssistanceUser){
-
+                                XiLeWangIncomeReport xiLeWangIncomeReport = new XiLeWangIncomeReport();
+                                xiLeWangIncomeReport.setType(1);
+                                xiLeWangIncomeReport.setValidCode(xiLeWangJdOrderSkuInfo.getValidCode());
+                                xiLeWangIncomeReport.setOpenid(xiLeWangAssistanceUser.getOpenid());
+                                xiLeWangIncomeReport.setJdOrderId(xiLeWangJdOrderSkuInfo.getJdOrderId());
+                                xiLeWangIncomeReport.setJdOrderSkuId(xiLeWangJdOrderSkuInfo.getSkuId());
+                                xiLeWangIncomeReport.setJdOrderSkuIndex(xiLeWangJdOrderSkuInfo.getSkuIndex());
+                                xiLeWangIncomeReport.setMoney(rebate.multiply(xiLeWangAssistanceUser.getRewardRatio()).divide(BigDecimal.valueOf(100L)));
+                                XiLeWangIncomeReport temp =
+                                        xiLeWangIncomeReportService.selectByProperty(xiLeWangIncomeReport.getType(), xiLeWangIncomeReport.getOpenid(),xiLeWangIncomeReport.getJdOrderId(),xiLeWangIncomeReport.getJdOrderSkuIndex());
+                                if(null == temp){
+                                    xiLeWangIncomeReport.setId(IdGenerator.nextId());
+                                    xiLeWangIncomeReportService.insertSelective(xiLeWangIncomeReport);
+                                }else{
+                                    xiLeWangIncomeReport.setId(temp.getId());
+                                    xiLeWangIncomeReportService.updateByPrimaryKeySelective(xiLeWangIncomeReport);
+                                }
                             }
                         }
                     }
+                    XiLeWangUser xiLeWangUser = xiLeWangUserService.selectByPrimaryKey(xiLeWangOrder.getOpenid());
+                    boolean hasMaster = null != xiLeWangUser && !StringUtils.isNullOrEmpty(xiLeWangUser.getMasterOpenid());
+                    if(hasMaster){
+                        XiLeWangIncomeReport xiLeWangIncomeReport = new XiLeWangIncomeReport();
+                        xiLeWangIncomeReport.setType(2);
+                        xiLeWangIncomeReport.setValidCode(xiLeWangJdOrderSkuInfo.getValidCode());
+                        xiLeWangIncomeReport.setOpenid(xiLeWangUser.getMasterOpenid());
+                        xiLeWangIncomeReport.setJdOrderId(xiLeWangJdOrderSkuInfo.getJdOrderId());
+                        xiLeWangIncomeReport.setJdOrderSkuId(xiLeWangJdOrderSkuInfo.getSkuId());
+                        xiLeWangIncomeReport.setJdOrderSkuIndex(xiLeWangJdOrderSkuInfo.getSkuIndex());
+                        xiLeWangIncomeReport.setMoney(xiLeWangJdOrderSkuInfo.getRebatePrice());
+                        XiLeWangIncomeReport temp =
+                                xiLeWangIncomeReportService.selectByProperty(xiLeWangIncomeReport.getType(), xiLeWangIncomeReport.getOpenid(),xiLeWangIncomeReport.getJdOrderId(),xiLeWangIncomeReport.getJdOrderSkuIndex());
+                        if(null == temp){
+                            xiLeWangIncomeReport.setId(IdGenerator.nextId());
+                            xiLeWangIncomeReportService.insertSelective(xiLeWangIncomeReport);
+                        }else{
+                            xiLeWangIncomeReport.setId(temp.getId());
+                            xiLeWangIncomeReportService.updateByPrimaryKeySelective(xiLeWangIncomeReport);
+                        }
+                    }
+                }
+                XiLeWangIncomeReport xiLeWangIncomeReport = new XiLeWangIncomeReport();
+                xiLeWangIncomeReport.setType(0);
+                xiLeWangIncomeReport.setValidCode(xiLeWangJdOrderSkuInfo.getValidCode());
+                xiLeWangIncomeReport.setOpenid(xiLeWangOrder.getOpenid());
+                xiLeWangIncomeReport.setJdOrderId(xiLeWangJdOrderSkuInfo.getJdOrderId());
+                xiLeWangIncomeReport.setJdOrderSkuId(xiLeWangJdOrderSkuInfo.getSkuId());
+                xiLeWangIncomeReport.setJdOrderSkuIndex(xiLeWangJdOrderSkuInfo.getSkuIndex());
+                xiLeWangIncomeReport.setMoney(xiLeWangJdOrderSkuInfo.getRebatePrice());
+                int result = 0;
+                XiLeWangIncomeReport xiLeWangIncomeReportTemp =
+                        xiLeWangIncomeReportService.selectByProperty(xiLeWangIncomeReport.getType(), xiLeWangIncomeReport.getOpenid(),xiLeWangIncomeReport.getJdOrderId(),xiLeWangIncomeReport.getJdOrderSkuIndex());
+                if(null == xiLeWangIncomeReportTemp){
+                    xiLeWangIncomeReport.setId(IdGenerator.nextId());
+                    result = xiLeWangIncomeReportService.insertSelective(xiLeWangIncomeReport);
+                }else{
+                    xiLeWangIncomeReport.setId(xiLeWangIncomeReportTemp.getId());
+                    result = xiLeWangIncomeReportService.updateByPrimaryKeySelective(xiLeWangIncomeReport);
+                }
+                if(result > 0){
+                    XiLeWangJdOrderSkuInfo xiLeWangJdOrderSkuInfoTemp = new XiLeWangJdOrderSkuInfo();
+                    xiLeWangJdOrderSkuInfoTemp.setId(skuInfoId);
+                    xiLeWangJdOrderSkuInfoTemp.setState(2);
+                    result = xiLeWangJdOrderSkuInfoService.updateByPrimaryKeySelective(xiLeWangJdOrderSkuInfoTemp);
+                    if(result > 0 && xiLeWangJdOrderSkuInfo.getValidCode() == 18){
+                        // 发送消息存余额
+                        amqpTemplate.convertAndSend("quartz_balance_save",xiLeWangJdOrderSkuInfo.getJdOrderId());
+                    }
                 }
             }
-            XiLeWangJdOrderSkuInfo temp = new XiLeWangJdOrderSkuInfo();
-            temp.setId(skuInfoId);
-            temp.setState(2);
+        }
+    }
+
+    @RabbitListener(queues = "quartz_balance_save")
+    public void quartzBalanceSave(Long jdOrderId){
+        List<XiLeWangIncomeReport> xiLeWangIncomeReports = xiLeWangIncomeReportService.selectByJdOrderId(jdOrderId);
+        if(!CollectionUtils.isNullOrEmpty(xiLeWangIncomeReports)){
+            for(XiLeWangIncomeReport xiLeWangIncomeReport : xiLeWangIncomeReports){
+                if(null != xiLeWangIncomeReport && xiLeWangIncomeReport.getState() < 1){
+                    int result = xiLeWangUserService.updateMoneyByPrimaryKey(xiLeWangIncomeReport.getType(),xiLeWangIncomeReport.getMoney(),xiLeWangIncomeReport.getOpenid());
+                    if(result > 0){
+                        XiLeWangIncomeReport temp = new XiLeWangIncomeReport();
+                        temp.setId(xiLeWangIncomeReport.getId());
+                        temp.setState(1);
+                        xiLeWangIncomeReportService.updateByPrimaryKeySelective(temp);
+                    }
+                }
+            }
         }
     }
 }

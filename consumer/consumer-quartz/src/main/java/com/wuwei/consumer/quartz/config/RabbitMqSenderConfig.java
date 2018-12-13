@@ -21,4 +21,9 @@ public class RabbitMqSenderConfig {
     public Queue quartzIncomeReportSave(){
         return new Queue("quartz_income_report_save");
     }
+
+    @Bean
+    public Queue quartzBalanceSave(){
+        return new Queue("quartz_balance_save");
+    }
 }
