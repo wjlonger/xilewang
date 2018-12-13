@@ -1,6 +1,5 @@
 package com.wuwei.consumer.quartz.config;
 
-import com.wuwei.base.quartz.model.XiLeWangQuartz;
 import com.wuwei.base.util.CollectionUtils;
 import com.wuwei.base.util.IdGenerator;
 import com.wuwei.base.util.StringUtils;
