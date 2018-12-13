@@ -96,7 +96,14 @@ public class XiLeWangIncomeReport implements Serializable {
         }else{
             this.money = BigDecimal.valueOf(0.01);
         }
-
+        if(null == money){
+            this.money = money;
+        } else if(BigDecimal.valueOf(0).compareTo(money) == -1 && BigDecimal.valueOf(0.01).compareTo(money) == 1){
+            // 大于0 小于0.01
+            this.money = BigDecimal.valueOf(0.01);
+        } else{
+            this.money = money;
+        }
     }
 
     public Integer getState() {

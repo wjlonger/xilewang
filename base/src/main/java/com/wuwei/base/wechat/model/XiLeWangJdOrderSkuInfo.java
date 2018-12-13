@@ -263,10 +263,13 @@ public class XiLeWangJdOrderSkuInfo implements Serializable {
     }
 
     public void setRebatePrice(BigDecimal rebatePrice) {
-        if(null == rebatePrice || BigDecimal.valueOf(0.01).compareTo(rebatePrice) <= 0){
+        if(null == rebatePrice){
             this.rebatePrice = rebatePrice;
-        }else{
+        } else if(BigDecimal.valueOf(0).compareTo(rebatePrice) == -1 && BigDecimal.valueOf(0.01).compareTo(rebatePrice) == 1){
+            // 大于0 小于0.01
             this.rebatePrice = BigDecimal.valueOf(0.01);
+        } else{
+            this.rebatePrice = rebatePrice;
         }
     }
 
