@@ -11,9 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 @FeignClient(value = "provider-wechat",configuration = FeignConfig.class, fallback= XiLeWangJdOrderSkuInfoServiceHystric.class, path = "/xilewang/jdorderskuinfo")
 public interface XiLeWangJdOrderSkuInfoService{
 
-    @RequestLine("POST /")
-    int insert(@RequestBody XiLeWangJdOrderSkuInfo xiLeWangJdOrderSkuInfo);
-
     @RequestLine("POST /insertSelective")
     int insertSelective(@RequestBody XiLeWangJdOrderSkuInfo xiLeWangJdOrderSkuInfo);
 
@@ -22,9 +19,6 @@ public interface XiLeWangJdOrderSkuInfoService{
 
     @RequestLine("PUT /updateByPrimaryKeySelective")
     int updateByPrimaryKeySelective(@RequestBody XiLeWangJdOrderSkuInfo xiLeWangJdOrderSkuInfo);
-
-    @RequestLine("PUT /")
-    int updateByPrimaryKey(@RequestBody XiLeWangJdOrderSkuInfo xiLeWangJdOrderSkuInfo);
 
     @RequestLine("GET /{jdOrderId}/{skuIndex}")
     XiLeWangJdOrderSkuInfo selectByOrderIdAndSkuIndex(@Param("jdOrderId") Long jdOrderId,@Param("skuIndex") Integer skuIndex);

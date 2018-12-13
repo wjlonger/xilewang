@@ -14,15 +14,10 @@ public interface XiLeWangOrderService{
     @RequestLine("GET /{id}")
     XiLeWangOrder selectByPrimaryKey(@Param("id") Long id);
 
-    @RequestLine("POST /")
-    int insert(@RequestBody XiLeWangOrder xiLeWangOrder);
-
     @RequestLine("POST /insertSelective")
     int insertSelective(@RequestBody XiLeWangOrder xiLeWangOrder);
 
     @RequestLine("PUT /updateByPrimaryKeySelective")
     int updateByPrimaryKeySelective(@RequestBody XiLeWangOrder xiLeWangOrder);
 
-    @RequestLine("PUT /")
-    int updateByPrimaryKey(@RequestBody XiLeWangOrder xiLeWangOrder);
 }

@@ -6,8 +6,6 @@ import com.wuwei.consumer.quartz.hystric.XiLeWangAssistanceUserServiceHystric;
 import feign.Param;
 import feign.RequestLine;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 

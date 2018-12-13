@@ -15,11 +15,6 @@ public class XiLeWangIncomeReportServiceHystric implements XiLeWangIncomeReportS
     }
 
     @Override
-    public XiLeWangIncomeReport selectByPrimaryKey(Long id) {
-        return null;
-    }
-
-    @Override
     public int updateByPrimaryKeySelective(XiLeWangIncomeReport xiLeWangIncomeReport) {
         return 0;
     }

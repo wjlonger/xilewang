@@ -22,8 +22,4 @@ public class XiLeWangAssistanceServiceHystric implements XiLeWangAssistanceServi
         return 0;
     }
 
-    @Override
-    public XiLeWangAssistance selectByOpenIdAndSkuId(String openId, Long skuId) {
-        return null;
-    }
 }

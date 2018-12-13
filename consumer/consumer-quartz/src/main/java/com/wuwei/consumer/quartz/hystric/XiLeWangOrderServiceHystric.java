@@ -13,22 +13,12 @@ public class XiLeWangOrderServiceHystric implements XiLeWangOrderService {
     }
 
     @Override
-    public int insert(XiLeWangOrder xiLeWangOrder) {
-        return 0;
-    }
-
-    @Override
     public int insertSelective(XiLeWangOrder xiLeWangOrder) {
         return 0;
     }
 
     @Override
     public int updateByPrimaryKeySelective(XiLeWangOrder xiLeWangOrder) {
-        return 0;
-    }
-
-    @Override
-    public int updateByPrimaryKey(XiLeWangOrder xiLeWangOrder) {
         return 0;
     }
 }

@@ -8,11 +8,6 @@ import org.springframework.context.annotation.Configuration;
 public class XiLeWangJdOrderSkuInfoServiceHystric implements XiLeWangJdOrderSkuInfoService {
 
     @Override
-    public int insert(XiLeWangJdOrderSkuInfo xiLeWangJdOrderSkuInfo) {
-        return 0;
-    }
-
-    @Override
     public int insertSelective(XiLeWangJdOrderSkuInfo xiLeWangJdOrderSkuInfo) {
         return 0;
     }
@@ -24,11 +19,6 @@ public class XiLeWangJdOrderSkuInfoServiceHystric implements XiLeWangJdOrderSkuI
 
     @Override
     public int updateByPrimaryKeySelective(XiLeWangJdOrderSkuInfo xiLeWangJdOrderSkuInfo) {
-        return 0;
-    }
-
-    @Override
-    public int updateByPrimaryKey(XiLeWangJdOrderSkuInfo xiLeWangJdOrderSkuInfo) {
         return 0;
     }
 

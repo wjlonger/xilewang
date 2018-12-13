@@ -5,7 +5,6 @@ import com.wuwei.consumer.quartz.hystric.XiLeWangIncomeReportServiceHystric;
 import feign.Param;
 import feign.RequestLine;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
@@ -15,9 +14,6 @@ public interface XiLeWangIncomeReportService {
 
     @RequestLine("POST /insertSelective")
     int insertSelective(@RequestBody XiLeWangIncomeReport xiLeWangIncomeReport);
-
-    @RequestLine("GET /{id}")
-    XiLeWangIncomeReport selectByPrimaryKey(@Param("id") Long id);
 
     @RequestLine("PUT /updateByPrimaryKeySelective")
     int updateByPrimaryKeySelective(@RequestBody XiLeWangIncomeReport xiLeWangIncomeReport);

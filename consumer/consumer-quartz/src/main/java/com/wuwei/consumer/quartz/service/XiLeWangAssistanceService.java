@@ -6,7 +6,6 @@ import com.wuwei.consumer.quartz.hystric.XiLeWangAssistanceServiceHystric;
 import feign.Param;
 import feign.RequestLine;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @FeignClient(value = "provider-wechat",configuration = FeignConfig.class, fallback= XiLeWangAssistanceServiceHystric.class, path = "/xilewang/assistance")
@@ -21,6 +20,4 @@ public interface XiLeWangAssistanceService{
     @RequestLine("PUT /")
     int updateByPrimaryKeySelective(@RequestBody XiLeWangAssistance xiLeWangAssistance);
 
-    @RequestLine("GET /{openId}/{skuId}")
-    XiLeWangAssistance selectByOpenIdAndSkuId(@Param("openId") String openId, @Param("skuId") Long skuId);
 }
