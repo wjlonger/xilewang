@@ -15,6 +15,6 @@ public interface XiLeWangUserService  {
     @RequestLine("GET /{openid}")
     XiLeWangUser selectByPrimaryKey(@Param("openid") String openid);
 
-    @RequestLine("POST /updateMoneyByPrimaryKey")
-    int updateMoneyByPrimaryKey(@Param("type") int type, @Param("modifyMoney")BigDecimal modifyMoney, @Param("openid")String openid);
+    @RequestLine("POST /updateMoneyByPrimaryKey?type={type}&modifyMoney={modifyMoney}&openid={openid}")
+    int updateMoneyByPrimaryKey(@Param("type") int type, @Param("modifyMoney")Double modifyMoney, @Param("openid")String openid);
 }

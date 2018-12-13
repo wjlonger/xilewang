@@ -53,7 +53,7 @@ public class XiLeWangUserController {
     }
 
     @PostMapping("/updateMoneyByPrimaryKey")
-    public int updateMoneyByPrimaryKey(int type, BigDecimal modifyMoney, String openid){
-        return xiLeWangUserService.updateMoneyByPrimaryKey(type, modifyMoney, openid);
+    public int updateMoneyByPrimaryKey(int type, Double modifyMoney, String openid){
+        return xiLeWangUserService.updateMoneyByPrimaryKey(type, BigDecimal.valueOf(modifyMoney), openid);
     }
 }

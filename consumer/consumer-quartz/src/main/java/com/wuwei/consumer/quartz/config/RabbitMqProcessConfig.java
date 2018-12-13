@@ -216,6 +216,7 @@ public class RabbitMqProcessConfig {
                                 xiLeWangIncomeReport.setJdOrderSkuId(xiLeWangJdOrderSkuInfo.getSkuId());
                                 xiLeWangIncomeReport.setJdOrderSkuIndex(xiLeWangJdOrderSkuInfo.getSkuIndex());
                                 xiLeWangIncomeReport.setMoney(rebate.multiply(xiLeWangAssistanceUser.getRewardRatio()).divide(BigDecimal.valueOf(100L)));
+                                xiLeWangIncomeReport.setState(0);
                                 XiLeWangIncomeReport temp =
                                         xiLeWangIncomeReportService.selectByProperty(xiLeWangIncomeReport.getType(), xiLeWangIncomeReport.getOpenid(),xiLeWangIncomeReport.getJdOrderId(),xiLeWangIncomeReport.getJdOrderSkuIndex());
                                 if(null == temp){
@@ -239,6 +240,7 @@ public class RabbitMqProcessConfig {
                         xiLeWangIncomeReport.setJdOrderSkuId(xiLeWangJdOrderSkuInfo.getSkuId());
                         xiLeWangIncomeReport.setJdOrderSkuIndex(xiLeWangJdOrderSkuInfo.getSkuIndex());
                         xiLeWangIncomeReport.setMoney(xiLeWangJdOrderSkuInfo.getRebatePrice());
+                        xiLeWangIncomeReport.setState(0);
                         XiLeWangIncomeReport temp =
                                 xiLeWangIncomeReportService.selectByProperty(xiLeWangIncomeReport.getType(), xiLeWangIncomeReport.getOpenid(),xiLeWangIncomeReport.getJdOrderId(),xiLeWangIncomeReport.getJdOrderSkuIndex());
                         if(null == temp){
@@ -258,6 +260,7 @@ public class RabbitMqProcessConfig {
                 xiLeWangIncomeReport.setJdOrderSkuId(xiLeWangJdOrderSkuInfo.getSkuId());
                 xiLeWangIncomeReport.setJdOrderSkuIndex(xiLeWangJdOrderSkuInfo.getSkuIndex());
                 xiLeWangIncomeReport.setMoney(xiLeWangJdOrderSkuInfo.getRebatePrice());
+                xiLeWangIncomeReport.setState(0);
                 int result = 0;
                 XiLeWangIncomeReport xiLeWangIncomeReportTemp =
                         xiLeWangIncomeReportService.selectByProperty(xiLeWangIncomeReport.getType(), xiLeWangIncomeReport.getOpenid(),xiLeWangIncomeReport.getJdOrderId(),xiLeWangIncomeReport.getJdOrderSkuIndex());
@@ -288,7 +291,7 @@ public class RabbitMqProcessConfig {
         if(!CollectionUtils.isNullOrEmpty(xiLeWangIncomeReports)){
             for(XiLeWangIncomeReport xiLeWangIncomeReport : xiLeWangIncomeReports){
                 if(null != xiLeWangIncomeReport && xiLeWangIncomeReport.getState() < 1){
-                    int result = xiLeWangUserService.updateMoneyByPrimaryKey(xiLeWangIncomeReport.getType(),xiLeWangIncomeReport.getMoney(),xiLeWangIncomeReport.getOpenid());
+                    int result = xiLeWangUserService.updateMoneyByPrimaryKey(xiLeWangIncomeReport.getType(),xiLeWangIncomeReport.getMoney().doubleValue(),xiLeWangIncomeReport.getOpenid());
                     if(result > 0){
                         XiLeWangIncomeReport temp = new XiLeWangIncomeReport();
                         temp.setId(xiLeWangIncomeReport.getId());

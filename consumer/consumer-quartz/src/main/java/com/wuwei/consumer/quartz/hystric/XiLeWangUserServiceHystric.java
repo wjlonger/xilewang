@@ -15,7 +15,8 @@ public class XiLeWangUserServiceHystric implements XiLeWangUserService {
     }
 
     @Override
-    public int updateMoneyByPrimaryKey(int type, BigDecimal modifyMoney, String openid) {
+    public int updateMoneyByPrimaryKey(int type, Double modifyMoney, String openid) {
+        System.out.println("进入熔断");
         return 0;
     }
 
