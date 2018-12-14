@@ -84,7 +84,7 @@ public class RabbitMqProcessConfig {
                                         xiLeWangJdOrderSkuInfo.setJdOrderId(orderResp.getOrderId());
                                         xiLeWangJdOrderSkuInfo.setState(0);
                                         // 将钱归零，交由消息队重新进行计算
-                                        xiLeWangJdOrderSkuInfo.setRebatePrice(BigDecimal.valueOf(0));
+                                        xiLeWangJdOrderSkuInfo.setRebatePrice(BigDecimal.valueOf(0L));
                                         // sku index
                                         xiLeWangJdOrderSkuInfo.setSkuIndex(i);
                                         int result;
@@ -141,7 +141,7 @@ public class RabbitMqProcessConfig {
             if(xiLeWangJdOrderSkuInfo.getValidCode() < 15){
                 // 无效订单
                 temp.setState(-1);
-                temp.setRebatePrice(BigDecimal.valueOf(0));
+                temp.setRebatePrice(BigDecimal.valueOf(0L));
             }else{
                 temp.setState(1);
                 // 预估佣金
@@ -152,7 +152,7 @@ public class RabbitMqProcessConfig {
                     // 实际佣金
                     rebate = xiLeWangJdOrderSkuInfo.getActualFee();
                 }
-                if(BigDecimal.valueOf(0).compareTo(rebate) == -1){
+                if(BigDecimal.valueOf(0L).compareTo(rebate) == -1){
                     // 预估佣金大于0
                     BigDecimal ratio = BigDecimal.valueOf(0L);
                     Long orderId = Long.parseLong(xiLeWangJdOrderSkuInfo.getSubUnionId());
@@ -171,11 +171,13 @@ public class RabbitMqProcessConfig {
                                     }
                                 }
                             }
+                        }else{
+                            ratio = ratio.add(xiLeWangOrder.getInitialRatio());
                         }
                     }
                     temp.setRebatePrice(rebate.multiply(ratio).divide(BigDecimal.valueOf(100L)));
                 }else{
-                    temp.setRebatePrice(BigDecimal.valueOf(0));
+                    temp.setRebatePrice(BigDecimal.valueOf(0L));
                 }
             }
             result = xiLeWangJdOrderSkuInfoService.updateByPrimaryKeySelective(temp);
@@ -197,7 +199,7 @@ public class RabbitMqProcessConfig {
                         if(null != xiLeWangIncomeReport){
                             XiLeWangIncomeReport temp = new XiLeWangIncomeReport();
                             temp.setId(xiLeWangIncomeReport.getId());
-                            temp.setMoney(BigDecimal.valueOf(0));
+                            temp.setMoney(BigDecimal.valueOf(0L));
                             temp.setState(-1);
                             temp.setValidCode(xiLeWangJdOrderSkuInfo.getValidCode());
                             xiLeWangIncomeReportService.updateByPrimaryKeySelective(temp);

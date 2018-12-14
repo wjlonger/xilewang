@@ -5,7 +5,10 @@ import java.math.BigDecimal;
 public class BigDecimalTest {
 
     public static void main(String[] args) {
-        System.out.println(BigDecimal.valueOf(1.10).compareTo(BigDecimal.valueOf(1.1)));
+        BigDecimal ratio = BigDecimal.valueOf(0L);
+        ratio = ratio.add(BigDecimal.valueOf(50L));
+        BigDecimal money  = BigDecimal.valueOf(0.05);
+        System.out.println(money.multiply(ratio).divide(BigDecimal.valueOf(100L)));
     }
 
 }
