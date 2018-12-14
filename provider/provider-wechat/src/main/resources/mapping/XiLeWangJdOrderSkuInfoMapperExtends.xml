@@ -49,6 +49,12 @@
         from xilewang_jd_order_skuinfo
         where jd_order_id = #{jdOrderId,jdbcType=BIGINT} and  sku_index = #{skuIndex,jdbcType=INTEGER}
     </select>
+    <select id="selectByOrderId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List" />
+        from xilewang_jd_order_skuinfo
+        where jd_order_id = #{jdOrderId,jdbcType=BIGINT}
+    </select>
     <insert id="insert" parameterType="com.wuwei.base.wechat.model.XiLeWangJdOrderSkuInfo">
     insert into xilewang_jd_order_skuinfo (id, actual_cos_price, actual_fee,
       commission_rate, estimate_cos_price, estimate_fee,

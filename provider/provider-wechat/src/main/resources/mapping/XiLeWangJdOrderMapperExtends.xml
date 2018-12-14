@@ -18,6 +18,28 @@
       <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
       <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
     </resultMap>
+    <resultMap id="XiLeWangJdOrderVoResultMap" type="com.wuwei.base.wechat.model.vo.XiLeWangJdOrderVo" >
+        <id column="order_id" property="orderId" jdbcType="BIGINT" />
+        <result column="finish_time" property="finishTime" jdbcType="BIGINT" />
+        <result column="order_emt" property="orderEmt" jdbcType="INTEGER" />
+        <result column="order_time" property="orderTime" jdbcType="BIGINT" />
+        <result column="parent_id" property="parentId" jdbcType="BIGINT" />
+        <result column="pay_month" property="payMonth" jdbcType="VARCHAR" />
+        <result column="plus" property="plus" jdbcType="INTEGER" />
+        <result column="pop_id" property="popId" jdbcType="BIGINT" />
+        <result column="union_id" property="unionId" jdbcType="BIGINT" />
+        <result column="ext1" property="ext1" jdbcType="VARCHAR" />
+        <result column="valid_code" property="validCode" jdbcType="INTEGER" />
+        <result column="openid" property="openid" jdbcType="VARCHAR" />
+        <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+        <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
+        <association column="order_id" property="imgs" select="selectImgsByOrderId" />
+        <association column="order_id" property="nums" select="sumNumsByOrderId" />
+        <association column="order_id" property="price" select="sumPriceByOrderId" />
+        <association column="order_id" property="rebate" select="sumRebateByOrderId" />
+        <association column="order_id" property="xiLeWangJdOrderSkuInfos" select="com.wuwei.provider.wechat.mapper.XiLeWangJdOrderSkuInfoMapper.selectByOrderId" />
+    </resultMap>
+
     <sql id="Base_Column_List" >
       order_id, finish_time, order_emt, order_time, parent_id, pay_month, plus, pop_id,
       union_id, ext1, valid_code, openid, gmt_create, gmt_modified
@@ -34,6 +56,31 @@
     from xilewang_jd_order
     where openid = #{openid,jdbcType=VARCHAR}
   </select>
+    <select id="listByOpenidAndViladCode" resultMap="XiLeWangJdOrderVoResultMap">
+        select
+          <include refid="Base_Column_List" />
+        from
+            xilewang_jd_order
+        where openid = #{openid,jdbcType=VARCHAR}
+        <if test="validCode != null" >
+          and valid_code = #{validCode,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <select id="selectImgsByOrderId" resultType="java.lang.String" parameterType="java.lang.Long">
+        select `img` from `xilewang_jd_order_skuinfo` where `jd_order_id`= #{orderId,jdbcType=BIGINT}
+	</select>
+    <select id="sumNumsByOrderId" resultType="java.lang.Integer" parameterType="java.lang.Long" >
+        select sum(`sku_num`) from `xilewang_jd_order_skuinfo` where `jd_order_id`= #{orderId,jdbcType=BIGINT}
+    </select>
+    <select id="sumPriceByOrderId" resultType="java.math.BigDecimal" parameterType="java.lang.Long" >
+        select sum(`estimate_cos_price`) from `xilewang_jd_order_skuinfo` where `jd_order_id`= #{orderId,jdbcType=BIGINT}
+    </select>
+    <select id="sumRebateByOrderId" resultType="java.math.BigDecimal" parameterType="java.lang.Long" >
+        select sum(`rebate_price`) from `xilewang_jd_order_skuinfo` where `jd_order_id`= #{orderId,jdbcType=BIGINT}
+        and valid_code > 14
+    </select>
+
     <insert id="insert" parameterType="com.wuwei.base.wechat.model.XiLeWangJdOrder" >
       insert into xilewang_jd_order (order_id, finish_time, order_emt,
         order_time, parent_id, pay_month,

@@ -1,6 +1,8 @@
 package com.wuwei.provider.wechat.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.wuwei.base.wechat.model.XiLeWangJdOrder;
+import com.wuwei.base.wechat.model.vo.XiLeWangJdOrderVo;
 import com.wuwei.base.wechat.service.XiLeWangJdOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -45,6 +47,12 @@ public class XiLeWangJdOrderController {
     @GetMapping("/selectByOpenid/{openid}")
     public List<XiLeWangJdOrder> selectByOpenid(@PathVariable("openid") String openid){
         return xiLeWangJdOrderService.selectByOpenid(openid);
+    }
+
+    @GetMapping("/listByOpenidAndViladCode/{openid}")
+    public PageInfo<XiLeWangJdOrderVo> listByOpenidAndViladCode(@RequestParam("pageNo") Integer pageNo, @RequestParam("pageSize") Integer pageSize,
+                                                                @PathVariable("openid") String openid, @RequestParam(value = "validCode",required = false) Integer validCode){
+        return xiLeWangJdOrderService.listByOpenidAndViladCode(pageNo, pageSize, openid, validCode);
     }
 
 }
