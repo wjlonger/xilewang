@@ -1,5 +1,6 @@
 package com.wuwei.provider.wechat.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.wuwei.base.wechat.model.XiLeWangIncomeReport;
 import com.wuwei.base.wechat.service.XiLeWangIncomeReportService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +52,12 @@ public class XiLeWangIncomeReportController {
     @GetMapping("/selectByProperty/{jdOrderId}")
     public List<XiLeWangIncomeReport> selectByJdOrderId(@PathVariable("jdOrderId") Long jdOrderId){
         return xiLeWangIncomeReportService.selectByJdOrderId(jdOrderId);
+    }
+
+    @GetMapping("/listXiLeWangIncomeReport/{openid}")
+    public PageInfo<XiLeWangIncomeReport> listXiLeWangIncomeReport(@RequestParam("pageNo") Integer pageNo, @RequestParam("pageSize") Integer pageSize,
+                                                                   @PathVariable("openid") String openid, @RequestParam("state") Integer state){
+        return xiLeWangIncomeReportService.listXiLeWangIncomeReport(pageNo, pageSize, openid, state);
     }
 
 }

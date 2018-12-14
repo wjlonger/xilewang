@@ -32,7 +32,7 @@
         xilewang_income_report
         where
           `type` = #{type,jdbcType=INTEGER}
-        and j
+        and
           openid = #{openid,jdbcType=VARCHAR}
         and
           jd_order_id = #{jdOrderId,jdbcType=BIGINT}
@@ -47,6 +47,14 @@
         where
           jd_order_id = #{jdOrderId,jdbcType=BIGINT}
     </select>
+
+    <select id="listXiLeWangIncomeReport" resultMap="BaseResultMap" >
+        select
+        <include refid="Base_Column_List" />
+        from xilewang_income_report where openid = #{openid,jdbcType=VARCHAR} and state = #{state,jdbcType=INTEGER}
+        order by `gmt_create` desc
+    </select>
+
     <insert id="insert" parameterType="com.wuwei.base.wechat.model.XiLeWangIncomeReport" >
     insert into xilewang_income_report (id, type, valid_code,
       openid, jd_order_id, jd_order_sku_id,

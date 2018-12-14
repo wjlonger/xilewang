@@ -1,5 +1,7 @@
 package com.wuwei.provider.wechat.serviceimpl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.wuwei.base.util.StringUtils;
 import com.wuwei.base.wechat.model.XiLeWangIncomeReport;
 import com.wuwei.base.wechat.service.XiLeWangIncomeReportService;
@@ -76,6 +78,22 @@ public class XiLeWangIncomeReportServiceImpl implements XiLeWangIncomeReportServ
             return null;
         }
         return xiLeWangIncomeReportMapper.selectByJdOrderId(jdOrderId);
+    }
+
+    @Override
+    public PageInfo<XiLeWangIncomeReport> listXiLeWangIncomeReport(Integer pageNo, Integer pageSize, String openid, Integer state) {
+        if(StringUtils.isNullOrEmpty(openid)){
+            return null;
+        }
+        if(null == pageNo || pageNo < 1){
+            pageNo = 1;
+        }
+        if(null == pageSize || pageSize < 1){
+            pageNo = 20;
+        }
+        PageHelper.startPage(pageNo, pageSize);
+        List<XiLeWangIncomeReport> xiLeWangIncomeReports = xiLeWangIncomeReportMapper.listXiLeWangIncomeReport(openid, state);
+        return new PageInfo<>(xiLeWangIncomeReports);
     }
 
 }

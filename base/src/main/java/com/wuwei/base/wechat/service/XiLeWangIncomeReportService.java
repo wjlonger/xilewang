@@ -1,5 +1,6 @@
 package com.wuwei.base.wechat.service;
 
+import com.github.pagehelper.PageInfo;
 import com.wuwei.base.wechat.model.XiLeWangIncomeReport;
 
 import java.util.List;
@@ -19,5 +20,7 @@ public interface XiLeWangIncomeReportService {
     XiLeWangIncomeReport selectByProperty(Integer type,String openid, Long jdOrderId,Integer jdOrderSkuIndex);
 
     List<XiLeWangIncomeReport> selectByJdOrderId(Long jdOrderId);
+
+    PageInfo<XiLeWangIncomeReport> listXiLeWangIncomeReport(Integer pageNo, Integer pageSize, String openid, Integer state);
 
 }

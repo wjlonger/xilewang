@@ -21,4 +21,6 @@ public interface XiLeWangIncomeReportMapper {
 
     List<XiLeWangIncomeReport> selectByJdOrderId(@Param("jdOrderId") Long jdOrderId);
 
+    List<XiLeWangIncomeReport> listXiLeWangIncomeReport(@Param("openid") String openid, @Param("state") Integer state);
+
 }
