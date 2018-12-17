@@ -45,6 +45,10 @@ public class XiLeWangGoodsController {
         promotionCodeReq.setMaterialId(String.format("https://wqitem.jd.com/item/view?sku=%d",skuId));
         promotionCodeReq.setCouponUrl(couponUrl);
         String url = xiLeWangPromotionService.getBySubUnionId(promotionCodeReq);
+        if(StringUtils.isEmpty(url)){
+            promotionCodeReq.setCouponUrl(null);
+            url = xiLeWangPromotionService.getBySubUnionId(promotionCodeReq);
+        }
         if(!StringUtils.isEmpty(url)){
             XiLeWangOrder xiLeWangOrder = new XiLeWangOrder();
             xiLeWangOrder.setId(id);

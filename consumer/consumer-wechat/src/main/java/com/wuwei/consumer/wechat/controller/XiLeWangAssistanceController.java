@@ -21,6 +21,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
@@ -83,9 +84,12 @@ public class XiLeWangAssistanceController {
             final long id = IdGenerator.nextId();
             jsonObject.put("code",1);
             jsonObject.put("assistance",id);
+            jsonObject.put("assistanceUsers",new ArrayList<XiLeWangAssistance>());
         }else{
+            List<XiLeWangAssistanceUser> xiLeWangAssistanceUsers= xiLeWangAssistanceUserService.selectByAssistanceId(xiLeWangAssistance.getId());
             jsonObject.put("code",1);
             jsonObject.put("assistance",xiLeWangAssistance.getId());
+            jsonObject.put("assistanceUsers",xiLeWangAssistanceUsers);
         }
         return jsonObject;
     }
