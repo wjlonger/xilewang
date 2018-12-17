@@ -54,7 +54,7 @@ public class RabbitMqProcessConfig {
     @Autowired
     private AmqpTemplate amqpTemplate;
 
-    @Value("goods.ratio")
+    @Value("${goods.ratio}")
     private BigDecimal ratio;
 
     @RabbitListener(queues = "quartz_jdorder_save")
