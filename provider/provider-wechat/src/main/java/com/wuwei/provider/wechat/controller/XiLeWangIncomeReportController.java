@@ -49,7 +49,7 @@ public class XiLeWangIncomeReportController {
         return xiLeWangIncomeReportService.selectByProperty(type, openid, jdOrderId, jdOrderSkuIndex);
     }
 
-    @GetMapping("/selectByProperty/{jdOrderId}")
+    @GetMapping("/selectByJdOrderId/{jdOrderId}")
     public List<XiLeWangIncomeReport> selectByJdOrderId(@PathVariable("jdOrderId") Long jdOrderId){
         return xiLeWangIncomeReportService.selectByJdOrderId(jdOrderId);
     }
