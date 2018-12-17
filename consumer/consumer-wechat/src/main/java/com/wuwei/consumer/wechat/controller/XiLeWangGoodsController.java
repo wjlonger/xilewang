@@ -2,16 +2,21 @@ package com.wuwei.consumer.wechat.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.wuwei.base.util.IdGenerator;
+import com.wuwei.base.wechat.model.XiLeWangAssistance;
 import com.wuwei.base.wechat.model.XiLeWangOrder;
+import com.wuwei.consumer.wechat.service.XiLeWangAssistanceService;
+import com.wuwei.consumer.wechat.service.XiLeWangOrderService;
 import com.wuwei.consumer.wechat.service.XiLeWangPromotionService;
 import com.wuwei.consumer.wechat.utils.Current;
 import jd.union.open.promotion.bysubunionid.get.request.PromotionCodeReq;
-import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+
+import java.math.BigDecimal;
 
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 @RestController
@@ -22,7 +27,13 @@ public class XiLeWangGoodsController {
     private XiLeWangPromotionService xiLeWangPromotionService;
 
     @Autowired
-    private AmqpTemplate amqpTemplate;
+    private XiLeWangAssistanceService xiLeWangAssistanceService;
+
+    @Value("${goods.ratio}")
+    private BigDecimal ratio;
+
+    @Autowired
+    private XiLeWangOrderService xiLeWangOrderService;
 
     private JSONObject jsonObject = new JSONObject();
 
@@ -40,11 +51,25 @@ public class XiLeWangGoodsController {
             xiLeWangOrder.setSkuId(skuId);
             xiLeWangOrder.setOpenid(Current.getOpenid());
             xiLeWangOrder.setUrl(url);
-            amqpTemplate.convertAndSend("xilewang_order_insert",xiLeWangOrder);
-            jsonObject.put("code",1);
-            jsonObject.put("url",url);
+            XiLeWangAssistance xiLeWangAssistance = xiLeWangAssistanceService.selectByOpenIdAndSkuId(Current.getOpenid(),skuId);
+            if(null == xiLeWangAssistance){
+                xiLeWangOrder.setInitialRatio(ratio);
+                xiLeWangOrder.setAssistanceId(0L);
+            }else{
+                xiLeWangOrder.setInitialRatio(xiLeWangAssistance.getInitialRatio());
+                xiLeWangOrder.setAssistanceId(xiLeWangAssistance.getId());
+            }
+            int i = xiLeWangOrderService.insertSelective(xiLeWangOrder);
+            if(i > 0){
+                jsonObject.put("code",1);
+                jsonObject.put("url",url);
+            }else{
+                jsonObject.put("code",0);
+                jsonObject.put("url", com.wuwei.base.util.StringUtils.EMPTY);
+            }
         }else{
             jsonObject.put("code",0);
+            jsonObject.put("url", com.wuwei.base.util.StringUtils.EMPTY);
         }
         return jsonObject;
     }

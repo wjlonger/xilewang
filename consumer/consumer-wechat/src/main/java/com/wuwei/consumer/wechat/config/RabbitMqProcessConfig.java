@@ -1,20 +1,14 @@
 package com.wuwei.consumer.wechat.config;
 
-import com.wuwei.base.wechat.model.XiLeWangAssistance;
 import com.wuwei.base.wechat.model.XiLeWangHistory;
-import com.wuwei.base.wechat.model.XiLeWangOrder;
-import com.wuwei.consumer.wechat.service.XiLeWangAssistanceService;
 import com.wuwei.consumer.wechat.service.XiLeWangGoodsService;
 import com.wuwei.consumer.wechat.service.XiLeWangHistoryService;
-import com.wuwei.consumer.wechat.service.XiLeWangOrderService;
-import jd.union.open.goods.query.response.*;
+import jd.union.open.goods.query.response.CategoryInfo;
+import jd.union.open.goods.query.response.GoodsResp;
+import jd.union.open.goods.query.response.ShopInfo;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.util.StringUtils;
-
-import java.math.BigDecimal;
 
 @Configuration
 public class RabbitMqProcessConfig {
@@ -24,15 +18,6 @@ public class RabbitMqProcessConfig {
 
     @Autowired
     private XiLeWangHistoryService xiLeWangHistoryService;
-
-    @Autowired
-    private XiLeWangOrderService xiLeWangOrderService;
-
-    @Autowired
-    private XiLeWangAssistanceService xiLeWangAssistanceService;
-
-    @Value("${goods.ratio}")
-    private BigDecimal ratio;
 
     @RabbitListener(queues = "xilewang_history_insert")
     public void xiLeWangHistoryInsert(XiLeWangHistory xiLeWangHistory){
@@ -64,23 +49,5 @@ public class RabbitMqProcessConfig {
             }
             xiLeWangHistoryService.insertSelective(xiLeWangHistory);
         }
-
     }
-
-    @RabbitListener(queues = "xilewang_order_insert")
-    public void xiLeWangOrderInsert(XiLeWangOrder xiLeWangOrder){
-        if(null == xiLeWangOrder || StringUtils.isEmpty(xiLeWangOrder.getSkuId()) || StringUtils.isEmpty(xiLeWangOrder.getOpenid())){
-            return;
-        }
-        XiLeWangAssistance xiLeWangAssistance = xiLeWangAssistanceService.selectByOpenIdAndSkuId(xiLeWangOrder.getOpenid(),xiLeWangOrder.getSkuId());
-        if(null == xiLeWangAssistance){
-            xiLeWangOrder.setInitialRatio(ratio);
-            xiLeWangOrder.setAssistanceId(0L);
-        }else{
-            xiLeWangOrder.setInitialRatio(xiLeWangAssistance.getInitialRatio());
-            xiLeWangOrder.setAssistanceId(xiLeWangAssistance.getId());
-        }
-        xiLeWangOrderService.insertSelective(xiLeWangOrder);
-    }
-
 }
