@@ -114,6 +114,7 @@ public class XiLeWangAssistanceController {
         XiLeWangAssistance xiLeWangAssistance = xiLeWangAssistanceService.selectByPrimaryKey(assistanceId);
         if(null == xiLeWangAssistance){
             jsonObject.put("code",0);
+            jsonObject.put("assistance",null);
             jsonObject.put("goods",null);
             jsonObject.put("users",null);
 
@@ -121,6 +122,7 @@ public class XiLeWangAssistanceController {
             GoodsResp goodsResp = xiLeWangGoodsService.goodsDetail(xiLeWangAssistance.getSkuId());
             List<XiLeWangAssistanceUser> xiLeWangAssistanceUsers = xiLeWangAssistanceUserService.selectByAssistanceId(assistanceId);
             jsonObject.put("code",1);
+            jsonObject.put("assistance",xiLeWangAssistance);
             jsonObject.put("goods",goodsResp);
             jsonObject.put("users",xiLeWangAssistanceUsers);
         }
