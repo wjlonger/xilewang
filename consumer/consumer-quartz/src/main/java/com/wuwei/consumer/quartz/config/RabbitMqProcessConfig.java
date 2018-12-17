@@ -143,11 +143,16 @@ public class RabbitMqProcessConfig {
             XiLeWangJdOrderSkuInfo temp = new XiLeWangJdOrderSkuInfo();
             temp.setId(xiLeWangJdOrderSkuInfo.getId());
             // validCode详见 https://media.jd.com/jhtml/page/apidetail/apidetail.html
+            //region 无效订单
             if(xiLeWangJdOrderSkuInfo.getValidCode() < 15){
-                // 无效订单
+
                 temp.setState(-1);
                 temp.setRebatePrice(BigDecimal.valueOf(0L));
-            } else {
+            }
+            //endregion
+
+            //region 有效订单
+            else {
                 temp.setState(1);
                 // 预估佣金
                 BigDecimal rebate = xiLeWangJdOrderSkuInfo.getEstimateFee();
@@ -189,6 +194,7 @@ public class RabbitMqProcessConfig {
                     temp.setRebatePrice(rebate.multiply(ratio).divide(BigDecimal.valueOf(100L)));
                 }
             }
+            //endregion
             result = xiLeWangJdOrderSkuInfoService.updateByPrimaryKeySelective(temp);
             if(result > 0){
                 // 有没有佣金都要去写入明细
@@ -215,10 +221,6 @@ public class RabbitMqProcessConfig {
                         }
                     }
                 }
-                XiLeWangJdOrderSkuInfo xiLeWangJdOrderSkuInfoTemp = new XiLeWangJdOrderSkuInfo();
-                xiLeWangJdOrderSkuInfoTemp.setId(skuInfoId);
-                xiLeWangJdOrderSkuInfoTemp.setState(2);
-                xiLeWangJdOrderSkuInfoService.updateByPrimaryKeySelective(xiLeWangJdOrderSkuInfoTemp);
             }
             //endregion
 
