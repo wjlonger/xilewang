@@ -7,17 +7,14 @@
         <result column="type" property="type" jdbcType="INTEGER" />
         <result column="valid_code" property="validCode" jdbcType="INTEGER" />
         <result column="openid" property="openid" jdbcType="VARCHAR" />
-        <result column="jd_order_id" property="jdOrderId" jdbcType="BIGINT" />
-        <result column="jd_order_sku_id" property="jdOrderSkuId" jdbcType="BIGINT" />
-        <result column="jd_order_sku_index" property="jdOrderSkuIndex" jdbcType="INTEGER" />
+        <result column="sku_info_id" property="skuInfoId" jdbcType="BIGINT" />
         <result column="money" property="money" jdbcType="DECIMAL" />
         <result column="state" property="state" jdbcType="INTEGER" />
         <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
         <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
     </resultMap>
     <sql id="Base_Column_List" >
-    id, type, valid_code, openid, jd_order_id, jd_order_sku_id, jd_order_sku_index, money,
-    state, gmt_create, gmt_modified
+    id, type, valid_code, openid, sku_info_id, money, state, gmt_create, gmt_modified
   </sql>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
         select
@@ -25,45 +22,39 @@
         from xilewang_income_report
         where id = #{id,jdbcType=BIGINT}
     </select>
-    <select id="selectByProperty" resultMap="BaseResultMap" >
-        select
-        <include refid="Base_Column_List" />
-        from
-        xilewang_income_report
-        where
-          `type` = #{type,jdbcType=INTEGER}
-        and
-          openid = #{openid,jdbcType=VARCHAR}
-        and
-          jd_order_id = #{jdOrderId,jdbcType=BIGINT}
-        and
-          jd_order_sku_index = #{jdOrderSkuIndex,jdbcType=INTEGER}
-    </select>
-    <select id="selectByJdOrderId" resultMap="BaseResultMap" >
-        select
-          <include refid="Base_Column_List" />
-        from
-          xilewang_income_report
-        where
-          jd_order_id = #{jdOrderId,jdbcType=BIGINT}
-    </select>
-
     <select id="listXiLeWangIncomeReport" resultMap="BaseResultMap" >
         select
         <include refid="Base_Column_List" />
         from xilewang_income_report where openid = #{openid,jdbcType=VARCHAR} and state = #{state,jdbcType=INTEGER}
         order by `gmt_create` desc
     </select>
-
+    <select id="selectBySkuInfoId" resultMap="BaseResultMap" >
+        select
+          <include refid="Base_Column_List" />
+        from
+          xilewang_income_report
+        where
+          sku_info_id = #{skuInfoId,jdbcType=BIGINT}
+    </select>
+    <select id="selectByOpenidAndSkuInfoId" resultMap="BaseResultMap" >
+        select
+          <include refid="Base_Column_List" />
+        from
+          xilewang_income_report
+        where
+          openid = #{openid,jdbcType=VARCHAR}
+        and
+          sku_info_id = #{skuInfoId,jdbcType=BIGINT}
+    </select>
     <insert id="insert" parameterType="com.wuwei.base.wechat.model.XiLeWangIncomeReport" >
     insert into xilewang_income_report (id, type, valid_code,
-      openid, jd_order_id, jd_order_sku_id,
-      jd_order_sku_index, money, state,
-      gmt_create, gmt_modified)
+      openid, sku_info_id, money,
+      state, gmt_create, gmt_modified
+      )
     values (#{id,jdbcType=BIGINT}, #{type,jdbcType=INTEGER}, #{validCode,jdbcType=INTEGER},
-      #{openid,jdbcType=VARCHAR}, #{jdOrderId,jdbcType=BIGINT}, #{jdOrderSkuId,jdbcType=BIGINT},
-      #{jdOrderSkuIndex,jdbcType=INTEGER}, #{money,jdbcType=DECIMAL}, #{state,jdbcType=INTEGER},
-      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP})
+      #{openid,jdbcType=VARCHAR}, #{skuInfoId,jdbcType=BIGINT}, #{money,jdbcType=DECIMAL},
+      #{state,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}
+      )
   </insert>
     <insert id="insertSelective" parameterType="com.wuwei.base.wechat.model.XiLeWangIncomeReport" >
         insert into xilewang_income_report
@@ -80,14 +71,8 @@
             <if test="openid != null" >
                 openid,
             </if>
-            <if test="jdOrderId != null" >
-                jd_order_id,
-            </if>
-            <if test="jdOrderSkuId != null" >
-                jd_order_sku_id,
-            </if>
-            <if test="jdOrderSkuIndex != null" >
-                jd_order_sku_index,
+            <if test="skuInfoId != null" >
+                sku_info_id,
             </if>
             <if test="money != null" >
                 money,
@@ -115,14 +100,8 @@
             <if test="openid != null" >
                 #{openid,jdbcType=VARCHAR},
             </if>
-            <if test="jdOrderId != null" >
-                #{jdOrderId,jdbcType=BIGINT},
-            </if>
-            <if test="jdOrderSkuId != null" >
-                #{jdOrderSkuId,jdbcType=BIGINT},
-            </if>
-            <if test="jdOrderSkuIndex != null" >
-                #{jdOrderSkuIndex,jdbcType=INTEGER},
+            <if test="skuInfoId != null" >
+                #{skuInfoId,jdbcType=BIGINT},
             </if>
             <if test="money != null" >
                 #{money,jdbcType=DECIMAL},
@@ -150,14 +129,8 @@
             <if test="openid != null" >
                 openid = #{openid,jdbcType=VARCHAR},
             </if>
-            <if test="jdOrderId != null" >
-                jd_order_id = #{jdOrderId,jdbcType=BIGINT},
-            </if>
-            <if test="jdOrderSkuId != null" >
-                jd_order_sku_id = #{jdOrderSkuId,jdbcType=BIGINT},
-            </if>
-            <if test="jdOrderSkuIndex != null" >
-                jd_order_sku_index = #{jdOrderSkuIndex,jdbcType=INTEGER},
+            <if test="skuInfoId != null" >
+                sku_info_id = #{skuInfoId,jdbcType=BIGINT},
             </if>
             <if test="money != null" >
                 money = #{money,jdbcType=DECIMAL},
@@ -179,9 +152,7 @@
     set type = #{type,jdbcType=INTEGER},
       valid_code = #{validCode,jdbcType=INTEGER},
       openid = #{openid,jdbcType=VARCHAR},
-      jd_order_id = #{jdOrderId,jdbcType=BIGINT},
-      jd_order_sku_id = #{jdOrderSkuId,jdbcType=BIGINT},
-      jd_order_sku_index = #{jdOrderSkuIndex,jdbcType=INTEGER},
+      sku_info_id = #{skuInfoId,jdbcType=BIGINT},
       money = #{money,jdbcType=DECIMAL},
       state = #{state,jdbcType=INTEGER},
       gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},

@@ -43,21 +43,20 @@ public class XiLeWangIncomeReportController {
         return xiLeWangIncomeReportService.updateByPrimaryKey(xiLeWangIncomeReport);
     }
 
-    @GetMapping
-    public XiLeWangIncomeReport selectByProperty(@RequestParam("type") Integer type, @RequestParam("openid") String openid,
-                                                 @RequestParam("jdOrderId") Long jdOrderId, @RequestParam("jdOrderSkuIndex") Integer jdOrderSkuIndex){
-        return xiLeWangIncomeReportService.selectByProperty(type, openid, jdOrderId, jdOrderSkuIndex);
-    }
-
-    @GetMapping("/selectByJdOrderId/{jdOrderId}")
-    public List<XiLeWangIncomeReport> selectByJdOrderId(@PathVariable("jdOrderId") Long jdOrderId){
-        return xiLeWangIncomeReportService.selectByJdOrderId(jdOrderId);
-    }
-
     @GetMapping("/listXiLeWangIncomeReport/{openid}")
     public PageInfo<XiLeWangIncomeReport> listXiLeWangIncomeReport(@RequestParam("pageNo") Integer pageNo, @RequestParam("pageSize") Integer pageSize,
                                                                    @PathVariable("openid") String openid, @RequestParam("state") Integer state){
         return xiLeWangIncomeReportService.listXiLeWangIncomeReport(pageNo, pageSize, openid, state);
+    }
+
+    @GetMapping("/selectBySkuInfoId/{skuInfoId}")
+    public List<XiLeWangIncomeReport> selectBySkuInfoId(@PathVariable("skuInfoId") Long skuInfoId){
+        return xiLeWangIncomeReportService.selectBySkuInfoId(skuInfoId);
+    }
+
+    @GetMapping("/selectByOpenidAndSkuInfoId/{openid}/{skuInfoId}")
+    public XiLeWangIncomeReport selectByOpenidAndSkuInfoId(@PathVariable("openid") String openid,@PathVariable("skuInfoId") Long skuInfoId){
+        return xiLeWangIncomeReportService.selectByOpenidAndSkuInfoId(openid,skuInfoId);
     }
 
 }

@@ -17,10 +17,10 @@ public interface XiLeWangIncomeReportService {
 
     int updateByPrimaryKey(XiLeWangIncomeReport xiLeWangIncomeReport);
 
-    XiLeWangIncomeReport selectByProperty(Integer type,String openid, Long jdOrderId,Integer jdOrderSkuIndex);
-
-    List<XiLeWangIncomeReport> selectByJdOrderId(Long jdOrderId);
-
     PageInfo<XiLeWangIncomeReport> listXiLeWangIncomeReport(Integer pageNo, Integer pageSize, String openid, Integer state);
+
+    List<XiLeWangIncomeReport> selectBySkuInfoId(Long skuInfoId);
+
+    XiLeWangIncomeReport selectByOpenidAndSkuInfoId(String openid, Long skuInfoId);
 
 }

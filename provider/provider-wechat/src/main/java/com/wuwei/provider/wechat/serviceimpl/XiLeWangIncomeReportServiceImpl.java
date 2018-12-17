@@ -65,22 +65,6 @@ public class XiLeWangIncomeReportServiceImpl implements XiLeWangIncomeReportServ
     }
 
     @Override
-    public XiLeWangIncomeReport selectByProperty(Integer type, String openid, Long jdOrderId, Integer jdOrderSkuIndex) {
-        if(null == type || StringUtils.isNullOrEmpty(openid) || null == jdOrderId || null == jdOrderSkuIndex){
-            return null;
-        }
-        return xiLeWangIncomeReportMapper.selectByProperty(type, openid, jdOrderId, jdOrderSkuIndex);
-    }
-
-    @Override
-    public List<XiLeWangIncomeReport> selectByJdOrderId(Long jdOrderId) {
-        if(null == jdOrderId){
-            return null;
-        }
-        return xiLeWangIncomeReportMapper.selectByJdOrderId(jdOrderId);
-    }
-
-    @Override
     public PageInfo<XiLeWangIncomeReport> listXiLeWangIncomeReport(Integer pageNo, Integer pageSize, String openid, Integer state) {
         if(StringUtils.isNullOrEmpty(openid)){
             return null;
@@ -94,6 +78,22 @@ public class XiLeWangIncomeReportServiceImpl implements XiLeWangIncomeReportServ
         PageHelper.startPage(pageNo, pageSize);
         List<XiLeWangIncomeReport> xiLeWangIncomeReports = xiLeWangIncomeReportMapper.listXiLeWangIncomeReport(openid, state);
         return new PageInfo<>(xiLeWangIncomeReports);
+    }
+
+    @Override
+    public List<XiLeWangIncomeReport> selectBySkuInfoId(Long skuInfoId) {
+        if(null == skuInfoId || skuInfoId <= 0){
+            return null;
+        }
+        return xiLeWangIncomeReportMapper.selectBySkuInfoId(skuInfoId);
+    }
+
+    @Override
+    public XiLeWangIncomeReport selectByOpenidAndSkuInfoId(String openid, Long skuInfoId) {
+        if(StringUtils.isNullOrEmpty(openid) || null == skuInfoId || skuInfoId <= 0){
+            return null;
+        }
+        return xiLeWangIncomeReportMapper.selectByOpenidAndSkuInfoId(openid,skuInfoId);
     }
 
 }

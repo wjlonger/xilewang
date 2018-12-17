@@ -16,11 +16,7 @@ public class XiLeWangIncomeReport implements Serializable {
 
     private String openid;
 
-    private Long jdOrderId;
-
-    private Long jdOrderSkuId;
-
-    private Integer jdOrderSkuIndex;
+    private Long skuInfoId;
 
     private BigDecimal money;
 
@@ -62,28 +58,12 @@ public class XiLeWangIncomeReport implements Serializable {
         this.openid = openid == null ? null : openid.trim();
     }
 
-    public Long getJdOrderId() {
-        return jdOrderId;
+    public Long getSkuInfoId() {
+        return skuInfoId;
     }
 
-    public void setJdOrderId(Long jdOrderId) {
-        this.jdOrderId = jdOrderId;
-    }
-
-    public Long getJdOrderSkuId() {
-        return jdOrderSkuId;
-    }
-
-    public void setJdOrderSkuId(Long jdOrderSkuId) {
-        this.jdOrderSkuId = jdOrderSkuId;
-    }
-
-    public Integer getJdOrderSkuIndex() {
-        return jdOrderSkuIndex;
-    }
-
-    public void setJdOrderSkuIndex(Integer jdOrderSkuIndex) {
-        this.jdOrderSkuIndex = jdOrderSkuIndex;
+    public void setSkuInfoId(Long skuInfoId) {
+        this.skuInfoId = skuInfoId;
     }
 
     public BigDecimal getMoney() {
@@ -91,16 +71,14 @@ public class XiLeWangIncomeReport implements Serializable {
     }
 
     public void setMoney(BigDecimal money) {
-        if(null == money || BigDecimal.valueOf(0.01).compareTo(money) <= 0){
-            this.money = money;
-        }else{
-            this.money = BigDecimal.valueOf(0.01);
-        }
         if(null == money){
             this.money = money;
-        } else if(BigDecimal.valueOf(0L).compareTo(money) == -1 && BigDecimal.valueOf(0.01).compareTo(money) == 1){
-            // 大于0 小于0.01
+        } else if(money.compareTo(BigDecimal.valueOf(0L)) == 1 && money.compareTo(BigDecimal.valueOf(0.01)) <= 0){
+            // 大于0 小于等于0.01
             this.money = BigDecimal.valueOf(0.01);
+        }else if(money.compareTo(BigDecimal.valueOf(0L)) <= 0){
+            // 小于等于0
+            this.money = BigDecimal.valueOf(0L);
         } else{
             this.money = money;
         }

@@ -17,10 +17,10 @@ public interface XiLeWangIncomeReportMapper {
 
     int updateByPrimaryKey(XiLeWangIncomeReport xiLeWangIncomeReport);
 
-    XiLeWangIncomeReport selectByProperty(@Param("type") Integer type, @Param("openid") String openid, @Param("jdOrderId") Long jdOrderId,@Param("jdOrderSkuIndex") Integer jdOrderSkuIndex);
-
-    List<XiLeWangIncomeReport> selectByJdOrderId(@Param("jdOrderId") Long jdOrderId);
-
     List<XiLeWangIncomeReport> listXiLeWangIncomeReport(@Param("openid") String openid, @Param("state") Integer state);
+
+    List<XiLeWangIncomeReport> selectBySkuInfoId(@Param("skuInfoId") Long skuInfoId);
+
+    XiLeWangIncomeReport selectByOpenidAndSkuInfoId(@Param("openid") String openid, @Param("skuInfoId") Long skuInfoId);
 
 }

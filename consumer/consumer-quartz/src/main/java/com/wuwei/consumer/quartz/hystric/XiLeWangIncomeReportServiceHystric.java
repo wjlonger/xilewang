@@ -20,12 +20,12 @@ public class XiLeWangIncomeReportServiceHystric implements XiLeWangIncomeReportS
     }
 
     @Override
-    public XiLeWangIncomeReport selectByProperty(Integer type, String openid, Long jdOrderId, Integer jdOrderSkuIndex) {
+    public List<XiLeWangIncomeReport> selectBySkuInfoId(Long skuInfoId) {
         return null;
     }
 
     @Override
-    public List<XiLeWangIncomeReport> selectByJdOrderId(Long jdOrderId) {
+    public XiLeWangIncomeReport selectByOpenidAndSkuInfoId(String openid, Long skuInfoId) {
         return null;
     }
 

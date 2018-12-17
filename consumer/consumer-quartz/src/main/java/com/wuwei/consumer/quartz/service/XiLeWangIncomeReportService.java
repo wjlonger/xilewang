@@ -18,10 +18,9 @@ public interface XiLeWangIncomeReportService {
     @RequestLine("PUT /updateByPrimaryKeySelective")
     int updateByPrimaryKeySelective(@RequestBody XiLeWangIncomeReport xiLeWangIncomeReport);
 
-    @RequestLine("GET /?type={type}&openid={openid}&jdOrderId={jdOrderId}&jdOrderSkuIndex={jdOrderSkuIndex}")
-    XiLeWangIncomeReport selectByProperty(@Param("type") Integer type, @Param("openid") String openid,
-                                          @Param("jdOrderId") Long jdOrderId, @Param("jdOrderSkuIndex") Integer jdOrderSkuIndex);
+    @RequestLine("GET /selectBySkuInfoId/{skuInfoId}")
+    List<XiLeWangIncomeReport> selectBySkuInfoId(@Param("skuInfoId") Long skuInfoId);
 
-    @RequestLine("GET /selectByJdOrderId/{jdOrderId}")
-    List<XiLeWangIncomeReport> selectByJdOrderId(@Param("jdOrderId") Long jdOrderId);
+    @RequestLine("GET /selectByOpenidAndSkuInfoId/{openid}/{skuInfoId}")
+    XiLeWangIncomeReport selectByOpenidAndSkuInfoId(@Param("openid") String openid, @Param("skuInfoId") Long skuInfoId);
 }
