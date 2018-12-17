@@ -232,6 +232,7 @@ public class RabbitMqProcessConfig {
                 if(xiLeWangJdOrderSkuInfo.getValidCode() == 18){
                     rebate = xiLeWangJdOrderSkuInfo.getActualFee();
                 }
+                //region 返利大于0
                 if(rebate.compareTo(BigDecimal.valueOf(0L)) == 1){
 
                     //region 助力奖励
@@ -325,6 +326,16 @@ public class RabbitMqProcessConfig {
                     }
                     //endregion
                 }
+                //endregion
+
+                //region 返利小于等于0
+                else{
+                    XiLeWangJdOrderSkuInfo xiLeWangJdOrderSkuInfoTemp = new XiLeWangJdOrderSkuInfo();
+                    xiLeWangJdOrderSkuInfoTemp.setId(skuInfoId);
+                    xiLeWangJdOrderSkuInfoTemp.setState(2);
+                    xiLeWangJdOrderSkuInfoService.updateByPrimaryKeySelective(xiLeWangJdOrderSkuInfoTemp);
+                }
+                //endregion
             }
             //endregion
         }
