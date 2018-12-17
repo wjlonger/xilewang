@@ -29,11 +29,11 @@ public class XiLeWangGoodsController {
     @Autowired
     private XiLeWangAssistanceService xiLeWangAssistanceService;
 
-    @Value("${goods.ratio}")
-    private BigDecimal ratio;
-
     @Autowired
     private XiLeWangOrderService xiLeWangOrderService;
+
+    @Value("${goods.ratio}")
+    private BigDecimal ratio;
 
     private JSONObject jsonObject = new JSONObject();
 
