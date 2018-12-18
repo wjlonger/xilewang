@@ -30,7 +30,7 @@ public class XiLeWangAssistanceController {
         return xiLeWangAssistanceService.updateByPrimaryKeySelective(xiLeWangAssistance);
     }
 
-    @GetMapping("/{openId}/{skuId}")
+    @GetMapping("/selectByOpenIdAndSkuId/{openId}/{skuId}")
     public XiLeWangAssistance selectByOpenIdAndSkuId(@PathVariable("openId") String openId, @PathVariable("skuId") Long skuId){
         return xiLeWangAssistanceService.selectByOpenIdAndSkuId(openId,skuId);
     }

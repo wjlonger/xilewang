@@ -17,7 +17,7 @@ public interface XiLeWangAssistanceService{
     @RequestLine("GET /{id}")
     XiLeWangAssistance selectByPrimaryKey(@Param("id") Long id);
 
-    @RequestLine("GET /{openId}/{skuId}")
+    @RequestLine("GET /selectByOpenIdAndSkuId/{openId}/{skuId}")
     XiLeWangAssistance selectByOpenIdAndSkuId(@Param("openId") String openId, @Param("skuId") Long skuId);
 
 }

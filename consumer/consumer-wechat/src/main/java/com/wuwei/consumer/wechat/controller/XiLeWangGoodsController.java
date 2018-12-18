@@ -48,9 +48,8 @@ public class XiLeWangGoodsController {
 
     @GetMapping("/detail/{skuId}")
     public JSONObject detail(@PathVariable("skuId") Long skuId ){
-        String openId = Current.getOpenid();
         GoodsResp goodsResp = xiLeWangGoodsService.goodsDetail(skuId);
-        XiLeWangAssistance xiLeWangAssistance = xiLeWangAssistanceService.selectByOpenIdAndSkuId(openId,skuId);
+        XiLeWangAssistance xiLeWangAssistance = xiLeWangAssistanceService.selectByOpenIdAndSkuId(Current.getOpenid(),skuId);
         List<XiLeWangAssistanceUser> xiLeWangAssistanceUsers = null;
         if(null != xiLeWangAssistance){
             jsonObject.put("assistance",xiLeWangAssistance.getId());
