@@ -18,8 +18,13 @@ public class RabbitMqSenderConfig {
     }
 
     @Bean
-    public Queue quartzIncomeReportSave(){
-        return new Queue("quartz_income_report_save");
+    public Queue quartzIncomeReportInvalidSave(){
+        return new Queue("quartz_income_report_invalid_save");
+    }
+
+    @Bean
+    public Queue quartzIncomeReportValidSave(){
+        return new Queue("quartz_income_report_valid_save");
     }
 
     @Bean

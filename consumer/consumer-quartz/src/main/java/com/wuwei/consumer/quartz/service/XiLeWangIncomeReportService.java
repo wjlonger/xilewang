@@ -23,4 +23,8 @@ public interface XiLeWangIncomeReportService {
 
     @RequestLine("GET /selectByOpenidAndSkuInfoId/{openid}/{skuInfoId}")
     XiLeWangIncomeReport selectByOpenidAndSkuInfoId(@Param("openid") String openid, @Param("skuInfoId") Long skuInfoId);
+
+    @RequestLine("GET /{id}")
+    XiLeWangIncomeReport selectByPrimaryKey(@Param("id") Long id);
+
 }
