@@ -158,6 +158,7 @@ public class RabbitMqProcessConfig {
     @RabbitListener(queues = "quartz_sku_rebate_price")
     public void quartzSkuRebatePrice(XiLeWangJdOrderSkuInfo xiLeWangJdOrderSkuInfo){
         if(null != xiLeWangJdOrderSkuInfo){
+
             XiLeWangJdOrderSkuInfo xiLeWangJdOrderSkuInfoTemp = new XiLeWangJdOrderSkuInfo();
             xiLeWangJdOrderSkuInfoTemp.setId(xiLeWangJdOrderSkuInfo.getId());
 
@@ -197,26 +198,36 @@ public class RabbitMqProcessConfig {
             }
             //endregion
 
+            //region 保存返利金额
             xiLeWangJdOrderSkuInfoTemp.setRebatePrice(rebate.multiply(ratio).divide(BigDecimal.valueOf(100L)));
+
+            //region 订单失效
             if(xiLeWangJdOrderSkuInfo.getValidCode() < 15){
                 xiLeWangJdOrderSkuInfoTemp.setState(-1);
                 if(xiLeWangJdOrderSkuInfoService.updateByPrimaryKeySelective(xiLeWangJdOrderSkuInfoTemp) > 0){
-                    amqpTemplate.convertAndSend("quartz_income_report_invalid_save",xiLeWangJdOrderSkuInfoTemp.getId());
+                    amqpTemplate.convertAndSend("quartz_income_report_invalid_save",xiLeWangJdOrderSkuInfo);
                 }
-            }else{
+            }
+            //endregion
+
+            //region 订单有效
+            else{
                 xiLeWangJdOrderSkuInfoTemp.setState(1);
                 if(xiLeWangJdOrderSkuInfoService.updateByPrimaryKeySelective(xiLeWangJdOrderSkuInfoTemp) > 0){
                     amqpTemplate.convertAndSend("quartz_income_report_valid_save",xiLeWangJdOrderSkuInfoTemp.getId());
                 }
             }
+            //endregion
+
+            //endregion
+
         }
     }
 
     @RabbitListener(queues = "quartz_income_report_invalid_save")
-    public void quartzIncomeReportInvalidSave(Long skuInfoId){
-        XiLeWangJdOrderSkuInfo xiLeWangJdOrderSkuInfo = xiLeWangJdOrderSkuInfoService.selectByPrimaryKey(skuInfoId);
+    public void quartzIncomeReportInvalidSave(XiLeWangJdOrderSkuInfo xiLeWangJdOrderSkuInfo){
         if(null != xiLeWangJdOrderSkuInfo){
-            List<XiLeWangIncomeReport> xiLeWangIncomeReports =  xiLeWangIncomeReportService.selectBySkuInfoId(skuInfoId);
+            List<XiLeWangIncomeReport> xiLeWangIncomeReports =  xiLeWangIncomeReportService.selectBySkuInfoId(xiLeWangJdOrderSkuInfo.getId());
             if(!CollectionUtils.isNullOrEmpty(xiLeWangIncomeReports)){
                 for(XiLeWangIncomeReport xiLeWangIncomeReport : xiLeWangIncomeReports){
                     if(null != xiLeWangIncomeReport){
@@ -322,7 +333,7 @@ public class RabbitMqProcessConfig {
                 xiLeWangIncomeReport.setState(0);
                 int result;
                 XiLeWangIncomeReport xiLeWangIncomeReportTemp =
-                        xiLeWangIncomeReportService.selectByOpenidAndSkuInfoId(xiLeWangOrder.getOpenid(),skuInfoId);
+                        xiLeWangIncomeReportService.selectByOpenidAndSkuInfoId(xiLeWangIncomeReport.getOpenid(),skuInfoId);
                 if(null == xiLeWangIncomeReportTemp){
                     xiLeWangIncomeReport.setId(IdGenerator.nextId());
                     result = xiLeWangIncomeReportService.insertSelective(xiLeWangIncomeReport);

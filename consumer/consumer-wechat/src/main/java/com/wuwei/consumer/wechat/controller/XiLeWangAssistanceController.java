@@ -196,7 +196,7 @@ public class XiLeWangAssistanceController {
             jsonObject.put("code",1);
             jsonObject.put("errMsg","助力成功");
         }
-        return null;
+        return jsonObject;
     }
 
 }
