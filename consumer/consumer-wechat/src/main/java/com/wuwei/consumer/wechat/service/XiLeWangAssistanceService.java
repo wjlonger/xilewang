@@ -15,12 +15,9 @@ public interface XiLeWangAssistanceService{
     int insertSelective(@RequestBody XiLeWangAssistance xiLeWangAssistance);
 
     @RequestLine("GET /{id}")
-    XiLeWangAssistance selectByPrimaryKey(@Param("id") final Long id);
-
-    @RequestLine("PUT /")
-    int updateByPrimaryKeySelective(@RequestBody XiLeWangAssistance xiLeWangAssistance);
+    XiLeWangAssistance selectByPrimaryKey(@Param("id") Long id);
 
     @RequestLine("GET /{openId}/{skuId}")
-    XiLeWangAssistance selectByOpenIdAndSkuId(@Param("openId") final String openId, @Param("skuId") final Long skuId);
+    XiLeWangAssistance selectByOpenIdAndSkuId(@Param("openId") String openId, @Param("skuId") Long skuId);
 
 }

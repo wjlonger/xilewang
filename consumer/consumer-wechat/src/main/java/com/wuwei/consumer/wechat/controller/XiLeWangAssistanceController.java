@@ -116,15 +116,18 @@ public class XiLeWangAssistanceController {
             jsonObject.put("code",0);
             jsonObject.put("assistance",null);
             jsonObject.put("goods",null);
-            jsonObject.put("users",null);
-
+            jsonObject.put("users",new ArrayList<>());
         } else {
             GoodsResp goodsResp = xiLeWangGoodsService.goodsDetail(xiLeWangAssistance.getSkuId());
             List<XiLeWangAssistanceUser> xiLeWangAssistanceUsers = xiLeWangAssistanceUserService.selectByAssistanceId(assistanceId);
             jsonObject.put("code",1);
             jsonObject.put("assistance",xiLeWangAssistance);
             jsonObject.put("goods",goodsResp);
-            jsonObject.put("users",xiLeWangAssistanceUsers);
+            if(!CollectionUtils.isNullOrEmpty(xiLeWangAssistanceUsers)){
+                jsonObject.put("users",xiLeWangAssistanceUsers);
+            }else{
+                jsonObject.put("users",new ArrayList<>());
+            }
         }
         return jsonObject;
     }
@@ -189,12 +192,15 @@ public class XiLeWangAssistanceController {
         xiLeWangAssistanceUser.setAssistanceRatio(ratio.multiply(assistanceRatio));
         xiLeWangAssistanceUser.setRewardRatio(ratio.multiply(rewardRatio));
         int i = xiLeWangAssistanceUserService.insert(xiLeWangAssistanceUser);
-        if(i <= 0){
-            jsonObject.put("code",0);
-            jsonObject.put("errMsg","助力失败");
-        }else{
+        if(i > 0){
             jsonObject.put("code",1);
             jsonObject.put("errMsg","助力成功");
+            jsonObject.put("assistanceRatio",xiLeWangAssistanceUser.getAssistanceRatio());
+            jsonObject.put("rewardRatio",xiLeWangAssistanceUser.getRewardRatio());
+
+        }else{
+            jsonObject.put("code",0);
+            jsonObject.put("errMsg","助力失败");
         }
         return jsonObject;
     }

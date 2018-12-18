@@ -5,13 +5,10 @@ import com.jd.open.api.sdk.JdException;
 import com.wuwei.base.jd.service.GoodsService;
 import jd.union.open.goods.query.request.GoodsReq;
 import jd.union.open.goods.query.request.UnionOpenGoodsQueryRequest;
-import jd.union.open.goods.query.response.CommissionInfo;
 import jd.union.open.goods.query.response.GoodsResp;
 import jd.union.open.goods.query.response.UnionOpenGoodsQueryResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.math.BigDecimal;
 
 @Service("goodsService")
 public class GoodServiceImpl implements GoodsService {
@@ -24,11 +21,11 @@ public class GoodServiceImpl implements GoodsService {
         UnionOpenGoodsQueryRequest request = new UnionOpenGoodsQueryRequest();
         GoodsReq goodsReq = new GoodsReq();
         goodsReq.setSkuIds(new Long[]{ skuId });
-        UnionOpenGoodsQueryResponse response = null;
+        UnionOpenGoodsQueryResponse response;
         request.setGoodsReqDTO(goodsReq);
         try {
             response = jdClient.execute(request);
-            if(null != response && response.getData().length > 0){
+            if(null != response && null != response.getData() && response.getData().length > 0){
                 return response.getData()[0];
             }
         } catch (JdException e) {
