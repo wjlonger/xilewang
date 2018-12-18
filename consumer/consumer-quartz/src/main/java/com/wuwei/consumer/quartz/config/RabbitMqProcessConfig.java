@@ -143,9 +143,9 @@ public class RabbitMqProcessConfig {
             XiLeWangJdOrderSkuInfo temp = new XiLeWangJdOrderSkuInfo();
             temp.setId(xiLeWangJdOrderSkuInfo.getId());
             // validCode详见 https://media.jd.com/jhtml/page/apidetail/apidetail.html
+
             //region 无效订单
             if(xiLeWangJdOrderSkuInfo.getValidCode() < 15){
-
                 temp.setState(-1);
                 temp.setRebatePrice(BigDecimal.valueOf(0L));
             }
@@ -195,6 +195,7 @@ public class RabbitMqProcessConfig {
                 }
             }
             //endregion
+
             result = xiLeWangJdOrderSkuInfoService.updateByPrimaryKeySelective(temp);
             if(result > 0){
                 // 有没有佣金都要去写入明细
@@ -274,8 +275,12 @@ public class RabbitMqProcessConfig {
                         }
                         //endregion
 
+                    }
+                    XiLeWangJdOrder xiLeWangJdOrder = xiLeWangJdOrderService.selectByPrimaryKey(xiLeWangJdOrderSkuInfo.getJdOrderId());
+                    if(null != xiLeWangJdOrder){
+
                         //region 师傅奖励
-                        XiLeWangUser xiLeWangUser = xiLeWangUserService.selectByPrimaryKey(xiLeWangOrder.getOpenid());
+                        XiLeWangUser xiLeWangUser = xiLeWangUserService.selectByPrimaryKey(xiLeWangJdOrder.getOpenid());
                         boolean hasMaster = null != xiLeWangUser && !StringUtils.isNullOrEmpty(xiLeWangUser.getMasterOpenid());
                         if(hasMaster){
                             XiLeWangIncomeReport xiLeWangIncomeReport = new XiLeWangIncomeReport();
@@ -301,7 +306,7 @@ public class RabbitMqProcessConfig {
                         XiLeWangIncomeReport xiLeWangIncomeReport = new XiLeWangIncomeReport();
                         xiLeWangIncomeReport.setType(0);
                         xiLeWangIncomeReport.setValidCode(xiLeWangJdOrderSkuInfo.getValidCode());
-                        xiLeWangIncomeReport.setOpenid(xiLeWangOrder.getOpenid());
+                        xiLeWangIncomeReport.setOpenid(xiLeWangJdOrder.getOpenid());
                         xiLeWangIncomeReport.setSkuInfoId(skuInfoId);
                         xiLeWangIncomeReport.setMoney(xiLeWangJdOrderSkuInfo.getRebatePrice());
                         xiLeWangIncomeReport.setState(0);
@@ -329,6 +334,7 @@ public class RabbitMqProcessConfig {
                             }
                         }
                         //endregion
+
                     }
                 }
                 //endregion
@@ -344,6 +350,7 @@ public class RabbitMqProcessConfig {
 
             }
             //endregion
+
         }
     }
 
