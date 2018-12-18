@@ -75,7 +75,8 @@ public class RabbitMqProcessConfig {
                                 for(int i=0; i<length; i++){
                                     SkuInfo skuInfo = skuInfos[i];
                                     if(null != skuInfo){
-                                        // 获取openid
+
+                                        //region 获取openid
                                         if(openid.length() == 0){
                                             Long orderid = Long.parseLong(skuInfo.getSubUnionId());
                                             XiLeWangOrder xiLeWangOrder = xiLeWangOrderService.selectByPrimaryKey(orderid);
@@ -83,6 +84,8 @@ public class RabbitMqProcessConfig {
                                                 openid = xiLeWangOrder.getOpenid();
                                             }
                                         }
+                                        //endregion
+
                                         XiLeWangJdOrderSkuInfo xiLeWangJdOrderSkuInfo = new XiLeWangJdOrderSkuInfo(skuInfo);
                                         // 京东订单ID
                                         xiLeWangJdOrderSkuInfo.setJdOrderId(orderResp.getOrderId());
@@ -93,8 +96,10 @@ public class RabbitMqProcessConfig {
                                         xiLeWangJdOrderSkuInfo.setSkuIndex(i);
                                         int result;
                                         XiLeWangJdOrderSkuInfo temp = xiLeWangJdOrderSkuInfoService.selectByOrderIdAndSkuIndex(orderResp.getOrderId(),i);
+
+                                        //region 执行插入逻辑
                                         if(null == temp){
-                                            // 执行插入逻辑
+
                                             xiLeWangJdOrderSkuInfo.setId(IdGenerator.nextId());
                                             GoodsResp goodsResp = goodsService.goodsDetail(skuInfo.getSkuId());
                                             if(null != goodsResp){
@@ -107,15 +112,23 @@ public class RabbitMqProcessConfig {
                                                 }
                                             }
                                             result = xiLeWangJdOrderSkuInfoService.insertSelective(xiLeWangJdOrderSkuInfo);
-                                        }else{
-                                            // 执行更新逻辑
+                                        }
+                                        //endregion
+
+                                        //region 执行更新逻辑
+                                        else{
+
                                             xiLeWangJdOrderSkuInfo.setId(temp.getId());
                                             result = xiLeWangJdOrderSkuInfoService.updateByPrimaryKeySelective(xiLeWangJdOrderSkuInfo);
                                         }
+                                        //endregion
+
+                                        //region 发消息处理金额
                                         if(result > 0){
-                                            // 发消息处理金额
                                             amqpTemplate.convertAndSend("quartz_sku_rebate_price",xiLeWangJdOrderSkuInfo);
                                         }
+                                        //endregion
+
                                     }
                                 }
                             }
