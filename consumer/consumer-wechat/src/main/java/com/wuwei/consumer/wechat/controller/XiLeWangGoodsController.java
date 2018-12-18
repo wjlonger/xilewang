@@ -53,6 +53,7 @@ public class XiLeWangGoodsController {
         List<XiLeWangAssistanceUser> xiLeWangAssistanceUsers = null;
         if(null != xiLeWangAssistance){
             jsonObject.put("assistance",xiLeWangAssistance.getId());
+            jsonObject.put("ratio",xiLeWangAssistance.getInitialRatio());
             xiLeWangAssistanceUsers = xiLeWangAssistanceUserService.selectByAssistanceId(xiLeWangAssistance.getId());
             if(!CollectionUtils.isNullOrEmpty(xiLeWangAssistanceUsers)){
                 jsonObject.put("users",xiLeWangAssistanceUsers);
@@ -61,6 +62,7 @@ public class XiLeWangGoodsController {
             }
         }else{
             jsonObject.put("assistance",IdGenerator.nextId());
+            jsonObject.put("ratio",this.ratio);
             jsonObject.put("users",new ArrayList<>());
         }
         jsonObject.put("goods",goodsResp);
