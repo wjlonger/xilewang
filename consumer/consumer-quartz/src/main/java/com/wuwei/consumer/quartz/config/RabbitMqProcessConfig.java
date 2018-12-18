@@ -49,9 +49,6 @@ public class RabbitMqProcessConfig {
     private XiLeWangIncomeReportService xiLeWangIncomeReportService;
 
     @Autowired
-    private XiLeWangAssistanceService xiLeWangAssistanceService;
-
-    @Autowired
     private AmqpTemplate amqpTemplate;
 
     @Value("${master.ratio}")
@@ -79,7 +76,7 @@ public class RabbitMqProcessConfig {
                                         //region 获取openid
                                         if(StringUtils.isNullOrEmpty(openid)){
                                             try{
-                                                Long orderid = Long.parseLong(skuInfo.getSubUnionId());
+                                                long orderid = Long.parseLong(skuInfo.getSubUnionId());
                                                 XiLeWangOrder xiLeWangOrder = xiLeWangOrderService.selectByPrimaryKey(orderid);
                                                 if(null != xiLeWangOrder){
                                                     openid = xiLeWangOrder.getOpenid();
@@ -179,7 +176,7 @@ public class RabbitMqProcessConfig {
             //region 计算返利比例
             XiLeWangOrder xiLeWangOrder = null;
             try{
-                Long orderId = Long.parseLong(xiLeWangJdOrderSkuInfo.getSubUnionId());
+                long orderId = Long.parseLong(xiLeWangJdOrderSkuInfo.getSubUnionId());
                 xiLeWangOrder = xiLeWangOrderService.selectByPrimaryKey(orderId);
             }catch (NumberFormatException e){
             }
@@ -240,7 +237,7 @@ public class RabbitMqProcessConfig {
         if(null != xiLeWangJdOrderSkuInfo){
             XiLeWangOrder xiLeWangOrder = null;
             try{
-                Long orderId = Long.parseLong(xiLeWangJdOrderSkuInfo.getSubUnionId());
+                long orderId = Long.parseLong(xiLeWangJdOrderSkuInfo.getSubUnionId());
                 xiLeWangOrder = xiLeWangOrderService.selectByPrimaryKey(orderId);
             }catch (NumberFormatException e){
             }
