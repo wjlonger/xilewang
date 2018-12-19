@@ -35,7 +35,6 @@ public class SignFilter extends ZuulFilter {
 
     @Override
     public Object run() throws ZuulException {
-        System.out.println(3);
         RequestContext ctx = RequestContext.getCurrentContext();
         HttpServletRequest request = ctx.getRequest();
         HttpServletResponse response = ctx.getResponse();

@@ -57,7 +57,6 @@ public class TimestampFilter extends ZuulFilter {
         ctx.setSendZuulResponse(true);
         ctx.setResponseStatusCode(200);
         ctx.set("isSuccess", true);
-        System.out.println(1);
         return null;
     }
 }

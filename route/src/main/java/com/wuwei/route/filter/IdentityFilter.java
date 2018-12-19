@@ -3,12 +3,15 @@ package com.wuwei.route.filter;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;
+import com.wuwei.base.util.SessionKey;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-public class UniqueCodeFilter extends ZuulFilter {
+public class IdentityFilter extends ZuulFilter {
+
 
     @Override
     public String filterType() {
@@ -17,12 +20,15 @@ public class UniqueCodeFilter extends ZuulFilter {
 
     @Override
     public int filterOrder() {
-        return 1;
+        return 3;
     }
 
     @Override
     public boolean shouldFilter() {
-        return true;
+        RequestContext ctx = RequestContext.getCurrentContext();
+        HttpServletRequest request = ctx.getRequest();
+        String uri = request.getRequestURI();
+        return StringUtils.isEmpty(uri) || !request.getRequestURI().startsWith("/api/wechat/xilewang/user/code2Session");
     }
 
     @Override
@@ -30,17 +36,17 @@ public class UniqueCodeFilter extends ZuulFilter {
         RequestContext ctx = RequestContext.getCurrentContext();
         HttpServletRequest request = ctx.getRequest();
         HttpServletResponse response = ctx.getResponse();
+        HttpSession session = request.getSession();
+        String openid = (String)session.getAttribute(SessionKey.OPENID);
         response.setCharacterEncoding("UTF-8");
-        String uniqueCode = request.getParameter("uniquecode");
-        if(StringUtils.isEmpty(uniqueCode)){
+        if(StringUtils.isEmpty(openid)){
             response.setContentType("application/json");
             ctx.setSendZuulResponse(false);
             ctx.setResponseStatusCode(401);
-            ctx.setResponseBody("{\"msg\":\"唯一码不存在\"}");
+            ctx.setResponseBody("{\"msg\":\"登录验证失败\"}");
             ctx.set("isSuccess", false);
             return null;
         }
-
         ctx.setSendZuulResponse(true);
         ctx.setResponseStatusCode(200);
         ctx.set("isSuccess", true);
