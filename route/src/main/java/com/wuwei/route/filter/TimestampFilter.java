@@ -35,7 +35,6 @@ public class TimestampFilter extends ZuulFilter {
         response.setCharacterEncoding("UTF-8");
         String timestampStr = request.getParameter("timestamp");
         if(StringUtils.isEmpty(timestampStr)){
-
             response.setContentType("application/json");
             ctx.setSendZuulResponse(false);
             ctx.setResponseStatusCode(401);

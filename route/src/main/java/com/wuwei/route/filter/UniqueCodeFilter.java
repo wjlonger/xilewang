@@ -22,7 +22,8 @@ public class UniqueCodeFilter extends ZuulFilter {
 
     @Override
     public boolean shouldFilter() {
-        return true;
+        RequestContext ctx = RequestContext.getCurrentContext();
+        return (Boolean) ctx.get("isSuccess");
     }
 
     @Override

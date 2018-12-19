@@ -6,6 +6,7 @@ import com.netflix.zuul.exception.ZuulException;
 import com.wuwei.base.util.SessionKey;
 import org.springframework.util.StringUtils;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -26,9 +27,11 @@ public class IdentityFilter extends ZuulFilter {
     @Override
     public boolean shouldFilter() {
         RequestContext ctx = RequestContext.getCurrentContext();
-        HttpServletRequest request = ctx.getRequest();
-        String uri = request.getRequestURI();
-        return StringUtils.isEmpty(uri) || !request.getRequestURI().startsWith("/api/wechat/xilewang/user/code2Session");
+        if((boolean) ctx.get("isSuccess")){
+            HttpServletRequest request = ctx.getRequest();
+            return !request.getRequestURI().startsWith("/api/wechat/xilewang/user/code2Session");
+        }
+        return false;
     }
 
     @Override
@@ -37,6 +40,24 @@ public class IdentityFilter extends ZuulFilter {
         HttpServletRequest request = ctx.getRequest();
         HttpServletResponse response = ctx.getResponse();
         HttpSession session = request.getSession();
+        Cookie[] cookies = request.getCookies();
+        cookieLable:{
+            if(null != cookies && cookies.length > 0){
+                for(Cookie cookie : cookies){
+                    if("SESSION".equals(cookie.getName())){
+                        if(!StringUtils.isEmpty(cookie.getValue())){
+                            break cookieLable;
+                        }
+                    }
+                }
+            }
+            response.setContentType("application/json");
+            ctx.setSendZuulResponse(false);
+            ctx.setResponseStatusCode(401);
+            ctx.setResponseBody("{\"msg\":\"未找到登录信息\"}");
+            ctx.set("isSuccess", false);
+            return null;
+        }
         String openid = (String)session.getAttribute(SessionKey.OPENID);
         response.setCharacterEncoding("UTF-8");
         if(StringUtils.isEmpty(openid)){
