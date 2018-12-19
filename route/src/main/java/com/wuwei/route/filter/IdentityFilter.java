@@ -39,6 +39,7 @@ public class IdentityFilter extends ZuulFilter {
         RequestContext ctx = RequestContext.getCurrentContext();
         HttpServletRequest request = ctx.getRequest();
         HttpServletResponse response = ctx.getResponse();
+        response.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession();
         Cookie[] cookies = request.getCookies();
         cookieLable:{
@@ -59,7 +60,6 @@ public class IdentityFilter extends ZuulFilter {
             return null;
         }
         String openid = (String)session.getAttribute(SessionKey.OPENID);
-        response.setCharacterEncoding("UTF-8");
         if(StringUtils.isEmpty(openid)){
             response.setContentType("application/json");
             ctx.setSendZuulResponse(false);
