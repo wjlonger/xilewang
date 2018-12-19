@@ -54,6 +54,9 @@ public class RabbitMqProcessConfig {
     @Value("${master.ratio}")
     private BigDecimal masterRatio;
 
+    @Value("${spring.cloud.config.profile}")
+    private String edition;
+
     @RabbitListener(queues = "quartz_jdorder_save")
     public void quartzJdOrderSave(OrderReq orderReq){
         if(null != orderReq){
@@ -73,22 +76,33 @@ public class RabbitMqProcessConfig {
                                     SkuInfo skuInfo = skuInfos[i];
                                     if(null != skuInfo){
 
+                                        //region 区分线上 线下数据
+                                        String subUnionId = skuInfo.getSubUnionId();
+                                        if(StringUtils.isNullOrEmpty(subUnionId) || !subUnionId.startsWith(edition)){
+                                            continue;
+                                        }
+                                        subUnionId = subUnionId.replace(edition,StringUtils.EMPTY);
+                                        XiLeWangOrder xiLeWangOrder = null;
+                                        try {
+                                            long orderid = Long.parseLong(subUnionId);
+                                            xiLeWangOrder = xiLeWangOrderService.selectByPrimaryKey(orderid);
+                                        }catch (NumberFormatException e){
+                                            continue;
+                                        }
+                                        if(null == xiLeWangOrder){
+                                            continue;
+                                        }
+                                        //endregion
+
                                         //region 获取openid
                                         if(StringUtils.isNullOrEmpty(openid)){
-                                            try{
-                                                long orderid = Long.parseLong(skuInfo.getSubUnionId());
-                                                XiLeWangOrder xiLeWangOrder = xiLeWangOrderService.selectByPrimaryKey(orderid);
-                                                if(null != xiLeWangOrder){
-                                                    openid = xiLeWangOrder.getOpenid();
-                                                }
-                                            }catch (NumberFormatException e){
-
-                                            }
+                                            openid = xiLeWangOrder.getOpenid();
                                         }
                                         //endregion
 
                                         //region 实例化XiLeWangJdOrderSkuInfo
                                         XiLeWangJdOrderSkuInfo xiLeWangJdOrderSkuInfo = new XiLeWangJdOrderSkuInfo(skuInfo);
+                                        xiLeWangJdOrderSkuInfo.setSubUnionId(subUnionId);
                                         // 京东订单ID
                                         xiLeWangJdOrderSkuInfo.setJdOrderId(orderResp.getOrderId());
                                         xiLeWangJdOrderSkuInfo.setState(0);

@@ -44,6 +44,9 @@ public class XiLeWangGoodsController {
     @Value("${goods.ratio}")
     private BigDecimal ratio;
 
+    @Value("${spring.cloud.config.profile}")
+    private String edition;
+
     private JSONObject jsonObject = new JSONObject();
 
     @GetMapping("/detail/{skuId}")
@@ -73,7 +76,7 @@ public class XiLeWangGoodsController {
     public JSONObject buy(@PathVariable("skuId") Long skuId, @RequestParam(name="couponUrl",required = false) String couponUrl){
         long id = IdGenerator.nextId();
         PromotionCodeReq promotionCodeReq = new PromotionCodeReq();
-        promotionCodeReq.setSubUnionId(String.valueOf(id));
+        promotionCodeReq.setSubUnionId(edition + id);
         promotionCodeReq.setMaterialId(String.format("https://wqitem.jd.com/item/view?sku=%d",skuId));
         promotionCodeReq.setCouponUrl(couponUrl);
         String url = xiLeWangPromotionService.getBySubUnionId(promotionCodeReq);
