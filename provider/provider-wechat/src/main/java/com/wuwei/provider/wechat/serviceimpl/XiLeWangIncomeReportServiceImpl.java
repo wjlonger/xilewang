@@ -96,4 +96,9 @@ public class XiLeWangIncomeReportServiceImpl implements XiLeWangIncomeReportServ
         return xiLeWangIncomeReportMapper.selectByOpenidAndSkuInfoId(openid,skuInfoId);
     }
 
+    @Override
+    public Double pending(String openid) {
+        return xiLeWangIncomeReportMapper.pending(openid);
+    }
+
 }

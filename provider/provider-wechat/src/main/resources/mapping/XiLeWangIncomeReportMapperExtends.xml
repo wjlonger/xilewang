@@ -46,6 +46,10 @@
         and
           sku_info_id = #{skuInfoId,jdbcType=BIGINT}
     </select>
+    <select id="pending"  resultType="java.lang.Double">
+        select sum(money) from xilewang_income_report where openid = #{openid,jdbcType=VARCHAR} and state = 0
+    </select>
+
     <insert id="insert" parameterType="com.wuwei.base.wechat.model.XiLeWangIncomeReport" >
     insert into xilewang_income_report (id, type, valid_code,
       openid, sku_info_id, money,

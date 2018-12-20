@@ -65,6 +65,7 @@
         <if test="validCode != null" >
           and valid_code = #{validCode,jdbcType=INTEGER}
         </if>
+      order by order_id desc
     </select>
 
     <select id="selectImgsByOrderId" resultType="java.lang.String" parameterType="java.lang.Long">

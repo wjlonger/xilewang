@@ -13,4 +13,8 @@ public interface XiLeWangIncomeReportService {
     @RequestLine("GET /listXiLeWangIncomeReport/{openid}?pageNo={pageNo}&pageSize={pageSize}&state={state}")
     PageInfo<XiLeWangIncomeReport> listXiLeWangIncomeReport(@Param("pageNo") Integer pageNo, @Param("pageSize") Integer pageSize,
                                                             @Param("openid") String openid, @Param("state") Integer state);
+
+    @RequestLine("GET /pending/{openid}")
+    Double pending(@Param("openid") String openid);
+
 }

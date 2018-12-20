@@ -15,4 +15,9 @@ public class XiLeWangIncomeReportServiceHystric implements XiLeWangIncomeReportS
     public PageInfo<XiLeWangIncomeReport> listXiLeWangIncomeReport(Integer pageNo, Integer pageSize, String openid, Integer state) {
         return null;
     }
+
+    @Override
+    public Double pending(String openid) {
+        return Double.valueOf(0);
+    }
 }

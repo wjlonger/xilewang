@@ -23,4 +23,6 @@ public interface XiLeWangIncomeReportService {
 
     XiLeWangIncomeReport selectByOpenidAndSkuInfoId(String openid, Long skuInfoId);
 
+    Double pending(String openid);
+
 }

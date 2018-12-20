@@ -23,4 +23,6 @@ public interface XiLeWangIncomeReportMapper {
 
     XiLeWangIncomeReport selectByOpenidAndSkuInfoId(@Param("openid") String openid, @Param("skuInfoId") Long skuInfoId);
 
+    Double pending(String openid);
+
 }
