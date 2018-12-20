@@ -59,9 +59,14 @@ public class XiLeWangIncomeReportController {
         return xiLeWangIncomeReportService.selectByOpenidAndSkuInfoId(openid,skuInfoId);
     }
 
-    @GetMapping("/pending/{openid}")
-    public Double pending(@PathVariable("openid") String openid){
-        return xiLeWangIncomeReportService.pending(openid);
+    @GetMapping("/totalPending/{openid}")
+    public Double totalPending(@PathVariable("openid") String openid){
+        return xiLeWangIncomeReportService.totalPending(openid);
+    }
+
+    @GetMapping("/invitePending/{openid}")
+    public Double invitePending(@PathVariable("openid") String openid){
+        return xiLeWangIncomeReportService.invitePending(openid);
     }
 
 }

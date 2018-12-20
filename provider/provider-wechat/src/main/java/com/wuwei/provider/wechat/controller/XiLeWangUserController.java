@@ -1,5 +1,6 @@
 package com.wuwei.provider.wechat.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.wuwei.base.wechat.model.XiLeWangUser;
 import com.wuwei.base.wechat.service.XiLeWangUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,5 +56,15 @@ public class XiLeWangUserController {
     @PostMapping("/updateMoneyByPrimaryKey")
     public int updateMoneyByPrimaryKey(int type, Double modifyMoney, String openid){
         return xiLeWangUserService.updateMoneyByPrimaryKey(type, BigDecimal.valueOf(modifyMoney), openid);
+    }
+
+    @GetMapping("/listByMasterOpenid/{openid}/{pageNo}/{pageSize}")
+    public PageInfo<XiLeWangUser> listByMasterOpenid(@PathVariable("openid") String openid, @PathVariable("pageNo") Integer pageNo, @PathVariable("pageSize") Integer pageSize){
+        return this.xiLeWangUserService.listByMasterOpenid(openid,pageNo,pageSize);
+    }
+
+    @GetMapping("/inviteCount/{openid}")
+    public Integer inviteCount(@PathVariable("openid") String openid){
+        return this.xiLeWangUserService.inviteCount(openid);
     }
 }

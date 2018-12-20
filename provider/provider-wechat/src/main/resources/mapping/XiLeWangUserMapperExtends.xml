@@ -31,12 +31,10 @@
         where openid = #{openid,jdbcType=VARCHAR}
     </select>
     <insert id="insert" parameterType="com.wuwei.base.wechat.model.XiLeWangUser" >
-        insert into xilewang_user (openid, nick_name, avatar_url,
-                                   gender, language, province,
-                                   city, country, sessionkey,
-                                   master_openid, money, rebate_money,
-                                   assistance_money, master_money, gmt_create,
-                                   gmt_modified)
+        insert into
+        xilewang_user (openid, nick_name, avatar_url,gender, language, province,
+                       city, country, sessionkey,master_openid, money, rebate_money,
+                       assistance_money, master_money, gmt_create,gmt_modified)
         values (#{openid,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, #{avatarUrl,jdbcType=VARCHAR},
                 #{gender,jdbcType=TINYINT}, #{language,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR},
                 #{city,jdbcType=VARCHAR}, #{country,jdbcType=VARCHAR}, #{sessionkey,jdbcType=VARCHAR},
@@ -229,7 +227,6 @@
             gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
         where openid = #{openid,jdbcType=VARCHAR}
     </update>
-
     <update id="updateMoneyByPrimaryKey" >
         update xilewang_user
         set
@@ -237,5 +234,20 @@
             gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
         where openid = #{openid,jdbcType=VARCHAR}
     </update>
+
+    <select id="inviteCount" resultMap="BaseResultMap"  >
+        select count(*) from xilewang_user
+        where master_openid = #{openid,jdbcType=VARCHAR}
+    </select>
+
+    <select id="listByMasterOpenid" resultMap="BaseResultMap"  >
+        select
+          <include refid="Base_Column_List" />
+        from
+          xilewang_user
+        where
+          master_openid = #{openid,jdbcType=VARCHAR}
+    </select>
+
 
 </mapper>

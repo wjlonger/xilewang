@@ -17,7 +17,13 @@ public class XiLeWangIncomeReportServiceHystric implements XiLeWangIncomeReportS
     }
 
     @Override
-    public Double pending(String openid) {
-        return Double.valueOf(0);
+    public Double totalPending(String openid) {
+        return new Double(0);
     }
+
+    @Override
+    public Double invitePending(String openid) {
+        return new Double(0);
+    }
+
 }

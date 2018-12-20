@@ -25,8 +25,7 @@
     <select id="listXiLeWangIncomeReport" resultMap="BaseResultMap" >
         select
         <include refid="Base_Column_List" />
-        from xilewang_income_report where openid = #{openid,jdbcType=VARCHAR} and state = #{state,jdbcType=INTEGER}
-        order by `gmt_create` desc
+        from xilewang_income_report where openid = #{openid,jdbcType=VARCHAR} and state = #{state,jdbcType=INTEGER} and money > 0
     </select>
     <select id="selectBySkuInfoId" resultMap="BaseResultMap" >
         select
@@ -46,8 +45,12 @@
         and
           sku_info_id = #{skuInfoId,jdbcType=BIGINT}
     </select>
-    <select id="pending"  resultType="java.lang.Double">
+    <select id="totalPending"  resultType="java.lang.Double">
         select sum(money) from xilewang_income_report where openid = #{openid,jdbcType=VARCHAR} and state = 0
+    </select>
+
+    <select id="invitPending"  resultType="java.lang.Double">
+        select sum(money) from xilewang_income_report where openid = #{openid,jdbcType=VARCHAR} and state = 0 and `type` = 2
     </select>
 
     <insert id="insert" parameterType="com.wuwei.base.wechat.model.XiLeWangIncomeReport" >

@@ -1,6 +1,8 @@
 package com.wuwei.provider.wechat.serviceimpl;
 
 import com.alibaba.fastjson.JSONObject;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.wuwei.base.util.AES;
 import com.wuwei.base.wechat.model.XiLeWangUser;
 import com.wuwei.base.wechat.service.XiLeWangUserService;
@@ -181,6 +183,21 @@ public class XiLeWangUserServiceImpl implements XiLeWangUserService {
             default:
                 return 0;
         }
+    }
+
+    @Override
+    public int inviteCount(String openid) {
+        if(StringUtils.isEmpty(openid)){
+            return 0;
+        }
+        return xiLeWangUserMapper.inviteCount(openid);
+    }
+
+    @Override
+    public PageInfo<XiLeWangUser> listByMasterOpenid(String openid, Integer pageNo, Integer pageSize) {
+        PageInfo<XiLeWangUser> xiLeWangUserPageInfo = PageHelper.startPage(pageNo, pageSize).setOrderBy("gmt_create desc")
+                .doSelectPageInfo(()->this.xiLeWangUserMapper.listByMasterOpenid(openid));
+        return xiLeWangUserPageInfo;
     }
 
 }

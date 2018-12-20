@@ -1,5 +1,6 @@
 package com.wuwei.base.wechat.service;
 
+import com.github.pagehelper.PageInfo;
 import com.wuwei.base.wechat.model.XiLeWangUser;
 
 import java.math.BigDecimal;
@@ -21,5 +22,9 @@ public interface XiLeWangUserService {
     int save(XiLeWangUser xiLeWangUser);
 
     int updateMoneyByPrimaryKey(int type, BigDecimal modifyMoney, String openid);
+
+    int inviteCount(String openid);
+
+    PageInfo<XiLeWangUser> listByMasterOpenid(String openid, Integer pageNo, Integer pageSize);
 
 }

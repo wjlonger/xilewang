@@ -1,5 +1,6 @@
 package com.wuwei.consumer.wechat.hystric;
 
+import com.github.pagehelper.PageInfo;
 import com.wuwei.base.wechat.model.XiLeWangUser;
 import com.wuwei.consumer.wechat.service.XiLeWangUserService;
 import org.springframework.context.annotation.Configuration;
@@ -18,22 +19,7 @@ public class XiLeWangUserServiceHystric implements XiLeWangUserService {
     }
 
     @Override
-    public int insert(XiLeWangUser xiLeWangUser) {
-        return 0;
-    }
-
-    @Override
     public int insertSelective(XiLeWangUser xiLeWangUser) {
-        return 0;
-    }
-
-    @Override
-    public int updateByPrimaryKey(XiLeWangUser xiLeWangUser) {
-        return 0;
-    }
-
-    @Override
-    public int updateByPrimaryKeySelective(XiLeWangUser xiLeWangUser) {
         return 0;
     }
 
@@ -41,4 +27,15 @@ public class XiLeWangUserServiceHystric implements XiLeWangUserService {
     public int save(XiLeWangUser xiLeWangUser) {
         return 0;
     }
+
+    @Override
+    public PageInfo<XiLeWangUser> listByMasterOpenid(String openid, Integer pageNo, Integer pageSize) {
+        return null;
+    }
+
+    @Override
+    public Integer inviteCount(String openid) {
+        return null;
+    }
+
 }

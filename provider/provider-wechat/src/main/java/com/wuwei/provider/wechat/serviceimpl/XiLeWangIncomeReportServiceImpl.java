@@ -66,18 +66,9 @@ public class XiLeWangIncomeReportServiceImpl implements XiLeWangIncomeReportServ
 
     @Override
     public PageInfo<XiLeWangIncomeReport> listXiLeWangIncomeReport(Integer pageNo, Integer pageSize, String openid, Integer state) {
-        if(StringUtils.isNullOrEmpty(openid)){
-            return null;
-        }
-        if(null == pageNo || pageNo < 1){
-            pageNo = 1;
-        }
-        if(null == pageSize || pageSize < 1){
-            pageNo = 20;
-        }
-        PageHelper.startPage(pageNo, pageSize);
-        List<XiLeWangIncomeReport> xiLeWangIncomeReports = xiLeWangIncomeReportMapper.listXiLeWangIncomeReport(openid, state);
-        return new PageInfo<>(xiLeWangIncomeReports);
+        PageInfo<XiLeWangIncomeReport> xiLeWangIncomeReportPageInfo = PageHelper.startPage(pageNo,pageSize).setOrderBy("gmt_create desc")
+                .doSelectPageInfo(()->this.xiLeWangIncomeReportMapper.listXiLeWangIncomeReport(openid, state));
+        return xiLeWangIncomeReportPageInfo;
     }
 
     @Override
@@ -97,8 +88,19 @@ public class XiLeWangIncomeReportServiceImpl implements XiLeWangIncomeReportServ
     }
 
     @Override
-    public Double pending(String openid) {
-        return xiLeWangIncomeReportMapper.pending(openid);
+    public Double totalPending(String openid) {
+        if(StringUtils.isNullOrEmpty(openid)){
+            return new Double(0);
+        }
+        return xiLeWangIncomeReportMapper.totalPending(openid);
+    }
+
+    @Override
+    public Double invitePending(String openid){
+        if(StringUtils.isNullOrEmpty(openid)){
+            return new Double(0);
+        }
+        return this.xiLeWangIncomeReportMapper.invitPending(openid);
     }
 
 }

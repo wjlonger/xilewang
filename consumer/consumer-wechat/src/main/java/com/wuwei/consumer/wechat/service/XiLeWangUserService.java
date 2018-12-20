@@ -1,5 +1,6 @@
 package com.wuwei.consumer.wechat.service;
 
+import com.github.pagehelper.PageInfo;
 import com.wuwei.base.wechat.model.XiLeWangUser;
 import com.wuwei.consumer.wechat.hystric.XiLeWangUserServiceHystric;
 import feign.Param;
@@ -16,19 +17,16 @@ public interface XiLeWangUserService{
     @RequestLine("GET /{openid}")
     XiLeWangUser selectByPrimaryKey (@Param("openid") final String openid);
 
-    @RequestLine("POST /")
-    int insert(@RequestBody XiLeWangUser xiLeWangUser);
-
     @RequestLine("POST /insertSelective")
     int insertSelective(@RequestBody XiLeWangUser xiLeWangUser);
 
-    @RequestLine("PUT /")
-    int updateByPrimaryKey(@RequestBody XiLeWangUser xiLeWangUser);
-
-    @RequestLine("PUT /updateByPrimaryKeySelective")
-    int updateByPrimaryKeySelective(@RequestBody XiLeWangUser xiLeWangUser);
-
     @RequestLine("POST /save")
     int save(@RequestBody XiLeWangUser xiLeWangUser);
+
+    @RequestLine("GET /listByMasterOpenid/{openid}/{pageNo}/{pageSize}}")
+    PageInfo<XiLeWangUser> listByMasterOpenid(@Param("openid") String openid,@Param("pageNo") Integer pageNo,@Param("pageSize") Integer pageSize);
+
+    @RequestLine("GET /inviteCount/{openid}")
+    Integer inviteCount(@Param("openid") String openid);
 
 }

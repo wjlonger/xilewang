@@ -1,6 +1,7 @@
 package com.wuwei.consumer.wechat.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.github.pagehelper.PageInfo;
 import com.wuwei.base.wechat.model.XiLeWangUser;
 import com.wuwei.consumer.wechat.service.XiLeWangIncomeReportService;
 import com.wuwei.consumer.wechat.service.XiLeWangUserService;
@@ -28,13 +29,13 @@ public class XiLeWangUserController {
         return xiLeWangUserService.code2Session(code, inviteCode);
     }
 
-    @GetMapping("/income")
-    public JSONObject income(){
-        XiLeWangUser xiLeWangUser = xiLeWangUserService.selectByPrimaryKey(Current.getOpenid());
+    @GetMapping("/totalIncome")
+    public JSONObject totalIncome(){
+        XiLeWangUser xiLeWangUser = this.xiLeWangUserService.selectByPrimaryKey(Current.getOpenid());
         if(null != xiLeWangUser){
             jsonObject.put("balance",xiLeWangUser.getMoney());
             jsonObject.put("total",xiLeWangUser.getRebateMoney().add(xiLeWangUser.getAssistanceMoney()).add(xiLeWangUser.getMasterMoney()));
-            Double pending = xiLeWangIncomeReportService.pending(Current.getOpenid());
+            Double pending = this.xiLeWangIncomeReportService.totalPending(Current.getOpenid());
             jsonObject.put("pending",pending);
         }else{
             jsonObject.put("balance",0);
@@ -42,6 +43,28 @@ public class XiLeWangUserController {
             jsonObject.put("pending",0);
         }
         return jsonObject;
+    }
+
+    @GetMapping("/inviteIncome")
+    public JSONObject inviteIncome(){
+        XiLeWangUser xiLeWangUser = xiLeWangUserService.selectByPrimaryKey(Current.getOpenid());
+        if(null != xiLeWangUser){
+            jsonObject.put("totalInviteMoney",xiLeWangUser.getMasterMoney());
+            Double invitePending = this.xiLeWangIncomeReportService.invitePending(Current.getOpenid());
+            jsonObject.put("pendingInviteMoney",invitePending);
+            int inviteCount = this.xiLeWangUserService.inviteCount(Current.getOpenid());
+            jsonObject.put("inviteCount",inviteCount);
+        }else{
+            jsonObject.put("totalInviteMoney",0);
+            jsonObject.put("pendingInviteMoney",0);
+            jsonObject.put("inviteCount",0);
+        }
+        return jsonObject;
+    }
+
+    @GetMapping("/inviteMember")
+    public PageInfo<XiLeWangUser> inviteMember(@RequestParam("pageNo") Integer pageNo, @RequestParam("pageSize") Integer pageSize){
+        return this.xiLeWangUserService.listByMasterOpenid(Current.getOpenid(),pageNo,pageSize);
     }
 
     @GetMapping("/refreshSession")
