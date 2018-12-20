@@ -10,6 +10,7 @@ import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.concurrent.TimeUnit;
 
 public class SignFilter extends ZuulFilter {
 
@@ -70,7 +71,7 @@ public class SignFilter extends ZuulFilter {
             ctx.set("isSuccess", false);
             return null;
         }
-        stringRedisTemplate.opsForValue().set(sign,sign);
+        stringRedisTemplate.opsForValue().set(sign,sign,15, TimeUnit.MINUTES);
         ctx.setSendZuulResponse(true);
         ctx.setResponseStatusCode(200);
         ctx.set("isSuccess", true);
