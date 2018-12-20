@@ -31,4 +31,9 @@ public class RabbitMqSenderConfig {
     public Queue quartzBalanceSave(){
         return new Queue("quartz_balance_save");
     }
+
+    @Bean
+    public Queue quartzSupplementJdorderSave(){
+        return new Queue("quartz_supplement_jdorder_save");
+    }
 }

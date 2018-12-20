@@ -7,9 +7,9 @@ public class DateUtils {
 
     private static final String FORMAT_STRING = "yyyyMMddHHmm";
 
-    public static String getOrderTimeForJd(){
+    public static String getOrderTimeForJd(int diff){
         Calendar temp = Calendar.getInstance();
-        temp.add(Calendar.MINUTE, -3);
+        temp.add(Calendar.MINUTE, diff);
         return new SimpleDateFormat(FORMAT_STRING).format(temp.getTime());
     }
 }

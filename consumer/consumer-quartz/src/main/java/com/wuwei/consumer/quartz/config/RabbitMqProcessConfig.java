@@ -70,8 +70,8 @@ public class RabbitMqProcessConfig {
                             XiLeWangJdOrder xiLeWangJdOrder = new XiLeWangJdOrder(orderResp);
                             SkuInfo[] skuInfos = orderResp.getSkuList();
                             String openid = "";
-                            int length = skuInfos.length;
-                            if (null != skuInfos && length > 0) {
+                            if (null != skuInfos && skuInfos.length > 0) {
+                                int length = skuInfos.length;
                                 for(int i=0; i<length; i++){
                                     SkuInfo skuInfo = skuInfos[i];
                                     if(null != skuInfo){
@@ -81,22 +81,20 @@ public class RabbitMqProcessConfig {
                                         if(StringUtils.isNullOrEmpty(subUnionId) || !subUnionId.startsWith(edition)){
                                             continue;
                                         }
-                                        subUnionId = subUnionId.replace(edition,StringUtils.EMPTY);
-                                        XiLeWangOrder xiLeWangOrder = null;
-                                        try {
-                                            long orderid = Long.parseLong(subUnionId);
-                                            xiLeWangOrder = xiLeWangOrderService.selectByPrimaryKey(orderid);
-                                        }catch (NumberFormatException e){
-                                            continue;
-                                        }
-                                        if(null == xiLeWangOrder){
-                                            continue;
-                                        }
+                                        subUnionId = subUnionId.replace(edition, StringUtils.EMPTY);
                                         //endregion
 
                                         //region 获取openid
                                         if(StringUtils.isNullOrEmpty(openid)){
-                                            openid = xiLeWangOrder.getOpenid();
+                                            XiLeWangOrder xiLeWangOrder = null;
+                                            try {
+                                                long orderid = Long.parseLong(subUnionId);
+                                                xiLeWangOrder = xiLeWangOrderService.selectByPrimaryKey(orderid);
+                                            }catch (NumberFormatException e){
+                                            }
+                                            if(null != xiLeWangOrder){
+                                                openid = xiLeWangOrder.getOpenid();
+                                            }
                                         }
                                         //endregion
 
@@ -145,7 +143,7 @@ public class RabbitMqProcessConfig {
 
                                         //region 发消息处理返利
                                         if(result > 0){
-                                            amqpTemplate.convertAndSend("quartz_sku_rebate_price",xiLeWangJdOrderSkuInfo);
+                                            amqpTemplate.convertAndSend("quartz_sku_rebate_price",xiLeWangJdOrderSkuInfo.getId());
                                         }
                                         //endregion
 
@@ -170,7 +168,8 @@ public class RabbitMqProcessConfig {
     }
 
     @RabbitListener(queues = "quartz_sku_rebate_price")
-    public void quartzSkuRebatePrice(XiLeWangJdOrderSkuInfo xiLeWangJdOrderSkuInfo){
+    public void quartzSkuRebatePrice(Long id){
+        XiLeWangJdOrderSkuInfo xiLeWangJdOrderSkuInfo = xiLeWangJdOrderSkuInfoService.selectByPrimaryKey(id);
         if(null != xiLeWangJdOrderSkuInfo){
 
             XiLeWangJdOrderSkuInfo xiLeWangJdOrderSkuInfoTemp = new XiLeWangJdOrderSkuInfo();
@@ -219,7 +218,7 @@ public class RabbitMqProcessConfig {
             if(xiLeWangJdOrderSkuInfo.getValidCode() < 15){
                 xiLeWangJdOrderSkuInfoTemp.setState(-1);
                 if(xiLeWangJdOrderSkuInfoService.updateByPrimaryKeySelective(xiLeWangJdOrderSkuInfoTemp) > 0){
-                    amqpTemplate.convertAndSend("quartz_income_report_invalid_save",xiLeWangJdOrderSkuInfo);
+                    amqpTemplate.convertAndSend("quartz_income_report_invalid_save",xiLeWangJdOrderSkuInfo.getId());
                 }
             }
             //endregion
@@ -239,7 +238,8 @@ public class RabbitMqProcessConfig {
     }
 
     @RabbitListener(queues = "quartz_income_report_invalid_save")
-    public void quartzIncomeReportInvalidSave(XiLeWangJdOrderSkuInfo xiLeWangJdOrderSkuInfo){
+    public void quartzIncomeReportInvalidSave(Long id){
+        XiLeWangJdOrderSkuInfo xiLeWangJdOrderSkuInfo = xiLeWangJdOrderSkuInfoService.selectByPrimaryKey(id);
         if(null != xiLeWangJdOrderSkuInfo){
             List<XiLeWangIncomeReport> xiLeWangIncomeReports =  xiLeWangIncomeReportService.selectBySkuInfoId(xiLeWangJdOrderSkuInfo.getId());
             if(!CollectionUtils.isNullOrEmpty(xiLeWangIncomeReports)){
@@ -385,6 +385,154 @@ public class RabbitMqProcessConfig {
                 temp.setId(xiLeWangIncomeReport.getId());
                 temp.setState(1);
                 xiLeWangIncomeReportService.updateByPrimaryKeySelective(temp);
+            }
+        }
+    }
+
+    @RabbitListener(queues = "quartz_supplement_jdorder_save")
+    public void quartzSupplementJdorderSave(OrderReq orderReq){
+        if(null != orderReq){
+            UnionOpenOrderQueryResponse unionOpenOrderQueryResponse = jdOrderService.query(orderReq);
+            if(null != unionOpenOrderQueryResponse){
+                OrderResp[] orderResps = unionOpenOrderQueryResponse.getData();
+                if(null != orderResps && orderResps.length > 0){
+                    for(OrderResp orderResp : orderResps) {
+                        // validCode详见 https://media.jd.com/jhtml/page/apidetail/apidetail.html
+                        if (null != orderResp && orderResp.getValidCode() > 2) {
+                            XiLeWangJdOrder xiLeWangJdOrder = xiLeWangJdOrderService.selectByPrimaryKey(orderResp.getOrderId());
+
+                            //region 此情况用于处理更新延迟
+                            if(null != xiLeWangJdOrder){
+                                if(!orderResp.getValidCode().equals(xiLeWangJdOrder.getValidCode())){
+                                    SkuInfo[] skuInfos = orderResp.getSkuList();
+                                    if (null != skuInfos && skuInfos.length > 0) {
+                                        int length = skuInfos.length;
+                                        for(int i=0; i<length; i++){
+                                            SkuInfo skuInfo = skuInfos[i];
+                                            if(null != skuInfo){
+                                                String subUnionId = skuInfo.getSubUnionId();
+                                                if(StringUtils.isNullOrEmpty(subUnionId) || !subUnionId.startsWith(edition)){
+                                                    continue;
+                                                }
+                                                XiLeWangJdOrderSkuInfo xiLeWangJdOrderSkuInfo = xiLeWangJdOrderSkuInfoService.selectByOrderIdAndSkuIndex(orderResp.getOrderId(), i);
+                                                if(null != xiLeWangJdOrderSkuInfo){
+                                                    if(!xiLeWangJdOrderSkuInfo.getValidCode().equals(skuInfo.getValidCode())){
+                                                        XiLeWangJdOrderSkuInfo xiLeWangJdOrderSkuInfoTemp = new XiLeWangJdOrderSkuInfo();
+                                                        xiLeWangJdOrderSkuInfoTemp.setId(xiLeWangJdOrderSkuInfo.getId());
+                                                        xiLeWangJdOrderSkuInfoTemp.setState(0);
+                                                        xiLeWangJdOrderSkuInfoTemp.setRebatePrice(BigDecimal.valueOf(0L));
+                                                        int result = xiLeWangJdOrderSkuInfoService.updateByPrimaryKeySelective(xiLeWangJdOrderSkuInfoTemp);
+                                                        if(result > 0){
+                                                            amqpTemplate.convertAndSend("quartz_sku_rebate_price",xiLeWangJdOrderSkuInfoTemp.getId());
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            //endregion
+
+                            //region 此情况用于处理插入延迟
+                            else{
+                                xiLeWangJdOrder = new XiLeWangJdOrder(orderResp);
+                                SkuInfo[] skuInfos = orderResp.getSkuList();
+                                String openid = "";
+                                //region 处理商品
+                                if (null != skuInfos && skuInfos.length > 0) {
+                                    int length = skuInfos.length;
+                                    for(int i=0; i<length; i++){
+                                        SkuInfo skuInfo = skuInfos[i];
+                                        if(null != skuInfo){
+
+                                            //region 区分线上 线下数据
+                                            String subUnionId = skuInfo.getSubUnionId();
+                                            if(StringUtils.isNullOrEmpty(subUnionId) || !subUnionId.startsWith(edition)){
+                                                continue;
+                                            }
+                                            subUnionId = subUnionId.replace(edition, StringUtils.EMPTY);
+                                            //endregion
+
+                                            //region 获取openid
+                                            if(StringUtils.isNullOrEmpty(openid)){
+                                                XiLeWangOrder xiLeWangOrder = null;
+                                                try {
+                                                    long orderid = Long.parseLong(subUnionId);
+                                                    xiLeWangOrder = xiLeWangOrderService.selectByPrimaryKey(orderid);
+                                                }catch (NumberFormatException e){
+                                                }
+                                                if(null != xiLeWangOrder){
+                                                    openid = xiLeWangOrder.getOpenid();
+                                                }
+                                            }
+                                            //endregion
+
+                                            //region 实例化XiLeWangJdOrderSkuInfo
+                                            XiLeWangJdOrderSkuInfo xiLeWangJdOrderSkuInfo = new XiLeWangJdOrderSkuInfo(skuInfo);
+                                            xiLeWangJdOrderSkuInfo.setSubUnionId(subUnionId);
+                                            // 京东订单ID
+                                            xiLeWangJdOrderSkuInfo.setJdOrderId(orderResp.getOrderId());
+                                            xiLeWangJdOrderSkuInfo.setState(0);
+                                            // 将钱归零，交由消息队重新进行计算
+                                            xiLeWangJdOrderSkuInfo.setRebatePrice(BigDecimal.valueOf(0L));
+                                            // sku index
+                                            xiLeWangJdOrderSkuInfo.setSkuIndex(i);
+                                            //endregion
+
+                                            //region 查询XiLeWangJdOrderSkuInfo
+                                            int result;
+                                            XiLeWangJdOrderSkuInfo temp = xiLeWangJdOrderSkuInfoService.selectByOrderIdAndSkuIndex(orderResp.getOrderId(),i);
+                                            //endregion
+
+                                            //region 执行插入逻辑
+                                            if(null == temp){
+                                                xiLeWangJdOrderSkuInfo.setId(IdGenerator.nextId());
+                                                //region 获取默认图
+                                                GoodsResp goodsResp = goodsService.goodsDetail(skuInfo.getSkuId());
+                                                if(null != goodsResp){
+                                                    ImageInfo[] imageInfos = goodsResp.getImageInfo();
+                                                    if(null != imageInfos && imageInfos.length > 0){
+                                                        UrlInfo[] urlInfos = imageInfos[0].getImageList();
+                                                        if(null != urlInfos && urlInfos.length > 0){
+                                                            xiLeWangJdOrderSkuInfo.setImg(urlInfos[0].getUrl());
+                                                        }
+                                                    }
+                                                }
+                                                //endregion
+                                                result = xiLeWangJdOrderSkuInfoService.insertSelective(xiLeWangJdOrderSkuInfo);
+                                            }
+                                            //endregion
+
+                                            //region 执行更新逻辑
+                                            else{
+                                                xiLeWangJdOrderSkuInfo.setId(temp.getId());
+                                                result = xiLeWangJdOrderSkuInfoService.updateByPrimaryKeySelective(xiLeWangJdOrderSkuInfo);
+                                            }
+                                            //endregion
+
+                                            //region 发消息处理返利
+                                            if(result > 0){
+                                                amqpTemplate.convertAndSend("quartz_sku_rebate_price",xiLeWangJdOrderSkuInfo.getId());
+                                            }
+                                            //endregion
+
+                                        }
+                                    }
+                                }
+                                //endregion
+                                xiLeWangJdOrder.setOpenid(openid);
+                                xiLeWangJdOrderService.insertSelective(xiLeWangJdOrder);
+                            }
+                            //endregion
+
+                        }
+                    }
+                }
+                if(unionOpenOrderQueryResponse.getHasMore()){
+                    orderReq.setPageNo(orderReq.getPageNo() + 1);
+                    amqpTemplate.convertAndSend("quartz_jdorder_save",orderReq);
+                }
             }
         }
     }
