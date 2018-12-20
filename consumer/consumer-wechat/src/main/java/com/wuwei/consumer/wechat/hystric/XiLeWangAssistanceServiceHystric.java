@@ -1,6 +1,8 @@
 package com.wuwei.consumer.wechat.hystric;
 
+import com.github.pagehelper.PageInfo;
 import com.wuwei.base.wechat.model.XiLeWangAssistance;
+import com.wuwei.base.wechat.model.vo.XiLeWangAssistanceVo;
 import com.wuwei.consumer.wechat.service.XiLeWangAssistanceService;
 import org.springframework.context.annotation.Configuration;
 
@@ -22,4 +24,15 @@ public class XiLeWangAssistanceServiceHystric implements XiLeWangAssistanceServi
         System.out.println("进入熔断");
         return null;
     }
+
+    @Override
+    public int updateByPrimaryKeySelective(XiLeWangAssistance xiLeWangAssistance) {
+        return 0;
+    }
+
+    @Override
+    public PageInfo<XiLeWangAssistanceVo> selectByOpenIdAndState(String openid, Integer state, Integer pageNo, Integer pageSize) {
+        return null;
+    }
+
 }

@@ -1,11 +1,13 @@
 package com.wuwei.consumer.wechat.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.github.pagehelper.PageInfo;
 import com.wuwei.base.util.CollectionUtils;
 import com.wuwei.base.util.IdGenerator;
 import com.wuwei.base.wechat.model.XiLeWangAssistance;
 import com.wuwei.base.wechat.model.XiLeWangAssistanceUser;
 import com.wuwei.base.wechat.model.XiLeWangUser;
+import com.wuwei.base.wechat.model.vo.XiLeWangAssistanceVo;
 import com.wuwei.consumer.wechat.service.XiLeWangAssistanceService;
 import com.wuwei.consumer.wechat.service.XiLeWangAssistanceUserService;
 import com.wuwei.consumer.wechat.service.XiLeWangGoodsService;
@@ -157,6 +159,11 @@ public class XiLeWangAssistanceController {
             jsonObject.put("errMsg","自己不可以给自己助力哦~");
             return jsonObject;
         }
+        if(xiLeWangAssistance.getState() == 1){
+            jsonObject.put("code",0);
+            jsonObject.put("errMsg","助力已满，爱你么么哒");
+            return jsonObject;
+        }
         int size = 0;
         List<XiLeWangAssistanceUser> xiLeWangAssistanceUsers = xiLeWangAssistanceUserService.selectByAssistanceId(assistanceId);
         if(null != xiLeWangAssistanceUsers && !xiLeWangAssistanceUsers.isEmpty()){
@@ -197,12 +204,32 @@ public class XiLeWangAssistanceController {
             jsonObject.put("errMsg","助力成功");
             jsonObject.put("assistanceRatio",xiLeWangAssistanceUser.getAssistanceRatio());
             jsonObject.put("rewardRatio",xiLeWangAssistanceUser.getRewardRatio());
-
+            xiLeWangAssistanceUsers = xiLeWangAssistanceUserService.selectByAssistanceId(assistanceId);
+            if(null != xiLeWangAssistanceUsers && xiLeWangAssistanceUsers.size() == 3){
+                XiLeWangAssistance xiLeWangAssistanceTemp = new XiLeWangAssistance();
+                xiLeWangAssistanceTemp.setId(assistanceId);
+                xiLeWangAssistanceTemp.setState(1);
+                xiLeWangAssistanceService.updateByPrimaryKeySelective(xiLeWangAssistanceTemp);
+            }
         }else{
             jsonObject.put("code",0);
             jsonObject.put("errMsg","助力失败");
         }
         return jsonObject;
+    }
+
+    @GetMapping("/selectByOpenid")
+    public PageInfo<XiLeWangAssistanceVo> selectByOpenIdAndState(@RequestParam(value = "state" ,required = false) Integer state, @RequestParam("pageNo") Integer pageNo, @RequestParam("pageSize") Integer pageSize){
+        PageInfo<XiLeWangAssistanceVo> xiLeWangAssistanceVoPageInfo = this.xiLeWangAssistanceService.selectByOpenIdAndState(Current.getOpenid(),state,pageNo,pageSize);
+        List<XiLeWangAssistanceVo> xiLeWangAssistanceVos = xiLeWangAssistanceVoPageInfo.getList();
+        if(null != xiLeWangAssistanceVos && xiLeWangAssistanceVos.size() > 0){
+            for (XiLeWangAssistanceVo xiLeWangAssistanceVo : xiLeWangAssistanceVos){
+                GoodsResp goodsResp = xiLeWangGoodsService.goodsDetail(xiLeWangAssistanceVo.getSkuId());
+                xiLeWangAssistanceVo.setGoodsResp(goodsResp);
+            }
+        }
+        return xiLeWangAssistanceVoPageInfo;
+
     }
 
 }

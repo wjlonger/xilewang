@@ -23,7 +23,7 @@ public interface XiLeWangUserService{
     @RequestLine("POST /save")
     int save(@RequestBody XiLeWangUser xiLeWangUser);
 
-    @RequestLine("GET /listByMasterOpenid/{openid}/{pageNo}/{pageSize}}")
+    @RequestLine("GET /listByMasterOpenid/{openid}?pageNo={pageNo}&pageSize={pageSize}")
     PageInfo<XiLeWangUser> listByMasterOpenid(@Param("openid") String openid,@Param("pageNo") Integer pageNo,@Param("pageSize") Integer pageSize);
 
     @RequestLine("GET /inviteCount/{openid}")

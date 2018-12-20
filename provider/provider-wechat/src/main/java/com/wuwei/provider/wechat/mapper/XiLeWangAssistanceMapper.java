@@ -1,7 +1,10 @@
 package com.wuwei.provider.wechat.mapper;
 
 import com.wuwei.base.wechat.model.XiLeWangAssistance;
+import com.wuwei.base.wechat.model.vo.XiLeWangAssistanceVo;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface XiLeWangAssistanceMapper {
 
@@ -16,4 +19,7 @@ public interface XiLeWangAssistanceMapper {
     int updateByPrimaryKeySelective(XiLeWangAssistance xiLeWangAssistance);
 
     int updateByPrimaryKey(XiLeWangAssistance xiLeWangAssistance);
+
+    List<XiLeWangAssistanceVo> selectByOpenIdAndState(@Param("openid") String openid,@Param("state") Integer state);
+
 }

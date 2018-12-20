@@ -1,7 +1,10 @@
 package com.wuwei.provider.wechat.serviceimpl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.wuwei.base.util.IdGenerator;
 import com.wuwei.base.wechat.model.XiLeWangAssistance;
+import com.wuwei.base.wechat.model.vo.XiLeWangAssistanceVo;
 import com.wuwei.base.wechat.service.XiLeWangAssistanceService;
 import com.wuwei.provider.wechat.mapper.XiLeWangAssistanceMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,4 +56,13 @@ public class XiLeWangAssistanceServiceImpl implements XiLeWangAssistanceService 
         }
         return xiLeWangAssistanceMapper.selectByOpenIdAndSkuId(openId,skuId);
     }
+
+    @Override
+    public PageInfo<XiLeWangAssistanceVo> selectByOpenIdAndState(String openid, Integer state, Integer pageNo, Integer pageSize) {
+        PageInfo<XiLeWangAssistanceVo> xiLeWangAssistanceVoPageInfo = PageHelper.startPage(pageNo, pageSize).setOrderBy("gmt_create desc")
+                .doSelectPageInfo(()-> this.xiLeWangAssistanceMapper.selectByOpenIdAndState(openid,state));
+        return xiLeWangAssistanceVoPageInfo;
+    }
+
+
 }

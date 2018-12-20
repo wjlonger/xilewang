@@ -58,8 +58,8 @@ public class XiLeWangUserController {
         return xiLeWangUserService.updateMoneyByPrimaryKey(type, BigDecimal.valueOf(modifyMoney), openid);
     }
 
-    @GetMapping("/listByMasterOpenid/{openid}/{pageNo}/{pageSize}")
-    public PageInfo<XiLeWangUser> listByMasterOpenid(@PathVariable("openid") String openid, @PathVariable("pageNo") Integer pageNo, @PathVariable("pageSize") Integer pageSize){
+    @GetMapping("/listByMasterOpenid/{openid}")
+    public PageInfo<XiLeWangUser> listByMasterOpenid(@PathVariable("openid") String openid, @RequestParam("pageNo") Integer pageNo, @RequestParam("pageSize") Integer pageSize){
         return this.xiLeWangUserService.listByMasterOpenid(openid,pageNo,pageSize);
     }
 

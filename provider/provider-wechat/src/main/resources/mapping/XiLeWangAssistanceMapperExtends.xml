@@ -13,6 +13,20 @@
         <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
         <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
     </resultMap>
+
+    <resultMap id="XiLeWangAssistanceVoBaseResultMap" type="com.wuwei.base.wechat.model.vo.XiLeWangAssistanceVo" >
+        <id column="id" property="id" jdbcType="BIGINT" />
+        <result column="openid" property="openid" jdbcType="VARCHAR" />
+        <result column="sku_id" property="skuId" jdbcType="BIGINT" />
+        <result column="initial_ratio" property="initialRatio" jdbcType="DECIMAL" />
+        <result column="assistance_ratio" property="assistanceRatio" jdbcType="VARCHAR" />
+        <result column="assistance_people_num" property="assistancePeopleNum" jdbcType="TINYINT" />
+        <result column="state" property="state" jdbcType="INTEGER" />
+        <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+        <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
+        <association column="id" property="xiLeWangAssistanceUsers" select="com.wuwei.provider.wechat.mapper.XiLeWangAssistanceUserMapper.selectByAssistanceId" />
+    </resultMap>
+
     <sql id="Base_Column_List" >
     id, openid, sku_id, initial_ratio, assistance_ratio, assistance_people_num, state,
     gmt_create, gmt_modified
@@ -148,6 +162,11 @@
         select
           <include refid="Base_Column_List" />
         from xilewang_assistance
-        where openid=#{openid,jdbcType=VARCHAR} and sku_id=#{skuId,jdbcType=BIGINT}
+        where openid=#{openid,jdbcType=VARCHAR}
+        <if test="state != null">
+            and state = #{state,jdbcType=INTEGER}
+        </if>
+
     </select>
+
 </mapper>
