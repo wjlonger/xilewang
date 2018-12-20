@@ -60,12 +60,12 @@ public class XiLeWangIncomeReportController {
     }
 
     @GetMapping("/totalPending/{openid}")
-    public Double totalPending(@PathVariable("openid") String openid){
+    public double totalPending(@PathVariable("openid") String openid){
         return xiLeWangIncomeReportService.totalPending(openid);
     }
 
     @GetMapping("/invitePending/{openid}")
-    public Double invitePending(@PathVariable("openid") String openid){
+    public double invitePending(@PathVariable("openid") String openid){
         return xiLeWangIncomeReportService.invitePending(openid);
     }
 

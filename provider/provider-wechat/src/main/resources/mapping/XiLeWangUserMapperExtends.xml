@@ -235,7 +235,7 @@
         where openid = #{openid,jdbcType=VARCHAR}
     </update>
 
-    <select id="inviteCount" resultMap="BaseResultMap"  >
+    <select id="inviteCount" resultType="java.lang.Integer"  >
         select count(*) from xilewang_user
         where master_openid = #{openid,jdbcType=VARCHAR}
     </select>

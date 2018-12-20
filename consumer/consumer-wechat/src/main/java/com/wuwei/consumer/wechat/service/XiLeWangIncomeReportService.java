@@ -15,9 +15,9 @@ public interface XiLeWangIncomeReportService {
                                                             @Param("openid") String openid, @Param("state") Integer state);
 
     @RequestLine("GET /totalPending/{openid}")
-    Double totalPending(@Param("openid") String openid);
+    double totalPending(@Param("openid") String openid);
 
     @RequestLine("GET /invitePending/{openid}")
-    Double invitePending(@Param("openid") String openid);
+    double invitePending(@Param("openid") String openid);
 
 }

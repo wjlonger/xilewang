@@ -11,6 +11,8 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
+
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 @RestController
 @RequestMapping("/api/wechat/xilewang/user")
@@ -49,10 +51,19 @@ public class XiLeWangUserController {
     public JSONObject inviteIncome(){
         XiLeWangUser xiLeWangUser = xiLeWangUserService.selectByPrimaryKey(Current.getOpenid());
         if(null != xiLeWangUser){
-            jsonObject.put("totalInviteMoney",xiLeWangUser.getMasterMoney());
-            Double invitePending = this.xiLeWangIncomeReportService.invitePending(Current.getOpenid());
-            jsonObject.put("pendingInviteMoney",invitePending);
-            int inviteCount = this.xiLeWangUserService.inviteCount(Current.getOpenid());
+            BigDecimal totalInviteMoney =  xiLeWangUser.getMasterMoney();
+            if(totalInviteMoney.compareTo(BigDecimal.valueOf(0L)) == 0){
+                jsonObject.put("totalInviteMoney",0);
+            }else{
+                jsonObject.put("totalInviteMoney",totalInviteMoney);
+            }
+            double invitePending = this.xiLeWangIncomeReportService.invitePending(Current.getOpenid());
+            if(invitePending == 0.0){
+                jsonObject.put("pendingInviteMoney",0);
+            } else {
+                jsonObject.put("pendingInviteMoney",invitePending);
+            }
+            int inviteCount = xiLeWangUserService.inviteCount(Current.getOpenid());
             jsonObject.put("inviteCount",inviteCount);
         }else{
             jsonObject.put("totalInviteMoney",0);

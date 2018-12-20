@@ -9,38 +9,30 @@
         <result column="initial_ratio" property="initialRatio" jdbcType="DECIMAL" />
         <result column="assistance_ratio" property="assistanceRatio" jdbcType="VARCHAR" />
         <result column="assistance_people_num" property="assistancePeopleNum" jdbcType="TINYINT" />
+        <result column="state" property="state" jdbcType="INTEGER" />
         <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
         <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
     </resultMap>
-
     <sql id="Base_Column_List" >
-    id, openid, sku_id, initial_ratio, assistance_ratio, assistance_people_num, gmt_create,
-    gmt_modified
+    id, openid, sku_id, initial_ratio, assistance_ratio, assistance_people_num, state,
+    gmt_create, gmt_modified
   </sql>
-
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
         select
         <include refid="Base_Column_List" />
         from xilewang_assistance
         where id = #{id,jdbcType=BIGINT}
     </select>
-
-    <select id="selectByOpenIdAndSkuId" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List" />
-        from xilewang_assistance
-        where openid=#{openid,jdbcType=VARCHAR} and sku_id=#{skuId,jdbcType=BIGINT}
-    </select>
-
     <insert id="insert" parameterType="com.wuwei.base.wechat.model.XiLeWangAssistance" >
     insert into xilewang_assistance (id, openid, sku_id,
       initial_ratio, assistance_ratio, assistance_people_num,
-      gmt_create, gmt_modified)
+      state, gmt_create, gmt_modified
+      )
     values (#{id,jdbcType=BIGINT}, #{openid,jdbcType=VARCHAR}, #{skuId,jdbcType=BIGINT},
       #{initialRatio,jdbcType=DECIMAL}, #{assistanceRatio,jdbcType=VARCHAR}, #{assistancePeopleNum,jdbcType=TINYINT},
-      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP})
+      #{state,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}
+      )
   </insert>
-
     <insert id="insertSelective" parameterType="com.wuwei.base.wechat.model.XiLeWangAssistance" >
         insert into xilewang_assistance
         <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -61,6 +53,9 @@
             </if>
             <if test="assistancePeopleNum != null" >
                 assistance_people_num,
+            </if>
+            <if test="state != null" >
+                state,
             </if>
             <if test="gmtCreate != null" >
                 gmt_create,
@@ -88,6 +83,9 @@
             <if test="assistancePeopleNum != null" >
                 #{assistancePeopleNum,jdbcType=TINYINT},
             </if>
+            <if test="state != null" >
+                #{state,jdbcType=INTEGER},
+            </if>
             <if test="gmtCreate != null" >
                 #{gmtCreate,jdbcType=TIMESTAMP},
             </if>
@@ -96,7 +94,6 @@
             </if>
         </trim>
     </insert>
-
     <update id="updateByPrimaryKeySelective" parameterType="com.wuwei.base.wechat.model.XiLeWangAssistance" >
         update xilewang_assistance
         <set >
@@ -115,6 +112,9 @@
             <if test="assistancePeopleNum != null" >
                 assistance_people_num = #{assistancePeopleNum,jdbcType=TINYINT},
             </if>
+            <if test="state != null" >
+                state = #{state,jdbcType=INTEGER},
+            </if>
             <if test="gmtCreate != null" >
                 gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
             </if>
@@ -124,17 +124,30 @@
         </set>
         where id = #{id,jdbcType=BIGINT}
     </update>
-
     <update id="updateByPrimaryKey" parameterType="com.wuwei.base.wechat.model.XiLeWangAssistance" >
-    update xilewang_assistance
-    set openid = #{openid,jdbcType=VARCHAR},
-      sku_id = #{skuId,jdbcType=BIGINT},
-      initial_ratio = #{initialRatio,jdbcType=DECIMAL},
-      assistance_ratio = #{assistanceRatio,jdbcType=VARCHAR},
-      assistance_people_num = #{assistancePeopleNum,jdbcType=TINYINT},
-      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
-      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=BIGINT}
-  </update>
+        update xilewang_assistance
+        set openid = #{openid,jdbcType=VARCHAR},
+          sku_id = #{skuId,jdbcType=BIGINT},
+          initial_ratio = #{initialRatio,jdbcType=DECIMAL},
+          assistance_ratio = #{assistanceRatio,jdbcType=VARCHAR},
+          assistance_people_num = #{assistancePeopleNum,jdbcType=TINYINT},
+          state = #{state,jdbcType=INTEGER},
+          gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+          gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
 
+    <select id="selectByOpenIdAndSkuId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from xilewang_assistance
+        where openid=#{openid,jdbcType=VARCHAR} and sku_id=#{skuId,jdbcType=BIGINT}
+    </select>
+
+    <select id="selectByOpenIdAndState" resultMap="BaseResultMap">
+        select
+          <include refid="Base_Column_List" />
+        from xilewang_assistance
+        where openid=#{openid,jdbcType=VARCHAR} and sku_id=#{skuId,jdbcType=BIGINT}
+    </select>
 </mapper>

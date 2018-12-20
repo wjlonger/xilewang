@@ -20,6 +20,8 @@ public class XiLeWangAssistance implements Serializable {
 
     private Integer assistancePeopleNum;
 
+    private Integer state;
+
     private Date gmtCreate;
 
     private Date gmtModified;
@@ -64,12 +66,12 @@ public class XiLeWangAssistance implements Serializable {
         this.assistanceRatio = assistanceRatio == null ? null : assistanceRatio.trim();
     }
 
-    public Integer getAssistancePeopleNum() {
-        return assistancePeopleNum;
+    public Integer getState() {
+        return state;
     }
 
-    public void setAssistancePeopleNum(Integer assistancePeopleNum) {
-        this.assistancePeopleNum = assistancePeopleNum;
+    public void setState(Integer state) {
+        this.state = state;
     }
 
     public Date getGmtCreate() {
@@ -86,5 +88,13 @@ public class XiLeWangAssistance implements Serializable {
 
     public void setGmtModified(Date gmtModified) {
         this.gmtModified = gmtModified;
+    }
+
+    public Integer getAssistancePeopleNum() {
+        return assistancePeopleNum;
+    }
+
+    public void setAssistancePeopleNum(Integer assistancePeopleNum) {
+        this.assistancePeopleNum = assistancePeopleNum;
     }
 }

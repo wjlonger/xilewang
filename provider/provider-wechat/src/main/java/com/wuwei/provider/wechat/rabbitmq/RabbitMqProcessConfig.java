@@ -21,13 +21,13 @@ public class RabbitMqProcessConfig {
         if(null == xiLeWangUserService.selectByPrimaryKey(xiLeWangUser.getOpenid())){
             if(!StringUtils.isEmpty(xiLeWangUser.getMasterOpenid())){
                 if(xiLeWangUser.getOpenid().equals(xiLeWangUser.getMasterOpenid()) || null == xiLeWangUserService.selectByPrimaryKey(xiLeWangUser.getMasterOpenid())){
-                    xiLeWangUser.setMasterOpenid(com.wuwei.base.util.StringUtils.EMPTY);
+                    xiLeWangUser.setMasterOpenid(null);
                 }
             }
             xiLeWangUserService.insertSelective(xiLeWangUser);
             return;
         }
-        xiLeWangUser.setMasterOpenid(com.wuwei.base.util.StringUtils.EMPTY);
+        xiLeWangUser.setMasterOpenid(null);
         xiLeWangUserService.updateByPrimaryKeySelective(xiLeWangUser);
     }
 

@@ -88,7 +88,7 @@ public class XiLeWangIncomeReportServiceImpl implements XiLeWangIncomeReportServ
     }
 
     @Override
-    public Double totalPending(String openid) {
+    public double totalPending(String openid) {
         if(StringUtils.isNullOrEmpty(openid)){
             return new Double(0);
         }
@@ -96,9 +96,9 @@ public class XiLeWangIncomeReportServiceImpl implements XiLeWangIncomeReportServ
     }
 
     @Override
-    public Double invitePending(String openid){
+    public double invitePending(String openid){
         if(StringUtils.isNullOrEmpty(openid)){
-            return new Double(0);
+            return 0.0;
         }
         return this.xiLeWangIncomeReportMapper.invitPending(openid);
     }
