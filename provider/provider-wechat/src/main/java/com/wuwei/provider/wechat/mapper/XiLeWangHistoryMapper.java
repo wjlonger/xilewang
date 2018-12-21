@@ -17,6 +17,6 @@ public interface XiLeWangHistoryMapper {
 
     int updateByPrimaryKey(XiLeWangHistory xiLeWangHistory);
 
-    List<XiLeWangHistory> selectByOpenid(@Param("selectByOpenid") String openid);
+    List<XiLeWangHistory> selectByOpenid(@Param("openid") String openid);
 
 }
