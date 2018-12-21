@@ -26,6 +26,6 @@ public class XiLeWangFavoriteServiceHystric implements XiLeWangFavoriteService {
 
     @Override
     public PageInfo<XiLeWangFavoriteVo> selectByOpenid(String openid, Integer pageNo, Integer pageSize) {
-        return null;
+        return new PageInfo<>();
     }
 }

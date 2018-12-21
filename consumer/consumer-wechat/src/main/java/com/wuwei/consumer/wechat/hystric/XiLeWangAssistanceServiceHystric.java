@@ -21,7 +21,6 @@ public class XiLeWangAssistanceServiceHystric implements XiLeWangAssistanceServi
 
     @Override
     public XiLeWangAssistance selectByOpenIdAndSkuId(String openId, Long skuId) {
-        System.out.println("进入熔断");
         return null;
     }
 
@@ -32,7 +31,7 @@ public class XiLeWangAssistanceServiceHystric implements XiLeWangAssistanceServi
 
     @Override
     public PageInfo<XiLeWangAssistanceVo> selectByOpenIdAndState(String openid, Integer state, Integer pageNo, Integer pageSize) {
-        return null;
+        return new PageInfo<>();
     }
 
 }

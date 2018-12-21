@@ -13,7 +13,7 @@ public class XiLeWangIncomeReportServiceHystric implements XiLeWangIncomeReportS
 
     @Override
     public PageInfo<XiLeWangIncomeReport> listXiLeWangIncomeReport(Integer pageNo, Integer pageSize, String openid, Integer state) {
-        return null;
+        return new PageInfo<>();
     }
 
     @Override

@@ -20,7 +20,7 @@ public class XiLeWangHistoryServiceHystric implements XiLeWangHistoryService {
 
     @Override
     public PageInfo<XiLeWangHistory> selectByOpenid(String openid, Integer pageNo, Integer pageSize) {
-        return null;
+        return new PageInfo<>();
     }
 
 

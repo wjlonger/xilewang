@@ -221,11 +221,13 @@ public class XiLeWangAssistanceController {
     @GetMapping("/selectByOpenIdAndState")
     public PageInfo<XiLeWangAssistanceVo> selectByOpenIdAndState(@RequestParam(value = "state" ,required = false) Integer state, @RequestParam("pageNo") Integer pageNo, @RequestParam("pageSize") Integer pageSize){
         PageInfo<XiLeWangAssistanceVo> xiLeWangAssistanceVoPageInfo = this.xiLeWangAssistanceService.selectByOpenIdAndState(Current.getOpenid(),state,pageNo,pageSize);
-        List<XiLeWangAssistanceVo> xiLeWangAssistanceVos = xiLeWangAssistanceVoPageInfo.getList();
-        if(null != xiLeWangAssistanceVos && xiLeWangAssistanceVos.size() > 0){
-            for (XiLeWangAssistanceVo xiLeWangAssistanceVo : xiLeWangAssistanceVos){
-                GoodsResp goodsResp = xiLeWangGoodsService.goodsDetail(xiLeWangAssistanceVo.getSkuId());
-                xiLeWangAssistanceVo.setGoodsResp(goodsResp);
+        if(null != xiLeWangAssistanceVoPageInfo){
+            List<XiLeWangAssistanceVo> xiLeWangAssistanceVos = xiLeWangAssistanceVoPageInfo.getList();
+            if(null != xiLeWangAssistanceVos && xiLeWangAssistanceVos.size() > 0){
+                for (XiLeWangAssistanceVo xiLeWangAssistanceVo : xiLeWangAssistanceVos){
+                    GoodsResp goodsResp = xiLeWangGoodsService.goodsDetail(xiLeWangAssistanceVo.getSkuId());
+                    xiLeWangAssistanceVo.setGoodsResp(goodsResp);
+                }
             }
         }
         return xiLeWangAssistanceVoPageInfo;

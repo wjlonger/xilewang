@@ -10,6 +10,6 @@ public class XiLeWangJdOrderServiceHystric implements XiLeWangJdOrderService {
 
     @Override
     public PageInfo<XiLeWangJdOrderVo> listByOpenidAndViladCode(Integer pageNo, Integer pageSize, String openid, Integer validCode) {
-        return null;
+        return new PageInfo<>();
     }
 }

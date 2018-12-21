@@ -30,7 +30,7 @@ public class XiLeWangUserServiceHystric implements XiLeWangUserService {
 
     @Override
     public PageInfo<XiLeWangUser> listByMasterOpenid(String openid, Integer pageNo, Integer pageSize) {
-        return null;
+        return new PageInfo<>();
     }
 
     @Override
