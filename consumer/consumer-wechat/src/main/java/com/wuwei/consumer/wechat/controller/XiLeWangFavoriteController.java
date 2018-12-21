@@ -6,11 +6,15 @@ import com.github.pagehelper.PageInfo;
 import com.wuwei.base.wechat.model.XiLeWangFavorite;
 import com.wuwei.base.wechat.model.vo.XiLeWangFavoriteVo;
 import com.wuwei.consumer.wechat.service.XiLeWangFavoriteService;
+import com.wuwei.consumer.wechat.service.XiLeWangGoodsService;
 import com.wuwei.consumer.wechat.utils.Current;
+import jd.union.open.goods.query.response.GoodsResp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 @RestController
@@ -19,6 +23,9 @@ public class XiLeWangFavoriteController {
 
     @Autowired
     private XiLeWangFavoriteService xiLeWangFavoriteService;
+
+    @Autowired
+    private XiLeWangGoodsService xiLeWangGoodsService;
 
     JSONObject jsonObject = new JSONObject();
 
@@ -70,7 +77,17 @@ public class XiLeWangFavoriteController {
     @GetMapping
     public PageInfo<XiLeWangFavoriteVo> selectByOpenid(@RequestParam("pageNo") Integer pageNo,
                                                        @RequestParam("pageSize") Integer pageSize){
-        return this.xiLeWangFavoriteService.selectByOpenid(Current.getOpenid(), pageNo, pageSize);
+        PageInfo<XiLeWangFavoriteVo> xiLeWangFavoriteVoPageInfo = this.xiLeWangFavoriteService.selectByOpenid(Current.getOpenid(), pageNo, pageSize);
+        if(null != xiLeWangFavoriteVoPageInfo){
+            List<XiLeWangFavoriteVo> xiLeWangFavoriteVos = xiLeWangFavoriteVoPageInfo.getList();
+            if(null != xiLeWangFavoriteVos && xiLeWangFavoriteVos.size() > 0){
+                for(XiLeWangFavoriteVo xiLeWangFavoriteVo : xiLeWangFavoriteVos){
+                    GoodsResp goodsResp = xiLeWangGoodsService.goodsDetail(xiLeWangFavoriteVo.getSkuId());
+                    xiLeWangFavoriteVo.setGoodsResp(goodsResp);
+                }
+            }
+        }
+        return xiLeWangFavoriteVoPageInfo;
     }
 
 }
