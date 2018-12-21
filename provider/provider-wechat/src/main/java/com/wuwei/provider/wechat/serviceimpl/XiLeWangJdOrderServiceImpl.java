@@ -75,7 +75,7 @@ public class XiLeWangJdOrderServiceImpl implements XiLeWangJdOrderService {
 
     @Override
     public PageInfo<XiLeWangJdOrderVo> listByOpenidAndViladCode(Integer pageNo, Integer pageSize, String openid, Integer validCode) {
-        PageInfo<XiLeWangJdOrderVo> xiLeWangJdOrderVoPageInfo = PageHelper.startPage(pageSize,pageNo).setOrderBy("order_id desc")
+        PageInfo<XiLeWangJdOrderVo> xiLeWangJdOrderVoPageInfo = PageHelper.startPage(pageNo,pageSize).setOrderBy("order_id desc")
                 .doSelectPageInfo(()-> this.xiLeWangJdOrderMapper.listByOpenidAndViladCode(openid, validCode));
         return xiLeWangJdOrderVoPageInfo;
     }

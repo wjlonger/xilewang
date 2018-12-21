@@ -36,7 +36,7 @@ public class XiLeWangUserController {
         XiLeWangUser xiLeWangUser = this.xiLeWangUserService.selectByPrimaryKey(Current.getOpenid());
         if(null != xiLeWangUser){
             BigDecimal balance =  xiLeWangUser.getMoney();
-            if(balance.compareTo(BigDecimal.valueOf(0L)) == 0){
+            if(BigDecimal.valueOf(0L).compareTo(balance) == 0){
                 jsonObject.put("balance",0);
             }else{
                 jsonObject.put("balance",balance);
@@ -47,7 +47,13 @@ public class XiLeWangUserController {
             }else{
                 jsonObject.put("pending",pending);
             }
-            jsonObject.put("total",xiLeWangUser.getRebateMoney().add(xiLeWangUser.getAssistanceMoney()).add(xiLeWangUser.getMasterMoney()));
+            BigDecimal total = xiLeWangUser.getRebateMoney().add(xiLeWangUser.getAssistanceMoney()).add(xiLeWangUser.getMasterMoney());
+            if(total.compareTo(BigDecimal.valueOf(0L)) == 0){
+                jsonObject.put("total",0);
+            }else{
+                jsonObject.put("total",total);
+            }
+
         }else{
             jsonObject.put("balance",0);
             jsonObject.put("total",0);

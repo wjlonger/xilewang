@@ -158,7 +158,7 @@
         where openid=#{openid,jdbcType=VARCHAR} and sku_id=#{skuId,jdbcType=BIGINT}
     </select>
 
-    <select id="selectByOpenIdAndState" resultMap="BaseResultMap">
+    <select id="selectByOpenIdAndState" resultMap="XiLeWangAssistanceVoBaseResultMap">
         select
           <include refid="Base_Column_List" />
         from xilewang_assistance

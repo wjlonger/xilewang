@@ -218,7 +218,7 @@ public class XiLeWangAssistanceController {
         return jsonObject;
     }
 
-    @GetMapping("/selectByOpenid")
+    @GetMapping("/selectByOpenIdAndState")
     public PageInfo<XiLeWangAssistanceVo> selectByOpenIdAndState(@RequestParam(value = "state" ,required = false) Integer state, @RequestParam("pageNo") Integer pageNo, @RequestParam("pageSize") Integer pageSize){
         PageInfo<XiLeWangAssistanceVo> xiLeWangAssistanceVoPageInfo = this.xiLeWangAssistanceService.selectByOpenIdAndState(Current.getOpenid(),state,pageNo,pageSize);
         List<XiLeWangAssistanceVo> xiLeWangAssistanceVos = xiLeWangAssistanceVoPageInfo.getList();
