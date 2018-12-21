@@ -11,7 +11,7 @@ public class XiLeWangFavorite implements Serializable {
 
     private Long skuId;
 
-    private Boolean isDeleted;
+    private Boolean deleted;
 
     private Date gmtCreate;
 
@@ -33,14 +33,6 @@ public class XiLeWangFavorite implements Serializable {
         this.skuId = skuId;
     }
 
-    public Boolean getIsDeleted() {
-        return isDeleted;
-    }
-
-    public void setIsDeleted(Boolean isDeleted) {
-        this.isDeleted = isDeleted;
-    }
-
     public Date getGmtCreate() {
         return gmtCreate;
     }
@@ -55,5 +47,13 @@ public class XiLeWangFavorite implements Serializable {
 
     public void setGmtModified(Date gmtModified) {
         this.gmtModified = gmtModified;
+    }
+
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
     }
 }

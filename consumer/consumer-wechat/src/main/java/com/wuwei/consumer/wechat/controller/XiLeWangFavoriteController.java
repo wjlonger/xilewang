@@ -36,7 +36,7 @@ public class XiLeWangFavoriteController {
             xiLeWangFavorite = new XiLeWangFavorite();
             xiLeWangFavorite.setOpenid(Current.getOpenid());
             xiLeWangFavorite.setSkuId(skuId);
-            xiLeWangFavorite.setIsDeleted(false);
+            xiLeWangFavorite.setDeleted(false);
             if(this.xiLeWangFavoriteService.insertSelective(xiLeWangFavorite) > 0){
                 jsonObject.put("code",1);
                 jsonObject.put("errMsg","关注成功");
@@ -45,17 +45,17 @@ public class XiLeWangFavoriteController {
                 jsonObject.put("errMsg","关注失败");
             }
         }else{
-            xiLeWangFavorite.setIsDeleted(!xiLeWangFavorite.getIsDeleted());
+            xiLeWangFavorite.setDeleted(!xiLeWangFavorite.getDeleted());
             if(this.xiLeWangFavoriteService.updateByPrimaryKeySelective(xiLeWangFavorite) > 0){
                 jsonObject.put("code",1);
-                if(xiLeWangFavorite.getIsDeleted()){
+                if(xiLeWangFavorite.getDeleted()){
                     jsonObject.put("errMsg","取消关注成功");
                 }else{
                     jsonObject.put("errMsg","关注成功");
                 }
             }else{
                 jsonObject.put("code",0);
-                if(xiLeWangFavorite.getIsDeleted()){
+                if(xiLeWangFavorite.getDeleted()){
                     jsonObject.put("errMsg","取消关注失败");
                 }else{
                     jsonObject.put("errMsg","关注失败");
@@ -71,7 +71,7 @@ public class XiLeWangFavoriteController {
         if(null == xiLeWangFavorite){
             return 0;
         }
-        return xiLeWangFavorite.getIsDeleted() ? 0 : 1;
+        return xiLeWangFavorite.getDeleted() ? 0 : 1;
     }
 
     @GetMapping

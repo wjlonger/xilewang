@@ -5,7 +5,7 @@
     <resultMap id="BaseResultMap" type="com.wuwei.base.wechat.model.XiLeWangFavorite" >
         <id column="openid" property="openid" jdbcType="VARCHAR" />
         <id column="sku_id" property="skuId" jdbcType="BIGINT" />
-        <result column="is_deleted" property="isDeleted" jdbcType="BIT" />
+        <result column="is_deleted" property="deleted" jdbcType="BIT" />
         <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
         <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
     </resultMap>
@@ -13,7 +13,7 @@
     <resultMap id="XiLeWangFavoriteVoBaseResultMap" type="com.wuwei.base.wechat.model.vo.XiLeWangFavoriteVo" >
         <id column="openid" property="openid" jdbcType="VARCHAR" />
         <id column="sku_id" property="skuId" jdbcType="BIGINT" />
-        <result column="is_deleted" property="isDeleted" jdbcType="BIT" />
+        <result column="is_deleted" property="deleted" jdbcType="BIT" />
         <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
         <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
     </resultMap>
@@ -31,7 +31,7 @@
           <if test="skuId != null" >
             sku_id,
           </if>
-          <if test="isDeleted != null" >
+          <if test="deleted != null" >
             is_deleted,
           </if>
           <if test="gmtCreate != null" >
@@ -48,8 +48,8 @@
           <if test="skuId != null" >
             #{skuId,jdbcType=BIGINT},
           </if>
-          <if test="isDeleted != null" >
-            #{isDeleted,jdbcType=BIT},
+          <if test="deleted != null" >
+            #{deleted,jdbcType=BIT},
           </if>
           <if test="gmtCreate != null" >
             #{gmtCreate,jdbcType=TIMESTAMP},
@@ -63,8 +63,8 @@
     <update id="updateByPrimaryKeySelective" parameterType="com.wuwei.base.wechat.model.XiLeWangFavorite" >
         update xilewang_favorite
         <set >
-          <if test="isDeleted != null" >
-            is_deleted = #{isDeleted,jdbcType=BIT},
+          <if test="deleted != null" >
+            is_deleted = #{deleted,jdbcType=BIT},
           </if>
           <if test="gmtCreate != null" >
             gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
