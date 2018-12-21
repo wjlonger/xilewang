@@ -1,5 +1,6 @@
 package com.wuwei.provider.wechat.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.wuwei.base.wechat.model.XiLeWangHistory;
 import com.wuwei.base.wechat.service.XiLeWangHistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,11 @@ public class XiLeWangHistoryController {
     @PutMapping("/")
     public int updateByPrimaryKey(@RequestBody XiLeWangHistory xiLeWangHistory){
         return xiLeWangHistoryService.updateByPrimaryKey(xiLeWangHistory);
+    }
+
+    @GetMapping("/selectByOpenid/{openid}")
+    public PageInfo<XiLeWangHistory> selectByOpenid(@PathVariable("openid") String openid,@RequestParam("pageNo") Integer pageNo,@RequestParam("pageSize") Integer pageSize){
+        return this.xiLeWangHistoryService.selectByOpenid(openid, pageNo, pageSize);
     }
 
 }

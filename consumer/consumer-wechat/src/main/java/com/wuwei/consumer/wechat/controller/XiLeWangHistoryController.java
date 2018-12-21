@@ -1,6 +1,7 @@
 package com.wuwei.consumer.wechat.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.github.pagehelper.PageInfo;
 import com.wuwei.base.util.IdGenerator;
 import com.wuwei.base.wechat.model.XiLeWangHistory;
 import com.wuwei.consumer.wechat.service.XiLeWangHistoryService;
@@ -60,4 +61,8 @@ public class XiLeWangHistoryController {
         return json.toJSONString();
     }
 
+    @GetMapping
+    public PageInfo<XiLeWangHistory> selectByOpenid(@RequestParam("pageNo") Integer pageNo ,@RequestParam("pageSize") Integer pageSize){
+        return this.xiLeWangHistoryService.selectByOpenid(Current.getOpenid(), pageNo, pageSize);
+    }
 }

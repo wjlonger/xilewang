@@ -1,7 +1,9 @@
 package com.wuwei.consumer.wechat.service;
 
+import com.github.pagehelper.PageInfo;
 import com.wuwei.base.wechat.model.XiLeWangHistory;
 import com.wuwei.consumer.wechat.hystric.XiLeWangHistoryServiceHystric;
+import feign.Param;
 import feign.RequestLine;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,5 +16,8 @@ public interface XiLeWangHistoryService{
 
     @RequestLine("PUT /updateByPrimaryKeySelective")
     int updateByPrimaryKeySelective(@RequestBody XiLeWangHistory xiLeWangHistory);
+
+    @RequestLine("GET /selectByOpenid/{openid}?pageNo={pageNo}&pageSize={pageSize}")
+    PageInfo<XiLeWangHistory> selectByOpenid(@Param("openid") String openid,@Param("pageNo") Integer pageNo,@Param("pageSize") Integer pageSize);
 
 }

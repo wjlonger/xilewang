@@ -91,7 +91,7 @@
         select
           <include refid="Base_Column_List" />
         from xilewang_favorite
-         where openid = #{openid,jdbcType=VARCHAR}
+         where openid = #{openid,jdbcType=VARCHAR} and is_deleted = 0
       </select>
 
 </mapper>

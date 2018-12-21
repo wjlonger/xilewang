@@ -1,5 +1,7 @@
 package com.wuwei.provider.wechat.serviceimpl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.wuwei.base.util.IdGenerator;
 import com.wuwei.base.wechat.model.XiLeWangHistory;
 import com.wuwei.base.wechat.service.XiLeWangHistoryService;
@@ -65,6 +67,13 @@ public class XiLeWangHistoryServiceImpl implements XiLeWangHistoryService {
         }
         xiLeWangHistory.setGmtModified(new Date());
         return xiLeWangHistoryMapper.updateByPrimaryKey(xiLeWangHistory);
+    }
+
+    @Override
+    public PageInfo<XiLeWangHistory> selectByOpenid(String openid, Integer pageNo, Integer pageSize) {
+        PageInfo<XiLeWangHistory> xiLeWangHistoryPageInfo = PageHelper.startPage(pageNo,pageSize).setOrderBy("gmt_create desc")
+                .doSelectPageInfo(() -> this.xiLeWangHistoryMapper.selectByOpenid(openid));
+        return xiLeWangHistoryPageInfo;
     }
 
 }

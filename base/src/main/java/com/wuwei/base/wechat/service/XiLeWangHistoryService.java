@@ -1,5 +1,6 @@
 package com.wuwei.base.wechat.service;
 
+import com.github.pagehelper.PageInfo;
 import com.wuwei.base.wechat.model.XiLeWangHistory;
 
 public interface XiLeWangHistoryService {
@@ -13,5 +14,7 @@ public interface XiLeWangHistoryService {
     int updateByPrimaryKeySelective(XiLeWangHistory xiLeWangHistory);
 
     int updateByPrimaryKey(XiLeWangHistory xiLeWangHistory);
+
+    PageInfo<XiLeWangHistory> selectByOpenid(String openid, Integer pageNo, Integer pageSize);
 
 }

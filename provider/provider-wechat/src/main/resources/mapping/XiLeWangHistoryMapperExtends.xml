@@ -214,4 +214,11 @@
       where id = #{id,jdbcType=BIGINT}
     </update>
 
+    <select id="selectByOpenid" resultMap="BaseResultMap">
+      select
+      <include refid="Base_Column_List" />
+      from xilewang_history
+      where openid = #{openid,jdbcType=VARCHAR}
+    </select>
+
 </mapper>
