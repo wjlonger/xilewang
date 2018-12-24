@@ -1,6 +1,7 @@
 package com.wuwei.base.wechat.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class XiLeWangHistory implements Serializable {
@@ -38,6 +39,10 @@ public class XiLeWangHistory implements Serializable {
     private Long stayTime;
 
     private Boolean deleted;
+
+    private String img;
+
+    private BigDecimal price;
 
     public Long getId() {
         return id;
@@ -157,6 +162,22 @@ public class XiLeWangHistory implements Serializable {
 
     public void setStayTime(Long stayTime) {
         this.stayTime = stayTime;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img == null ? null : img.trim();
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
     public Boolean getDeleted() {

@@ -19,12 +19,14 @@
       <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
       <result column="stay_time" property="stayTime" jdbcType="BIGINT" />
       <result column="is_deleted" property="deleted" jdbcType="BIT" />
+      <result column="img" property="img" jdbcType="VARCHAR" />
+      <result column="price" property="price" jdbcType="DECIMAL" />
     </resultMap>
 
     <sql id="Base_Column_List" >
       id, openid, sku_id, sku_name, shop_id, shop_name, category_one_id, category_one_name,
       category_two_id, category_two_name, category_three_id, category_three_name, gmt_create,
-      gmt_modified, stay_time, is_deleted
+      gmt_modified, stay_time, is_deleted, img, price
     </sql>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
@@ -40,13 +42,13 @@
       category_one_id, category_one_name, category_two_id,
       category_two_name, category_three_id, category_three_name,
       gmt_create, gmt_modified, stay_time,
-      is_deleted)
+      is_deleted, img, price)
     values (#{id,jdbcType=BIGINT}, #{openid,jdbcType=VARCHAR}, #{skuId,jdbcType=BIGINT},
       #{skuName,jdbcType=VARCHAR}, #{shopId,jdbcType=INTEGER}, #{shopName,jdbcType=VARCHAR},
       #{categoryOneId,jdbcType=BIGINT}, #{categoryOneName,jdbcType=VARCHAR}, #{categoryTwoId,jdbcType=BIGINT},
       #{categoryTwoName,jdbcType=VARCHAR}, #{categoryThreeId,jdbcType=BIGINT}, #{categoryThreeName,jdbcType=VARCHAR},
       #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{stayTime,jdbcType=BIGINT},
-      #{deleted,jdbcType=BIT})
+      #{deleted,jdbcType=BIT}, #{img,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL})
     </insert>
 
     <insert id="insertSelective" parameterType="com.wuwei.base.wechat.model.XiLeWangHistory" >
@@ -100,6 +102,12 @@
         <if test="deleted != null" >
           is_deleted,
         </if>
+        <if test="img != null" >
+          img,
+        </if>
+        <if test="price != null" >
+          price,
+        </if>
       </trim>
       <trim prefix="values (" suffix=")" suffixOverrides="," >
         <if test="id != null" >
@@ -149,6 +157,12 @@
         </if>
         <if test="deleted != null" >
           #{deleted,jdbcType=BIT},
+        </if>
+        <if test="img != null" >
+          #{img,jdbcType=VARCHAR},
+        </if>
+        <if test="price != null" >
+          #{price,jdbcType=DECIMAL},
         </if>
       </trim>
     </insert>
@@ -201,6 +215,12 @@
         <if test="deleted != null" >
           is_deleted = #{deleted,jdbcType=BIT},
         </if>
+        <if test="img != null" >
+          img = #{img,jdbcType=VARCHAR},
+        </if>
+        <if test="price != null" >
+          price = #{price,jdbcType=DECIMAL},
+        </if>
       </set>
       where id = #{id,jdbcType=BIGINT}
     </update>
@@ -221,7 +241,9 @@
       gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
       stay_time = #{stayTime,jdbcType=BIGINT},
-      is_deleted = #{deleted,jdbcType=BIT}
+      is_deleted = #{deleted,jdbcType=BIT},
+      img = #{img,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DECIMAL}
     where id = #{id,jdbcType=BIGINT}
     </update>
 

@@ -3,12 +3,12 @@ package com.wuwei.consumer.wechat.config;
 import com.wuwei.base.wechat.model.XiLeWangHistory;
 import com.wuwei.consumer.wechat.service.XiLeWangGoodsService;
 import com.wuwei.consumer.wechat.service.XiLeWangHistoryService;
-import jd.union.open.goods.query.response.CategoryInfo;
-import jd.union.open.goods.query.response.GoodsResp;
-import jd.union.open.goods.query.response.ShopInfo;
+import jd.union.open.goods.query.response.*;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+
+import java.math.BigDecimal;
 
 @Configuration
 public class RabbitMqProcessConfig {
@@ -27,6 +27,17 @@ public class RabbitMqProcessConfig {
         GoodsResp goodsResp = xiLeWangGoodsService.goodsDetail(xiLeWangHistory.getSkuId());
         if(null != goodsResp){
             xiLeWangHistory.setSkuName(goodsResp.getSkuName());
+            ImageInfo[] imageInfos = goodsResp.getImageInfo();
+            if(null != imageInfos && imageInfos.length > 0){
+                UrlInfo[] urlInfos = imageInfos[0].getImageList();
+                if(null != urlInfos && urlInfos.length > 0){
+                    xiLeWangHistory.setImg(urlInfos[0].getUrl());
+                }
+            }
+            PriceInfo[] priceInfos = goodsResp.getPriceInfo();
+            if(null != priceInfos && priceInfos.length > 0){
+                xiLeWangHistory.setPrice(BigDecimal.valueOf(priceInfos[0].getPrice()));
+            }
             ShopInfo[] shopInfos = goodsResp.getShopInfo();
             if(null != shopInfos && shopInfos.length > 0){
                 ShopInfo shopInfo = shopInfos[0];
