@@ -18,12 +18,13 @@
       <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
       <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
       <result column="stay_time" property="stayTime" jdbcType="BIGINT" />
+      <result column="is_deleted" property="deleted" jdbcType="BIT" />
     </resultMap>
 
     <sql id="Base_Column_List" >
       id, openid, sku_id, sku_name, shop_id, shop_name, category_one_id, category_one_name,
       category_two_id, category_two_name, category_three_id, category_three_name, gmt_create,
-      gmt_modified, stay_time
+      gmt_modified, stay_time, is_deleted
     </sql>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
@@ -35,17 +36,17 @@
 
     <insert id="insert" parameterType="com.wuwei.base.wechat.model.XiLeWangHistory" >
       insert into xilewang_history (id, openid, sku_id,
-        sku_name, shop_id, shop_name,
-        category_one_id, category_one_name, category_two_id,
-        category_two_name, category_three_id, category_three_name,
-        gmt_create, gmt_modified, stay_time
-        )
-      values (#{id,jdbcType=BIGINT}, #{openid,jdbcType=VARCHAR}, #{skuId,jdbcType=BIGINT},
-        #{skuName,jdbcType=VARCHAR}, #{shopId,jdbcType=INTEGER}, #{shopName,jdbcType=VARCHAR},
-        #{categoryOneId,jdbcType=BIGINT}, #{categoryOneName,jdbcType=VARCHAR}, #{categoryTwoId,jdbcType=BIGINT},
-        #{categoryTwoName,jdbcType=VARCHAR}, #{categoryThreeId,jdbcType=BIGINT}, #{categoryThreeName,jdbcType=VARCHAR},
-        #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{stayTime,jdbcType=BIGINT}
-        )
+      sku_name, shop_id, shop_name,
+      category_one_id, category_one_name, category_two_id,
+      category_two_name, category_three_id, category_three_name,
+      gmt_create, gmt_modified, stay_time,
+      is_deleted)
+    values (#{id,jdbcType=BIGINT}, #{openid,jdbcType=VARCHAR}, #{skuId,jdbcType=BIGINT},
+      #{skuName,jdbcType=VARCHAR}, #{shopId,jdbcType=INTEGER}, #{shopName,jdbcType=VARCHAR},
+      #{categoryOneId,jdbcType=BIGINT}, #{categoryOneName,jdbcType=VARCHAR}, #{categoryTwoId,jdbcType=BIGINT},
+      #{categoryTwoName,jdbcType=VARCHAR}, #{categoryThreeId,jdbcType=BIGINT}, #{categoryThreeName,jdbcType=VARCHAR},
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{stayTime,jdbcType=BIGINT},
+      #{deleted,jdbcType=BIT})
     </insert>
 
     <insert id="insertSelective" parameterType="com.wuwei.base.wechat.model.XiLeWangHistory" >
@@ -96,6 +97,9 @@
         <if test="stayTime != null" >
           stay_time,
         </if>
+        <if test="deleted != null" >
+          is_deleted,
+        </if>
       </trim>
       <trim prefix="values (" suffix=")" suffixOverrides="," >
         <if test="id != null" >
@@ -142,6 +146,9 @@
         </if>
         <if test="stayTime != null" >
           #{stayTime,jdbcType=BIGINT},
+        </if>
+        <if test="deleted != null" >
+          #{deleted,jdbcType=BIT},
         </if>
       </trim>
     </insert>
@@ -191,27 +198,31 @@
         <if test="stayTime != null" >
           stay_time = #{stayTime,jdbcType=BIGINT},
         </if>
+        <if test="deleted != null" >
+          is_deleted = #{deleted,jdbcType=BIT},
+        </if>
       </set>
       where id = #{id,jdbcType=BIGINT}
     </update>
 
     <update id="updateByPrimaryKey" parameterType="com.wuwei.base.wechat.model.XiLeWangHistory" >
       update xilewang_history
-      set openid = #{openid,jdbcType=VARCHAR},
-        sku_id = #{skuId,jdbcType=BIGINT},
-        sku_name = #{skuName,jdbcType=VARCHAR},
-        shop_id = #{shopId,jdbcType=INTEGER},
-        shop_name = #{shopName,jdbcType=VARCHAR},
-        category_one_id = #{categoryOneId,jdbcType=BIGINT},
-        category_one_name = #{categoryOneName,jdbcType=VARCHAR},
-        category_two_id = #{categoryTwoId,jdbcType=BIGINT},
-        category_two_name = #{categoryTwoName,jdbcType=VARCHAR},
-        category_three_id = #{categoryThreeId,jdbcType=BIGINT},
-        category_three_name = #{categoryThreeName,jdbcType=VARCHAR},
-        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
-        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
-        stay_time = #{stayTime,jdbcType=BIGINT}
-      where id = #{id,jdbcType=BIGINT}
+    set openid = #{openid,jdbcType=VARCHAR},
+      sku_id = #{skuId,jdbcType=BIGINT},
+      sku_name = #{skuName,jdbcType=VARCHAR},
+      shop_id = #{shopId,jdbcType=INTEGER},
+      shop_name = #{shopName,jdbcType=VARCHAR},
+      category_one_id = #{categoryOneId,jdbcType=BIGINT},
+      category_one_name = #{categoryOneName,jdbcType=VARCHAR},
+      category_two_id = #{categoryTwoId,jdbcType=BIGINT},
+      category_two_name = #{categoryTwoName,jdbcType=VARCHAR},
+      category_three_id = #{categoryThreeId,jdbcType=BIGINT},
+      category_three_name = #{categoryThreeName,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      stay_time = #{stayTime,jdbcType=BIGINT},
+      is_deleted = #{deleted,jdbcType=BIT}
+    where id = #{id,jdbcType=BIGINT}
     </update>
 
     <select id="selectByOpenid" resultMap="BaseResultMap">
@@ -219,6 +230,7 @@
       <include refid="Base_Column_List" />
       from xilewang_history
       where openid = #{openid,jdbcType=VARCHAR}
+      and is_deleted = 0
     </select>
 
 </mapper>

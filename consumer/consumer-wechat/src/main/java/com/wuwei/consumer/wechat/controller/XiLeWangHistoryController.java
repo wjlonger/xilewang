@@ -65,4 +65,20 @@ public class XiLeWangHistoryController {
     public PageInfo<XiLeWangHistory> selectByOpenid(@RequestParam("pageNo") Integer pageNo ,@RequestParam("pageSize") Integer pageSize){
         return this.xiLeWangHistoryService.selectByOpenid(Current.getOpenid(), pageNo, pageSize);
     }
+
+    @DeleteMapping("/{id}")
+    public JSONObject deleteHistory(@PathVariable("id") Long id){
+        XiLeWangHistory xiLeWangHistory = new XiLeWangHistory();
+        xiLeWangHistory.setId(id);
+        xiLeWangHistory.setDeleted(true);
+        int i = this.xiLeWangHistoryService.updateByPrimaryKeySelective(xiLeWangHistory);
+        if(i > 0){
+            json.put("code",1);
+            json.put("errMsg","删除成功");
+        }else{
+            json.put("code",0);
+            json.put("errMsg","删除失败");
+        }
+        return json;
+    }
 }

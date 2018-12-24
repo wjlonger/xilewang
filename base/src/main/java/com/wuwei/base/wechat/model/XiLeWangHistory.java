@@ -37,6 +37,8 @@ public class XiLeWangHistory implements Serializable {
 
     private Long stayTime;
 
+    private Boolean deleted;
+
     public Long getId() {
         return id;
     }
@@ -155,5 +157,13 @@ public class XiLeWangHistory implements Serializable {
 
     public void setStayTime(Long stayTime) {
         this.stayTime = stayTime;
+    }
+
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
     }
 }

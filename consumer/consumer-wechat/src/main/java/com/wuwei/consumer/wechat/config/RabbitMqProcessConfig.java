@@ -47,6 +47,7 @@ public class RabbitMqProcessConfig {
                     xiLeWangHistory.setCategoryThreeName(categoryInfo.getCid3Name());
                 }
             }
+            xiLeWangHistory.setDeleted(false);
             xiLeWangHistoryService.insertSelective(xiLeWangHistory);
         }
     }
