@@ -46,7 +46,7 @@
           sku_info_id = #{skuInfoId,jdbcType=BIGINT}
     </select>
     <select id="totalPending"  resultType="java.lang.Double">
-        select sum(money) from xilewang_income_report where openid = #{openid,jdbcType=VARCHAR} and state = 0
+        select coalesce(sum(money),0.0) from xilewang_income_report where openid = #{openid,jdbcType=VARCHAR} and state = 0
     </select>
 
     <select id="invitPending"  resultType="java.lang.Double">
