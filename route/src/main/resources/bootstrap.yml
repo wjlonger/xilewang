@@ -1,5 +1,14 @@
 server:
-    port: 8080
+    port: 443
+    ssl:
+        # 证书名字
+        key-store: classpath:xilewang.lebi.cn.jks
+        #key-store: classpath:keystore.keystore
+        # 密钥库密码
+        key-store-password: 7t651cn38fk
+        #key-password: yourpass1 #springboot2.0不需要配置这个 T-T
+        #key-store-type: PKCS12
+        #key-alias: your.alias
 spring:
     application:
         name: route
