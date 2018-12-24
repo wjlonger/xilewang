@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wuwei.provider.wechat.mapper.XiLeWangActivityMapper" >
+  <resultMap id="BaseResultMap" type="com.wuwei.base.wechat.model.XiLeWangActivity" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="img" property="img" jdbcType="VARCHAR" />
+    <result column="is_deleted" property="deleted" jdbcType="BIT" />
+    <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+    <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, url, img, is_deleted, gmt_create, gmt_modified
+  </sql>
+  <sql id="WhereCase">
+    <where>
+      <if test="id != null" >
+        and id = #{id,jdbcType=BIGINT}
+      </if>
+      <if test="deleted != null" >
+        and is_deleted = #{deleted,jdbcType=BIT}
+      </if>
+    </where>
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from xilewang_activity
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <insert id="insertSelective" parameterType="com.wuwei.base.wechat.model.XiLeWangActivity" >
+    insert into xilewang_activity
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="img != null" >
+        img,
+      </if>
+      <if test="deleted != null" >
+        is_deleted,
+      </if>
+      <if test="gmtCreate != null" >
+        gmt_create,
+      </if>
+      <if test="gmtModified != null" >
+        gmt_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="img != null" >
+        #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=BIT},
+      </if>
+      <if test="gmtCreate != null" >
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null" >
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wuwei.base.wechat.model.XiLeWangActivity" >
+    update xilewang_activity
+    <set >
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="img != null" >
+        img = #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        is_deleted = #{deleted,jdbcType=BIT},
+      </if>
+      <if test="gmtCreate != null" >
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null" >
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="listAll" resultMap="BaseResultMap" parameterType="com.wuwei.base.wechat.model.XiLeWangActivity" >
+    select
+    <include refid="Base_Column_List" />
+    from xilewang_activity
+    <include refid="WhereCase" />
+  </select>
+</mapper>
