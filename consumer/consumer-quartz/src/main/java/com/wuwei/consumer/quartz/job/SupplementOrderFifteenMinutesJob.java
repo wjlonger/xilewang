@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.Serializable;
 
-public class SupplementOrderJob implements Job, Serializable {
+public class SupplementOrderFifteenMinutesJob implements Job, Serializable {
 
     private static final long serialVersionUID = 1L;
 

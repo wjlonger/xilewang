@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.Serializable;
 
-public class GrabOrderJob implements Job, Serializable {
+public class SupplementOrderFiveMinutesJob implements Job, Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -18,14 +18,14 @@ public class GrabOrderJob implements Job, Serializable {
 
     @Override
     public void execute(JobExecutionContext jobExecutionContext) {
-        String time = DateUtils.getOrderTimeForJd(-1);
-        System.out.println(time + "  开始抓取订单");
+        String time = DateUtils.getOrderTimeForJd(-5);
+        System.out.println(time + "   开始抓取订单");
         OrderReq orderReq = new OrderReq();
         orderReq.setPageNo(1);
         orderReq.setPageSize(500);
         orderReq.setType(3);
         orderReq.setTime(time);
-        amqpTemplate.convertAndSend("quartz_jdorder_save",orderReq);
+        amqpTemplate.convertAndSend("quartz_supplement_jdorder_save",orderReq);
     }
 
 }
