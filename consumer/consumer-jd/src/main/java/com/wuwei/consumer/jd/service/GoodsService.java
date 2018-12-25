@@ -7,9 +7,8 @@ import jd.union.open.goods.query.response.GoodsResp;
 import org.springframework.cloud.openfeign.FeignClient;
 
 @FeignClient(value = "provider-jd",fallback= GoodsServiceHystric.class,path = "/goods")
-public interface GoodsService extends com.wuwei.base.jd.service.GoodsService {
+public interface GoodsService{
 
-    @Override
     @RequestLine("GET /{skuId}")
     GoodsResp goodsDetail(@Param("skuId") Long skuId);
 }
