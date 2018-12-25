@@ -40,3 +40,7 @@ hystrix:
                 isolation:
                     thread:
                         timeoutInMilliseconds: 30000
+#ribbon的超时时间
+ribbon:
+    ReadTimeout: 3000
+    ConnectTimeout: 3000
