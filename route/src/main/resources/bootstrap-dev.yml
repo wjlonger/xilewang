@@ -1,0 +1,57 @@
+server:
+    port: 8080
+spring:
+    application:
+        name: route
+    cloud:
+        config:
+            name: route,common
+            discovery:
+                # 通过服务发现的方式去找配置中心
+                enabled: true
+                # 配置中心的名字，直接配置名称可以在配置中心集群的时候实现负载均衡
+                service-id: config-server
+            # 对应配置中心文件的${profile}部分
+            # 层级关系一定要写对
+            profile: dev
+eureka:
+    client:
+        service-url:
+            defaultZone: http://localhost:8888/eureka/
+    instance:
+        # 使用ip地址注册到eureka server
+        prefer-ip-address: true
+        # 在eureka server中看到的status显示为具体的ip地址和port
+        instance-id: ${spring.application.name}:${spring.cloud.client.hostname}:${server.port}
+zuul:
+    host:
+        connect-timeout-millis: 150000
+        socket-timeout-millis: 600000
+    routes:
+        consumer-wechat:
+            path: /api/wechat/**
+            serviceId: consumer-wechat
+            stripPrefix: false
+            sensitiveHeaders: "*"
+        consumer-jd:
+            path: /api/jd/**
+            serviceId: consumer-jd
+            stripPrefix: false
+            sensitiveHeaders: "*"
+        consumer-quartz:
+            path: /api/quartz/**
+            serviceId: consumer-quartz
+            stripPrefix: false
+            sensitiveHeaders: "*"
+ribbon:
+    ReadTimeout: 100000
+    ConnectTimeout: 100000
+hystrix:
+    command:
+        default:
+            execution:
+                timeout:
+                    enabled: true
+                isolation:
+                    thread:
+                        timeoutInMilliseconds: 600000

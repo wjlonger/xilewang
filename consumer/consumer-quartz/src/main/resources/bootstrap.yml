@@ -1,33 +1,3 @@
-server:
-    port: 9797
 spring:
-    application:
-        name: consumer-quartz
-    cloud:
-        config:
-            name: consumer-quartz,common
-            discovery:
-                # 通过服务发现的方式去找配置中心
-                enabled: true
-                # 配置中心的名字，直接配置名称可以在配置中心集群的时候实现负载均衡
-                service-id: config-server #CONFIG-SERVER
-            # 对应配置中心文件的${profile}部分
-            # 层级关系一定要写对
-            profile: dev
-eureka:
-    client:
-        serviceUrl:
-            defaultZone: http://localhost:8888/eureka/
-    instance:
-        # 使用ip地址注册到eureka server
-        prefer-ip-address: true
-        # 在eureka server中看到的status显示为具体的ip地址和port
-        instance-id: ${spring.application.name}:${spring.cloud.client.hostname}:${server.port}
-feign:
-    hystrix:
-        enabled: true
-management:
-    endpoints:
-        web:
-            exposure:
-                include: "*"
+    profiles:
+        active: dev

@@ -34,8 +34,10 @@ public class HomeController {
 
     @PostMapping("/explosiveGoods")
     public UnionOpenGoodsQueryResponse explosiveGoods(@RequestBody GoodsReq goodsReq){
+        System.out.println(goodsReq);
         BigDecimal percent = new BigDecimal(100);
         UnionOpenGoodsQueryResponse unionOpenGoodsQueryResponse = homeService.explosiveGoods(goodsReq);
+        System.out.println(unionOpenGoodsQueryResponse);
         if(null != unionOpenGoodsQueryResponse){
             GoodsResp[] goodsResps = unionOpenGoodsQueryResponse.getData();
             if(null != goodsResps && goodsResps.length > 0){
@@ -53,6 +55,7 @@ public class HomeController {
                 }
             }
         }
+        System.out.println(unionOpenGoodsQueryResponse);
         return unionOpenGoodsQueryResponse;
     }
 }

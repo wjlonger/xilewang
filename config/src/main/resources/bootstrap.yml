@@ -1,26 +1,3 @@
-server:
-  port: 8008
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://127.0.0.1:8888/eureka/
-  instance:
-    prefer-ip-address: true
-    instance-id: ${spring.application.name}:${spring.cloud.client.hostname}:${server.port}
 spring:
-  cloud:
-    config:
-      server:
-        native:
-          # 搜索 config下文件
-          searchLocations: classpath:/config #D:/idea project/micro-service/config-server/src/main/resources/config
-  application:
-    name: config-server
-  profiles:
-    # 配置使用本地储存
-    active: native
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
+    profiles:
+        active: dev
