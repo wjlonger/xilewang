@@ -6,7 +6,7 @@ spring:
 eureka:
     instance:
         instance-id: ${spring.cloud.client.ipAddress}:${server.port}
-        hostname: 172.21.0.6
+        hostname: localhost
         # prefer-ip-address: true 注册到Eureka Server上的是IP
         prefer-ip-address: true
     client:
