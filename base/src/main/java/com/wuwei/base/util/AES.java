@@ -115,4 +115,9 @@ public final class AES {
         //如果有错就返加nulll
         return null;
     }
+
+    public static void main(String[] args){
+        System.out.println(encode("jdbc:mysql://172.21.0.10:3306/xilewang?useUnicode=true&character_set_server=utf8mb4"));
+        System.out.println(decode("cjBKW4XpPTC2hgSskh6GWAdo4rhDKLK0OLICrFf9M+dA3k4CN0WueoE/0RfMwMtqKccFWeVp8WVJpVVftqjsSb8qWwHt/c57nyedBvC88+gHN3zhPbAfKkqjlUkOew+w"));
+    }
 }
