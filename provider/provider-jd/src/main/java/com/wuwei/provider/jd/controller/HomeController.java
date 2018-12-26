@@ -22,7 +22,6 @@ public class HomeController {
 
     @PostMapping("/explosiveGoods")
     public UnionOpenGoodsQueryResponse explosiveGoods(@RequestBody GoodsReq goodsReq) {
-        System.out.println(goodsReq);
         return homeService.explosiveGoods(goodsReq);
     }
 

@@ -24,10 +24,7 @@ public class GoodServiceImpl implements GoodsService {
         UnionOpenGoodsQueryResponse response;
         request.setGoodsReqDTO(goodsReq);
         try {
-            long time1 = System.currentTimeMillis();
             response = jdClient.execute(request);
-            long time2 = System.currentTimeMillis();
-            System.out.println(time2-time1);
             if(null != response && null != response.getData() && response.getData().length > 0){
                 return response.getData()[0];
             }

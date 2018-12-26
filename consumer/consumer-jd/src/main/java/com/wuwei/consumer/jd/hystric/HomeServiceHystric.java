@@ -15,7 +15,6 @@ public class HomeServiceHystric implements HomeService {
 
     @Override
     public UnionOpenGoodsQueryResponse explosiveGoods(GoodsReq goodsReq) {
-        System.out.println("进入熔断");
         return null;
     }
 }
