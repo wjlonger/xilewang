@@ -22,7 +22,7 @@ spring:
 eureka:
     client:
         service-url:
-            defaultZone: http://172.21.0.6:8888/eureka/
+            defaultZone: http://172.16.200.97:8888/eureka/
     instance:
         # 使用ip地址注册到eureka server
         prefer-ip-address: true
@@ -48,15 +48,15 @@ zuul:
             serviceId: consumer-quartz
             stripPrefix: false
             sensitiveHeaders: "*"
-ribbon:
-    ReadTimeout: 100000
-    ConnectTimeout: 100000
-hystrix:
-    command:
-        default:
-            execution:
-                timeout:
-                    enabled: true
-                isolation:
-                    thread:
-                        timeoutInMilliseconds: 600000
+#ribbon:
+#    ReadTimeout: 100000
+#    ConnectTimeout: 100000
+#hystrix:
+#    command:
+#        default:
+#            execution:
+#                timeout:
+#                    enabled: false
+#                isolation:
+#                    thread:
+#                        timeoutInMilliseconds: 600000
