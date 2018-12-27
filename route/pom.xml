@@ -36,6 +36,13 @@
             <version>1.0.0</version>
         </dependency>
 
+        <!-- https://blog.csdn.net/yushenzaishi/article/details/82626772 -->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.retry</groupId>-->
+            <!--<artifactId>spring-retry</artifactId>-->
+            <!--<version>1.2.1.RELEASE</version>-->
+        <!--</dependency>-->
+
     </dependencies>
 
 </project>
