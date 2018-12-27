@@ -12,7 +12,7 @@ import java.util.List;
 @FeignClient(value = "provider-quartz",configuration = FeignConfig.class, fallback= XiLeWangQuartzServiceHystric.class, path = "/quartz/job")
 public interface XiLeWangQuartzService{
 
-    @RequestLine("GET /")
+    @RequestLine("GET /list")
     List<XiLeWangQuartz> listQuartz();
 
 }
