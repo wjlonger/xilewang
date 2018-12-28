@@ -119,16 +119,23 @@ public class XiLeWangAssistanceController {
             jsonObject.put("assistance",null);
             jsonObject.put("goods",null);
             jsonObject.put("users",new ArrayList<>());
+            jsonObject.put("user",null);
         } else {
             GoodsResp goodsResp = xiLeWangGoodsService.goodsDetail(xiLeWangAssistance.getSkuId());
-            List<XiLeWangAssistanceUser> xiLeWangAssistanceUsers = xiLeWangAssistanceUserService.selectByAssistanceId(assistanceId);
             jsonObject.put("code",1);
             jsonObject.put("assistance",xiLeWangAssistance);
             jsonObject.put("goods",goodsResp);
+            List<XiLeWangAssistanceUser> xiLeWangAssistanceUsers = xiLeWangAssistanceUserService.selectByAssistanceId(assistanceId);
             if(!CollectionUtils.isNullOrEmpty(xiLeWangAssistanceUsers)){
                 jsonObject.put("users",xiLeWangAssistanceUsers);
             }else{
                 jsonObject.put("users",new ArrayList<>());
+            }
+            XiLeWangUser xiLeWangUser = xiLeWangUserService.selectByPrimaryKey(Current.getOpenid());
+            if(null == xiLeWangUser){
+                jsonObject.put("user",null);
+            }else{
+                jsonObject.put("user",xiLeWangUser);
             }
         }
         return jsonObject;
