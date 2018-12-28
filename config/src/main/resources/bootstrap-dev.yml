@@ -8,9 +8,6 @@ eureka:
         prefer-ip-address: true
         instance-id: ${spring.application.name}:${spring.cloud.client.hostname}:${server.port}
 spring:
-    profiles:
-        # 配置使用本地储存
-        active: native
     application:
         name: config-server
     cloud:
