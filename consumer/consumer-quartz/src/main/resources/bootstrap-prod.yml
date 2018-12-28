@@ -23,14 +23,16 @@ eureka:
         prefer-ip-address: true
         # 在eureka server中看到的status显示为具体的ip地址和port
         instance-id: ${spring.application.name}:${spring.cloud.client.hostname}:${server.port}
+zuul:
+    host:
+        connect-timeout-millis: 60000
+        socket-timeout-millis: 60000
 feign:
     hystrix:
-        enabled: false
-management:
-    endpoints:
-        web:
-            exposure:
-                include: "*"
+        enabled: true
+ribbon:
+    ReadTimeout: 60000
+    ConnectTimeout: 60000
 hystrix:
     command:
         default:
@@ -40,7 +42,8 @@ hystrix:
                 isolation:
                     thread:
                         timeoutInMilliseconds: 60000
-#ribbon的超时时间
-ribbon:
-    ReadTimeout: 60000
-    ConnectTimeout: 60000
+management:
+    endpoints:
+        web:
+            exposure:
+                include: "*"
