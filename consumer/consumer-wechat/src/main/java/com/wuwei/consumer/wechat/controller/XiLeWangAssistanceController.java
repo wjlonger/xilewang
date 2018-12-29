@@ -131,7 +131,7 @@ public class XiLeWangAssistanceController {
             }else{
                 jsonObject.put("users",new ArrayList<>());
             }
-            XiLeWangUser xiLeWangUser = xiLeWangUserService.selectByPrimaryKey(Current.getOpenid());
+            XiLeWangUser xiLeWangUser = xiLeWangUserService.selectByPrimaryKey(xiLeWangAssistance.getOpenid());
             if(null == xiLeWangUser){
                 jsonObject.put("user",null);
             }else{
