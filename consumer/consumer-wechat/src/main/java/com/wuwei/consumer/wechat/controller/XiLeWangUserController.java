@@ -53,11 +53,13 @@ public class XiLeWangUserController {
             }else{
                 jsonObject.put("total",total);
             }
-
+            int inviteCount = xiLeWangUserService.inviteCount(Current.getOpenid());
+            jsonObject.put("inviteCount",inviteCount);
         }else{
             jsonObject.put("balance",0);
             jsonObject.put("total",0);
             jsonObject.put("pending",0);
+            jsonObject.put("inviteCount",0);
         }
         return jsonObject;
     }

@@ -43,16 +43,18 @@ public class HomeController {
                         if(null != commissionInfos && commissionInfos.length > 0){
                             for(CommissionInfo commissionInfo : commissionInfos){
                                 if(null != commissionInfo){
-                                    if(null != goodsReq.getIsPG() && goodsReq.getIsPG() == 1){
-                                         PinGouInfo[] pinGouInfos = goodsResp.getPinGouInfo();
-                                         if(null != pinGouInfos && pinGouInfos.length > 0){
-                                             PinGouInfo pinGouInfo = pinGouInfos[0];
-                                             if(null != pinGouInfo){
-                                                 commissionInfo.setCommission(new BigDecimal(pinGouInfo.getPingouPrice()).multiply(new BigDecimal(commissionInfo.getCommissionShare())).multiply(ratio).divide(percent).setScale(scale,BigDecimal.ROUND_HALF_UP).doubleValue());
-                                             }
-                                         }
+                                    PinGouInfo[] pinGouInfos = goodsResp.getPinGouInfo();
+                                    PinGouInfo pinGouInfo = null;
+                                    if(null != pinGouInfos && pinGouInfos.length > 0){
+                                        pinGouInfo = pinGouInfos[0];
+                                    }
+                                    if(null != pinGouInfo && null != pinGouInfo.getPingouPrice()){
+                                        commissionInfo.setCommission(new BigDecimal(pinGouInfo.getPingouPrice()).multiply(new BigDecimal(commissionInfo.getCommissionShare())).multiply(ratio).divide(percent).divide(percent).setScale(scale,BigDecimal.ROUND_HALF_UP).doubleValue());
                                     }else{
                                         commissionInfo.setCommission(new BigDecimal(commissionInfo.getCommission()).multiply(ratio).divide(percent).setScale(scale,BigDecimal.ROUND_HALF_UP).doubleValue());
+                                    }
+                                    if(commissionInfo.getCommission() < 0.01){
+                                        commissionInfo.setCommission(0.01);
                                     }
                                 }
                             }
