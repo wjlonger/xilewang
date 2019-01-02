@@ -237,7 +237,7 @@
 
     <select id="inviteCount" resultType="java.lang.Integer"  >
         select count(*) from xilewang_user
-        where master_openid = #{openid,jdbcType=VARCHAR}
+        where master_openid = #{openid,jdbcType=VARCHAR} and nick_name != ''
     </select>
 
     <select id="listByMasterOpenid" resultMap="BaseResultMap"  >
@@ -246,7 +246,7 @@
         from
           xilewang_user
         where
-          master_openid = #{openid,jdbcType=VARCHAR}
+          master_openid = #{openid,jdbcType=VARCHAR} and nick_name != ''
     </select>
 
 
