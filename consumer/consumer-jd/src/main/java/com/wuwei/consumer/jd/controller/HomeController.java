@@ -2,9 +2,7 @@ package com.wuwei.consumer.jd.controller;
 
 import com.wuwei.consumer.jd.service.HomeService;
 import jd.union.open.goods.query.request.GoodsReq;
-import jd.union.open.goods.query.response.CommissionInfo;
-import jd.union.open.goods.query.response.GoodsResp;
-import jd.union.open.goods.query.response.UnionOpenGoodsQueryResponse;
+import jd.union.open.goods.query.response.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -45,7 +43,17 @@ public class HomeController {
                         if(null != commissionInfos && commissionInfos.length > 0){
                             for(CommissionInfo commissionInfo : commissionInfos){
                                 if(null != commissionInfo){
-                                    commissionInfo.setCommission(new BigDecimal(commissionInfo.getCommission()).multiply(ratio).divide(percent).setScale(scale,BigDecimal.ROUND_HALF_UP).doubleValue());
+                                    if(null != goodsReq.getIsPG() && goodsReq.getIsPG() == 1){
+                                         PinGouInfo[] pinGouInfos = goodsResp.getPinGouInfo();
+                                         if(null != pinGouInfos && pinGouInfos.length > 0){
+                                             PinGouInfo pinGouInfo = pinGouInfos[0];
+                                             if(null != pinGouInfo){
+                                                 commissionInfo.setCommission(new BigDecimal(pinGouInfo.getPingouPrice()).multiply(new BigDecimal(commissionInfo.getCommissionShare())).multiply(ratio).divide(percent).setScale(scale,BigDecimal.ROUND_HALF_UP).doubleValue());
+                                             }
+                                         }
+                                    }else{
+                                        commissionInfo.setCommission(new BigDecimal(commissionInfo.getCommission()).multiply(ratio).divide(percent).setScale(scale,BigDecimal.ROUND_HALF_UP).doubleValue());
+                                    }
                                 }
                             }
                         }
