@@ -145,7 +145,7 @@ public class XiLeWangAssistanceController {
                                         for(Coupon coupon : coupons){
                                             if(null != coupon){
                                                 if(price >= coupon.getQuota()){
-                                                    price -= coupon.getQuota();
+                                                    price -= coupon.getDiscount();
                                                     break coupon;
                                                 }
                                             }
@@ -295,7 +295,7 @@ public class XiLeWangAssistanceController {
                                                 for(Coupon coupon : coupons){
                                                     if(null != coupon){
                                                         if(price >= coupon.getQuota()){
-                                                            price -= coupon.getQuota();
+                                                            price -= coupon.getDiscount();
                                                             break coupon;
                                                         }
                                                     }

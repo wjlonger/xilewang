@@ -46,7 +46,7 @@ public class GoodsController {
                                     for(Coupon coupon : coupons){
                                         if(null != coupon){
                                             if(price >= coupon.getQuota()){
-                                                price -= coupon.getQuota();
+                                                price -= coupon.getDiscount();
                                                 break coupon;
                                             }
                                         }
