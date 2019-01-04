@@ -67,6 +67,7 @@ public class XiLeWangGoodsController {
                             PinGouInfo pinGouInfo  = pinGouInfos[0];
                             if(null != pinGouInfo && null != pinGouInfo.getPingouPrice()){
                                 price = pinGouInfo.getPingouPrice();
+                                goodsResp.getPriceInfo()[0].setPrice(price);
                             }
                         }
                         CouponInfo[] couponInfos = goodsResp.getCouponInfo();

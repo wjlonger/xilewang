@@ -115,6 +115,7 @@ public class XiLeWangFavoriteController {
                                             }
                                         }
                                     }
+                                    goodsResp.getPriceInfo()[0].setPrice(price);
                                     commissionInfo.setCommission(new BigDecimal(price).multiply(new BigDecimal(commissionInfo.getCommissionShare())).divide(BigDecimal.valueOf(100L)).setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue());
                                     if(commissionInfo.getCommission() < 0.01){
                                         commissionInfo.setCommission(0.01);
