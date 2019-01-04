@@ -55,6 +55,7 @@
       <include refid="Base_Column_List" />
     from xilewang_jd_order
     where openid = #{openid,jdbcType=VARCHAR}
+    order by order_time desc
   </select>
     <select id="listByOpenidAndViladCode" resultMap="XiLeWangJdOrderVoResultMap">
         select

@@ -14,7 +14,7 @@ import com.wuwei.consumer.wechat.service.XiLeWangGoodsService;
 import com.wuwei.consumer.wechat.service.XiLeWangUserService;
 import com.wuwei.consumer.wechat.utils.Current;
 import com.wuwei.consumer.wechat.utils.RatioCalculator;
-import jd.union.open.goods.query.response.GoodsResp;
+import jd.union.open.goods.query.response.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -122,6 +122,45 @@ public class XiLeWangAssistanceController {
             jsonObject.put("user",null);
         } else {
             GoodsResp goodsResp = xiLeWangGoodsService.goodsDetail(xiLeWangAssistance.getSkuId());
+            if(null != goodsResp){
+                CommissionInfo[] commissionInfos = goodsResp.getCommissionInfo();
+                if(null != commissionInfos && commissionInfos.length > 0){
+                    for(CommissionInfo commissionInfo : commissionInfos){
+                        if(null != commissionInfo){
+                            double price = goodsResp.getPriceInfo()[0].getPrice();
+                            PinGouInfo[] pinGouInfos = goodsResp.getPinGouInfo();
+                            if(null != pinGouInfos && pinGouInfos.length > 0){
+                                PinGouInfo pinGouInfo  = pinGouInfos[0];
+                                if(null != pinGouInfo && null != pinGouInfo.getPingouPrice()){
+                                    price = pinGouInfo.getPingouPrice();
+                                }
+                            }
+                            CouponInfo[] couponInfos = goodsResp.getCouponInfo();
+                            if(null != couponInfos && couponInfos.length > 0){
+                                CouponInfo couponInfo = couponInfos[0];
+                                if(null != couponInfo){
+                                    Coupon[] coupons = couponInfo.getCouponList();
+                                    if(null != coupons && coupons.length > 0){
+                                        coupon:
+                                        for(Coupon coupon : coupons){
+                                            if(null != coupon){
+                                                if(price >= coupon.getQuota()){
+                                                    price -= coupon.getQuota();
+                                                    break coupon;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            commissionInfo.setCommission(new BigDecimal(price).multiply(new BigDecimal(commissionInfo.getCommissionShare())).divide(BigDecimal.valueOf(100L)).setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue());
+                            if(commissionInfo.getCommission() < 0.01){
+                                commissionInfo.setCommission(0.01);
+                            }
+                        }
+                    }
+                }
+            }
             jsonObject.put("code",1);
             jsonObject.put("assistance",xiLeWangAssistance);
             jsonObject.put("goods",goodsResp);
@@ -233,6 +272,45 @@ public class XiLeWangAssistanceController {
             if(null != xiLeWangAssistanceVos && xiLeWangAssistanceVos.size() > 0){
                 for (XiLeWangAssistanceVo xiLeWangAssistanceVo : xiLeWangAssistanceVos){
                     GoodsResp goodsResp = xiLeWangGoodsService.goodsDetail(xiLeWangAssistanceVo.getSkuId());
+                    if(null != goodsResp){
+                        CommissionInfo[] commissionInfos = goodsResp.getCommissionInfo();
+                        if(null != commissionInfos && commissionInfos.length > 0){
+                            for(CommissionInfo commissionInfo : commissionInfos){
+                                if(null != commissionInfo){
+                                    double price = goodsResp.getPriceInfo()[0].getPrice();
+                                    PinGouInfo[] pinGouInfos = goodsResp.getPinGouInfo();
+                                    if(null != pinGouInfos && pinGouInfos.length > 0){
+                                        PinGouInfo pinGouInfo  = pinGouInfos[0];
+                                        if(null != pinGouInfo && null != pinGouInfo.getPingouPrice()){
+                                            price = pinGouInfo.getPingouPrice();
+                                        }
+                                    }
+                                    CouponInfo[] couponInfos = goodsResp.getCouponInfo();
+                                    if(null != couponInfos && couponInfos.length > 0){
+                                        CouponInfo couponInfo = couponInfos[0];
+                                        if(null != couponInfo){
+                                            Coupon[] coupons = couponInfo.getCouponList();
+                                            if(null != coupons && coupons.length > 0){
+                                                coupon:
+                                                for(Coupon coupon : coupons){
+                                                    if(null != coupon){
+                                                        if(price >= coupon.getQuota()){
+                                                            price -= coupon.getQuota();
+                                                            break coupon;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                    commissionInfo.setCommission(new BigDecimal(price).multiply(new BigDecimal(commissionInfo.getCommissionShare())).divide(BigDecimal.valueOf(100L)).setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue());
+                                    if(commissionInfo.getCommission() < 0.01){
+                                        commissionInfo.setCommission(0.01);
+                                    }
+                                }
+                            }
+                        }
+                    }
                     xiLeWangAssistanceVo.setGoodsResp(goodsResp);
                 }
             }

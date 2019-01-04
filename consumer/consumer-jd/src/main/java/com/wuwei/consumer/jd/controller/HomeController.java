@@ -43,16 +43,33 @@ public class HomeController {
                         if(null != commissionInfos && commissionInfos.length > 0){
                             for(CommissionInfo commissionInfo : commissionInfos){
                                 if(null != commissionInfo){
+                                    double price = goodsResp.getPriceInfo()[0].getPrice();
                                     PinGouInfo[] pinGouInfos = goodsResp.getPinGouInfo();
-                                    PinGouInfo pinGouInfo = null;
                                     if(null != pinGouInfos && pinGouInfos.length > 0){
-                                        pinGouInfo = pinGouInfos[0];
+                                        PinGouInfo pinGouInfo  = pinGouInfos[0];
+                                        if(null != pinGouInfo && null != pinGouInfo.getPingouPrice()){
+                                            price = pinGouInfo.getPingouPrice();
+                                        }
                                     }
-                                    if(null != pinGouInfo && null != pinGouInfo.getPingouPrice()){
-                                        commissionInfo.setCommission(new BigDecimal(pinGouInfo.getPingouPrice()).multiply(new BigDecimal(commissionInfo.getCommissionShare())).multiply(ratio).divide(percent).divide(percent).setScale(scale,BigDecimal.ROUND_HALF_UP).doubleValue());
-                                    }else{
-                                        commissionInfo.setCommission(new BigDecimal(commissionInfo.getCommission()).multiply(ratio).divide(percent).setScale(scale,BigDecimal.ROUND_HALF_UP).doubleValue());
+                                    CouponInfo[] couponInfos = goodsResp.getCouponInfo();
+                                    if(null != couponInfos && couponInfos.length > 0){
+                                        CouponInfo couponInfo = couponInfos[0];
+                                        if(null != couponInfo){
+                                            Coupon[] coupons = couponInfo.getCouponList();
+                                            if(null != coupons && coupons.length > 0){
+                                                coupon:
+                                                for(Coupon coupon : coupons){
+                                                    if(null != coupon){
+                                                        if(price >= coupon.getQuota()){
+                                                            price -= coupon.getQuota();
+                                                            break coupon;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
                                     }
+                                    commissionInfo.setCommission(new BigDecimal(price).multiply(new BigDecimal(commissionInfo.getCommissionShare())).divide(percent).setScale(scale,BigDecimal.ROUND_HALF_UP).doubleValue());
                                     if(commissionInfo.getCommission() < 0.01){
                                         commissionInfo.setCommission(0.01);
                                     }
