@@ -1,30 +1,27 @@
 package com.wuwei.consumer.wechat.utils;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
-
 import java.util.ArrayList;
 import java.util.List;
 
-@Configuration
+//@Configuration
 public class RatioCalculator {
 
     /**
      * 一次助力最低比例
      */
-    @Value("${assistance.once.lowest.ratio}")
+    //@Value("${assistance.once.lowest.ratio}")
     private int assistanceOnceLowestRatio;
 
     /**
      * 助力最高比例与平均值的比
      */
-    @Value("${assistance.once.avg.ratio}")
+    //@Value("${assistance.once.avg.ratio}")
     private double assistanceOnceAvgRatio;
 
     /**
      * 助力人数
      */
-    @Value("${assistance.people.number}")
+    //@Value("${assistance.people.number}")
     private int assistancePeopleNumber;
 
     private int randomRatio(int allRatio,int minRatio,int maxRatio,int count){

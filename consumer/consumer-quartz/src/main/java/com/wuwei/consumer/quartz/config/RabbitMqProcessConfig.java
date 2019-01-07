@@ -40,9 +40,6 @@ public class RabbitMqProcessConfig {
     private XiLeWangOrderService xiLeWangOrderService;
 
     @Autowired
-    private XiLeWangAssistanceUserService xiLeWangAssistanceUserService;
-
-    @Autowired
     private XiLeWangUserService xiLeWangUserService;
 
     @Autowired
@@ -175,19 +172,19 @@ public class RabbitMqProcessConfig {
             XiLeWangJdOrderSkuInfo xiLeWangJdOrderSkuInfoTemp = new XiLeWangJdOrderSkuInfo();
             xiLeWangJdOrderSkuInfoTemp.setId(xiLeWangJdOrderSkuInfo.getId());
 
-            BigDecimal rebate = BigDecimal.valueOf(0L);
-            BigDecimal ratio = BigDecimal.valueOf(0L);
-
             //region 计算返利金额
-            rebate = rebate.add(xiLeWangJdOrderSkuInfo.getEstimateFee());
+            BigDecimal rebate = BigDecimal.valueOf(0L);
             // 18为已结算
             if(xiLeWangJdOrderSkuInfo.getValidCode() == 18){
                 // 返利取实际佣金
-                rebate = xiLeWangJdOrderSkuInfo.getActualFee();
+                rebate = rebate.add(xiLeWangJdOrderSkuInfo.getActualFee());
+            } else {
+                rebate = rebate.add(xiLeWangJdOrderSkuInfo.getEstimateFee());
             }
             //endregion
 
             //region 计算返利比例
+            BigDecimal ratio = BigDecimal.valueOf(0L);
             XiLeWangOrder xiLeWangOrder = null;
             try{
                 long orderId = Long.parseLong(xiLeWangJdOrderSkuInfo.getSubUnionId());
@@ -196,18 +193,6 @@ public class RabbitMqProcessConfig {
             }
             if(null != xiLeWangOrder){
                 ratio = ratio.add(xiLeWangOrder.getInitialRatio());
-                if(xiLeWangJdOrderSkuInfo.getSkuId().equals(xiLeWangOrder.getSkuId())){
-                    if(null != xiLeWangOrder.getAssistanceId() && xiLeWangOrder.getAssistanceId() > 0){
-                        List<XiLeWangAssistanceUser> xiLeWangAssistanceUsers = xiLeWangAssistanceUserService.selectByAssistanceId(xiLeWangOrder.getAssistanceId());
-                        if(!CollectionUtils.isNullOrEmpty(xiLeWangAssistanceUsers)){
-                            for(XiLeWangAssistanceUser xiLeWangAssistanceUser : xiLeWangAssistanceUsers){
-                                if(null != xiLeWangAssistanceUser){
-                                    ratio = ratio.add(xiLeWangAssistanceUser.getAssistanceRatio());
-                                }
-                            }
-                        }
-                    }
-                }
             }
             //endregion
 
@@ -267,48 +252,6 @@ public class RabbitMqProcessConfig {
             }catch (NumberFormatException e){
             }
             if(null != xiLeWangOrder){
-
-                //region 计算助力奖励
-                if(xiLeWangJdOrderSkuInfo.getSkuId().equals(xiLeWangOrder.getSkuId())){
-                    if(null != xiLeWangOrder.getAssistanceId() && xiLeWangOrder.getAssistanceId() > 0){
-                        List<XiLeWangAssistanceUser> xiLeWangAssistanceUsers = xiLeWangAssistanceUserService.selectByAssistanceId(xiLeWangOrder.getAssistanceId());
-                        if(!CollectionUtils.isNullOrEmpty(xiLeWangAssistanceUsers)){
-                            //region 返利金额
-                            BigDecimal rebate = xiLeWangJdOrderSkuInfo.getEstimateFee();
-                            // 18为已结算
-                            if(xiLeWangJdOrderSkuInfo.getValidCode() == 18){
-                                // 返利取实际佣金
-                                rebate = xiLeWangJdOrderSkuInfo.getActualFee();
-                            }
-                            //endregion
-                            for(XiLeWangAssistanceUser xiLeWangAssistanceUser : xiLeWangAssistanceUsers){
-                                if(null != xiLeWangAssistanceUser){
-                                    XiLeWangIncomeReport xiLeWangIncomeReport = new XiLeWangIncomeReport();
-                                    xiLeWangIncomeReport.setType(1);
-                                    xiLeWangIncomeReport.setValidCode(xiLeWangJdOrderSkuInfo.getValidCode());
-                                    xiLeWangIncomeReport.setOpenid(xiLeWangAssistanceUser.getOpenid());
-                                    xiLeWangIncomeReport.setSkuInfoId(skuInfoId);
-                                    xiLeWangIncomeReport.setMoney(rebate.multiply(xiLeWangAssistanceUser.getRewardRatio()).divide(BigDecimal.valueOf(100L)));
-                                    xiLeWangIncomeReport.setState(0);
-                                    int result;
-                                    XiLeWangIncomeReport temp =
-                                            xiLeWangIncomeReportService.selectByOpenidAndSkuInfoId(xiLeWangIncomeReport.getOpenid(),skuInfoId);
-                                    if(null == temp){
-                                        xiLeWangIncomeReport.setId(IdGenerator.nextId());
-                                        result = xiLeWangIncomeReportService.insertSelective(xiLeWangIncomeReport);
-                                    }else{
-                                        xiLeWangIncomeReport.setId(temp.getId());
-                                        result = xiLeWangIncomeReportService.updateByPrimaryKeySelective(xiLeWangIncomeReport);
-                                    }
-                                    if(result > 0 && xiLeWangJdOrderSkuInfo.getValidCode() == 18){
-                                        amqpTemplate.convertAndSend("quartz_balance_save",xiLeWangIncomeReport.getId());
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                //endregion
 
                 //region 师傅奖励
                 XiLeWangUser xiLeWangUser = xiLeWangUserService.selectByPrimaryKey(xiLeWangOrder.getOpenid());
@@ -370,6 +313,7 @@ public class RabbitMqProcessConfig {
                     }
                 }
                 //endregion
+
             }
 
         }
