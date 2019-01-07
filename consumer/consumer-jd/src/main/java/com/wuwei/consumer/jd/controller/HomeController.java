@@ -32,7 +32,7 @@ public class HomeController {
 
     @PostMapping("/explosiveGoods")
     public UnionOpenGoodsQueryResponse explosiveGoods(@RequestBody GoodsReq goodsReq){
-        BigDecimal percent = new BigDecimal(100);
+        BigDecimal percent = BigDecimal.valueOf(100L);
         UnionOpenGoodsQueryResponse unionOpenGoodsQueryResponse = homeService.explosiveGoods(goodsReq);
         if(null != unionOpenGoodsQueryResponse){
             GoodsResp[] goodsResps = unionOpenGoodsQueryResponse.getData();

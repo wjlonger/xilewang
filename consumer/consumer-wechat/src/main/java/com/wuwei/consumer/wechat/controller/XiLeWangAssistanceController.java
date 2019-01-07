@@ -16,19 +16,18 @@ import com.wuwei.consumer.wechat.utils.Current;
 import com.wuwei.consumer.wechat.utils.RatioCalculator;
 import jd.union.open.goods.query.response.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.beans.factory.config.BeanDefinition;
-import org.springframework.context.annotation.Scope;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-@Scope(BeanDefinition.SCOPE_PROTOTYPE)
-@RestController
-@RequestMapping("/api/wechat/xilewang/assistance")
+//@Scope(BeanDefinition.SCOPE_PROTOTYPE)
+//@RestController
+//@RequestMapping("/api/wechat/xilewang/assistance")
 public class XiLeWangAssistanceController {
 
     @Autowired
@@ -49,31 +48,31 @@ public class XiLeWangAssistanceController {
     /**
      * 固定得到的比例
      */
-    @Value("${goods.ratio}")
+    //@Value("${goods.ratio}")
     private BigDecimal initialRatio;
 
     /**
      * 助力最高比例
      */
-    @Value("${assistance.max.ratio}")
+    //@Value("${assistance.max.ratio}")
     private int assistanceMaxRatio;
 
     /**
      * 最多助力人数
      */
-    @Value("${assistance.people.number}")
+    //@Value("${assistance.people.number}")
     private int assistancePeopleNum;
 
     /**
      * 被助力者得到的比例
      */
-    @Value("${assistance.ratio}")
+    //@Value("${assistance.ratio}")
     private BigDecimal assistanceRatio;
 
     /**
      * 助力者得到的比例
      */
-    @Value("${reward.ratio}")
+    //@Value("${reward.ratio}")
     private BigDecimal rewardRatio;
 
     private JSONObject jsonObject = new JSONObject();
