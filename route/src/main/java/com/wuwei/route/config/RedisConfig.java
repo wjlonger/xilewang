@@ -106,7 +106,4 @@ public class RedisConfig extends CachingConfigurerSupport {
         //return new GenericJackson2JsonRedisSerializer();
     }
 
-
-
-
 }
