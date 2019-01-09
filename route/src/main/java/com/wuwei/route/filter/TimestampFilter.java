@@ -3,6 +3,7 @@ package com.wuwei.route.filter;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;
+import com.wuwei.route.util.Constant;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -31,6 +32,15 @@ public class TimestampFilter extends ZuulFilter {
     public Object run() throws ZuulException {
         RequestContext ctx = RequestContext.getCurrentContext();
         HttpServletRequest request = ctx.getRequest();
+        String url = ctx.getRequest().getRequestURI();
+        for(String ignoreUrl : Constant.ignoreUrls){
+            if(url.startsWith(ignoreUrl)){
+                ctx.setSendZuulResponse(true);
+                ctx.setResponseStatusCode(200);
+                ctx.set("isSuccess", false);
+                return null;
+            }
+        }
         HttpServletResponse response = ctx.getResponse();
         response.setCharacterEncoding("UTF-8");
         String timestampStr = request.getParameter("timestamp");
