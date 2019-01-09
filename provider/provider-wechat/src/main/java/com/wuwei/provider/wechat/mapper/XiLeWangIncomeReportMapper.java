@@ -27,4 +27,6 @@ public interface XiLeWangIncomeReportMapper {
 
     double invitPending(@Param("openid") String openid);
 
+    double invitTotal(@Param("openid") String openid);
+
 }

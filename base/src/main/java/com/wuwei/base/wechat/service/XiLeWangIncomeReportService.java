@@ -27,4 +27,6 @@ public interface XiLeWangIncomeReportService {
 
     double invitePending(String openid);
 
+    double invitTotal(String openid);
+
 }

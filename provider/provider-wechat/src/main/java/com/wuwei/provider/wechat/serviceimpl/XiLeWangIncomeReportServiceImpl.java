@@ -103,4 +103,12 @@ public class XiLeWangIncomeReportServiceImpl implements XiLeWangIncomeReportServ
         return this.xiLeWangIncomeReportMapper.invitPending(openid);
     }
 
+    @Override
+    public double invitTotal(String openid) {
+        if(StringUtils.isNullOrEmpty(openid)){
+            return 0.0;
+        }
+        return this.xiLeWangIncomeReportMapper.invitTotal(openid);
+    }
+
 }

@@ -20,4 +20,6 @@ public interface XiLeWangIncomeReportService {
     @RequestLine("GET /invitePending/{openid}")
     double invitePending(@Param("openid") String openid);
 
+    @RequestLine("GET /invitTotal/{openid}")
+    double invitTotal(@Param("openid") String openid);
 }

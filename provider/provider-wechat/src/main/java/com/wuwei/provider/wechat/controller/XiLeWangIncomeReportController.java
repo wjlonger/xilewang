@@ -69,4 +69,9 @@ public class XiLeWangIncomeReportController {
         return xiLeWangIncomeReportService.invitePending(openid);
     }
 
+    @GetMapping("/invitTotal/{openid}")
+    public double invitTotal(@PathVariable("openid") String openid){
+        return xiLeWangIncomeReportService.invitTotal(openid);
+    }
+
 }

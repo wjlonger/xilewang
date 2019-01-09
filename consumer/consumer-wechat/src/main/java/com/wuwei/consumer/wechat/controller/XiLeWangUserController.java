@@ -74,7 +74,7 @@ public class XiLeWangUserController {
             }else{
                 jsonObject.put("totalInviteMoney",totalInviteMoney);
             }
-            double invitePending = this.xiLeWangIncomeReportService.invitePending(Current.getOpenid());
+            double invitePending = this.xiLeWangIncomeReportService.invitTotal(Current.getOpenid());
             if(invitePending == 0.0){
                 jsonObject.put("pendingInviteMoney",0);
             } else {

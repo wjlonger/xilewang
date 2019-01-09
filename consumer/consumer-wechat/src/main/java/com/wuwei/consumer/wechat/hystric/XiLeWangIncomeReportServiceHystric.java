@@ -26,4 +26,9 @@ public class XiLeWangIncomeReportServiceHystric implements XiLeWangIncomeReportS
         return 0.0;
     }
 
+    @Override
+    public double invitTotal(String openid) {
+        return 0;
+    }
+
 }

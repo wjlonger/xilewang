@@ -53,6 +53,10 @@
         select coalesce(sum(money),0.0) from xilewang_income_report where openid = #{openid,jdbcType=VARCHAR} and state = 0 and `type` = 2
     </select>
 
+    <select id="invitTotal"  resultType="java.lang.Double">
+        select coalesce(sum(money),0.0) from xilewang_income_report where openid = #{openid,jdbcType=VARCHAR} and `type` = 2
+    </select>
+
     <insert id="insert" parameterType="com.wuwei.base.wechat.model.XiLeWangIncomeReport" >
     insert into xilewang_income_report (id, type, valid_code,
       openid, sku_info_id, money,
