@@ -123,7 +123,6 @@ public class HomeController {
                                             }
                                         }
                                     }
-                                    goodsResp.getPriceInfo()[0].setPrice(price);
                                     commissionInfo.setCommission(new BigDecimal(price).multiply(new BigDecimal(commissionInfo.getCommissionShare())).divide(percent).setScale(scale,BigDecimal.ROUND_HALF_UP).doubleValue());
                                     if(commissionInfo.getCommission() < 0.01){
                                         commissionInfo.setCommission(0.01);

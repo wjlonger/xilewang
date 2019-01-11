@@ -25,6 +25,11 @@ public class XiLeWangHistoryController {
     @Autowired
     private AmqpTemplate amqpTemplate;
 
+    @GetMapping("/selectByPrimaryKey/{id}")
+    public XiLeWangHistory selectByPrimaryKey(@PathVariable("id") Long id){
+        return xiLeWangHistoryService.selectByPrimaryKey(id);
+    }
+
     @PostMapping
     public String insertSelective(@RequestBody XiLeWangHistory xiLeWangHistory){
         if(null == xiLeWangHistory){

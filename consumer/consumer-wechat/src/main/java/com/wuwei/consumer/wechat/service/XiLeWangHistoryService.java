@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 @FeignClient(value = "provider-wechat",fallback= XiLeWangHistoryServiceHystric.class, path = "/xilewang/history")
 public interface XiLeWangHistoryService{
 
+    @RequestLine("GET /{id}")
+    XiLeWangHistory selectByPrimaryKey(@Param("id") Long id);
+
     @RequestLine("POST /insertSelective")
     int insertSelective(@RequestBody XiLeWangHistory xiLeWangHistory);
 

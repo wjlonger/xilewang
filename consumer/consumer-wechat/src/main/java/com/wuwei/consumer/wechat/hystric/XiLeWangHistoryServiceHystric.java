@@ -9,6 +9,11 @@ import org.springframework.context.annotation.Configuration;
 public class XiLeWangHistoryServiceHystric implements XiLeWangHistoryService {
 
     @Override
+    public XiLeWangHistory selectByPrimaryKey(Long id) {
+        return null;
+    }
+
+    @Override
     public int insertSelective(XiLeWangHistory xiLeWangHistory) {
         return 0;
     }
