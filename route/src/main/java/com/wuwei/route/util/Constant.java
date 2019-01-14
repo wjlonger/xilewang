@@ -6,7 +6,8 @@ public final class Constant {
             "/api/wechat/xilewang/user/code2Session",
             "/api/wechat/xilewang/qr",
             "/api/wechat/xilewang/img/proxy",
-            "/api/jd/nosign/explosiveGoods"
+            "/api/jd/nosign/explosiveGoods",
+            "/api/wechat/xilewang/history/selectByPrimaryKey"
     };
 
 }
